@@ -1,8 +1,11 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-datepicker/dist/react-datepicker.css";
+import Theme from "../styles/global/ThemeConfig";
+import { ThemeProvider } from "styled-components";
 import styled from "styled-components";
 import SSRProvider from "react-bootstrap/SSRProvider";
 import Footer from "../components/layout/footer/Footer";
+import GlobalStyle from "../styles/global/GlobalStyles";
 // import '../styles/globals.css'
 
 const Wrapper = styled.div`
@@ -12,10 +15,13 @@ const Wrapper = styled.div`
 function MyApp({ Component, pageProps }) {
   return (
     <SSRProvider>
-      <Wrapper>
-        <Component {...pageProps} />
-      </Wrapper>
-      <Footer />
+      <ThemeProvider theme={Theme}>
+        <GlobalStyle />
+        <Wrapper>
+          <Component {...pageProps} />
+        </Wrapper>
+        <Footer />
+      </ThemeProvider>
     </SSRProvider>
   );
 }
