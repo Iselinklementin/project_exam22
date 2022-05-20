@@ -18,7 +18,7 @@ export default function Home() {
       </Head>
 
       <StyledComp className={styles.main}>
-        <Button>Yaz</Button>
+        <Button>MEEEEHHHHH</Button>
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
