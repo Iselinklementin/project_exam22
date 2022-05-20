@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LOGIN_URL } from "../../constants/api";
 import AuthContext from "../../context/AuthContext";
-import Alertbox from "../common/alert/AlertBox";
+import Alertbox from "../common/alert/Alertbox";
 import { schema } from "../../utils/loginFormSchema";
 import { StyledFeedbackContainer, StyledForm, WrongInput } from "./styles/StyledForm.styled";
 import Icon, { icons } from "../../constants/icons";
