@@ -6,7 +6,7 @@ import DateFunction from "../../components/common/functions/DateFunction";
 import { CONTACT_URL, LIGHT_AUTH } from "../../constants/api";
 import { schema } from "../../utils/contactFormSchema";
 import { Form } from "react-bootstrap";
-import Alertbox, { AlertboxSuccess } from "../../components/common/alert/AlertBox";
+import Alertbox, { AlertboxSuccess } from "../common/alert/Alertbox";
 import { StyledFeedbackContainer, StyledForm } from "./styles/StyledForm.styled";
 import Icon, { icons } from "../../constants/icons";
 import { StyledFormButton } from "../../styles/buttons/StyledFormButton.styled";

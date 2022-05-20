@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import Select from "react-select";
-import Alertbox, { AlertboxSuccess } from "../common/alert/AlertBox";
+import Alertbox, { AlertboxSuccess } from "../common/alert/Alertbox";
 import DateFunction from "../common/functions/DateFunction";
 import styled from "styled-components";
 import Icon, { icons } from "../../constants/icons";
