@@ -21,6 +21,7 @@ import Heading from "../components/typography/Heading";
 import { StyledLine } from "../styles/pages/stays/StyledLine.styled";
 import styled from "styled-components";
 import { useRouter } from "next/router";
+import PageHead from "../components/layout/PageHead";
 
 const StyledParagraph = styled(Paragraph)`
   font-size: 14px;
@@ -168,8 +169,11 @@ function stays({ stays }) {
 
   return (
     <Layout>
-      {/* <pageHeader title="Stays" /> */}
-
+      <PageHead
+        title="Holidaze"
+        content="Book hotels, apartments og Bed & breakfast in Bergen. We in Holidaze have the best places to stay, handpicked for you!"
+        keywords="travel, europe, bergen, adventure, exotic, culture, explore"
+      />
       <StyledContainer className="py-4">
         <Container>
           <StayHeading className="mt-3" size="1" style={{ maxWidth: "200px" }}>

@@ -5,18 +5,26 @@ import { Container } from "react-bootstrap";
 import Heading from "../components/typography/Heading";
 import LoginForm from "../components/forms/LoginForm";
 import { StyledContainerSmall } from "../styles/containers/StyledContainerSmall";
+import PageHead from "../components/layout/PageHead";
 
 function login() {
   return (
-    <Layout>
-      {/* Head */}
-      <StyledContainerSmall className="p-4">
-        <Heading className="mt-5" size="1">
-          Login
-        </Heading>
-        <LoginForm />
-      </StyledContainerSmall>
-    </Layout>
+    <>
+      <PageHead
+        title="Holidaze"
+        content="Book hotels, apartments og Bed & breakfast in Bergen. We in Holidaze have the best places to stay, handpicked for you!"
+        keywords="travel, europe, bergen, adventure, exotic, culture, explore"
+      />
+      <Layout>
+        {/* Head */}
+        <StyledContainerSmall className="p-4">
+          <Heading className="mt-5" size="1">
+            Login
+          </Heading>
+          <LoginForm />
+        </StyledContainerSmall>
+      </Layout>
+    </>
   );
 }
 

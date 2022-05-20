@@ -11,6 +11,7 @@ import { StyledTabs } from "../styles/pages/admin/StyledTabs.styled";
 import styled from "styled-components";
 import { mediaQ } from "../styles/global/ThemeConfig";
 import { StyledContainer } from "../styles/containers/StyledContainer.styled";
+import PageHead from "../components/layout/PageHead";
 
 const StyledTextContainer = styled.div`
   text-align: center;
@@ -51,39 +52,46 @@ function admin() {
   };
 
   return (
-    <Layout>
-      {/* <pageHeader title="Admin" /> */}
-      <StyledContainer className="mt-5 py-4">
-        <Container>
-          <StyledTextContainer>
-            <div>
-              <Heading size="1">Welcome Admin</Heading>
+    <>
+      <PageHead
+        title="Holidaze"
+        content="Book hotels, apartments og Bed & breakfast in Bergen. We in Holidaze have the best places to stay, handpicked for you!"
+        keywords="travel, europe, bergen, adventure, exotic, culture, explore"
+      />
+      <Layout>
+        {/* <pageHeader title="Admin" /> */}
+        <StyledContainer className="mt-5 py-4">
+          <Container>
+            <StyledTextContainer>
+              <div>
+                <Heading size="1">Welcome Admin</Heading>
 
-              <Paragraph>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.
-              </Paragraph>
-            </div>
+                <Paragraph>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                  dolore magna aliqua.
+                </Paragraph>
+              </div>
 
-            <div className="text-center">
-              <AddEnquireBtn />
-              <Paragraph className="add">Add stay</Paragraph>
-            </div>
-          </StyledTextContainer>
+              <div className="text-center">
+                <AddEnquireBtn />
+                <Paragraph className="add">Add stay</Paragraph>
+              </div>
+            </StyledTextContainer>
 
-          <StyledTabs>
-            <Tabs defaultActiveKey="messages" onClick={handleClick}>
-              <Tab eventKey="messages" title="Messages" value="0">
-                <Messages />
-              </Tab>
-              <Tab eventKey="enquires" title="Enquires" value="1">
-                {value}
-              </Tab>
-            </Tabs>
-          </StyledTabs>
-        </Container>
-      </StyledContainer>
-    </Layout>
+            <StyledTabs>
+              <Tabs defaultActiveKey="messages" onClick={handleClick}>
+                <Tab eventKey="messages" title="Messages" value="0">
+                  <Messages />
+                </Tab>
+                <Tab eventKey="enquires" title="Enquires" value="1">
+                  {value}
+                </Tab>
+              </Tabs>
+            </StyledTabs>
+          </Container>
+        </StyledContainer>
+      </Layout>
+    </>
   );
 }
 

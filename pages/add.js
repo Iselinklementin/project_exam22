@@ -5,20 +5,28 @@ import AddForm from "../components/forms/AddForm";
 import Heading from "../components/typography/Heading";
 import { StyledContainer } from "../styles/containers/StyledContainer.styled";
 import { Container } from "react-bootstrap";
+import PageHead from "../components/layout/PageHead";
 
 function add() {
   return (
-    <Layout>
-      {/* <pageHeader title="Add new stay" /> */}
-      <StyledContainer className="p-4 mb-4">
-        <Container className="py-4">
-          <Heading className="mt-5" size="1">
-            Create stay
-          </Heading>
-          <AddForm className="mt-5" />
-        </Container>
-      </StyledContainer>
-    </Layout>
+    <>
+      <PageHead
+        title="Holidaze"
+        content="Book hotels, apartments og Bed & breakfast in Bergen. We in Holidaze have the best places to stay, handpicked for you!"
+        keywords="travel, europe, bergen, adventure, exotic, culture, explore"
+      />
+      <Layout>
+        {/* <pageHeader title="Add new stay" /> */}
+        <StyledContainer className="p-4 mb-4">
+          <Container className="py-4">
+            <Heading className="mt-5" size="1">
+              Create stay
+            </Heading>
+            <AddForm className="mt-5" />
+          </Container>
+        </StyledContainer>
+      </Layout>
+    </>
   );
 }
 
