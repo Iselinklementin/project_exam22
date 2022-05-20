@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import styled from "styled-components";
+import { Button } from "react-bootstrap";
 
 const StyledComp = styled.div`
   background-color: #5e5959;
@@ -17,6 +18,7 @@ export default function Home() {
       </Head>
 
       <StyledComp className={styles.main}>
+        <Button>Yaz</Button>
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
