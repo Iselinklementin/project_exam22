@@ -1,6 +1,4 @@
-import Head from "next/head";
 import Image from "next/image";
-import styles from "../styles/Home.module.css";
 import styled from "styled-components";
 import { Button } from "react-bootstrap";
 import Layout from "../components/layout/Layout";
@@ -23,24 +21,6 @@ export default function Home() {
       <Layout>
         <Button>Yaaaaz</Button>
         <StyledComp>her kommer det ting</StyledComp>
-        <StyledCalendar>
-          <DatePicker
-            // selected={startDate}
-            // startDate={startDate}
-            // endDate={endDate}
-            // dateFormat="dd/MM/yyyy"
-            // selectsRange
-            // fixedHeight={true}
-            inline
-            // calendarClassName="egen-class-her"
-            // isClearable={true}
-            // onChange={(update) => {
-            //   setDateRange(update);
-            // }}
-            // minDate={new Date()}
-            // excludeDateIntervals={BOOKED}
-          />
-        </StyledCalendar>
       </Layout>
     </>
   );
