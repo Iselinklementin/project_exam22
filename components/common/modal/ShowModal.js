@@ -1,6 +1,6 @@
 import { Modal } from "react-bootstrap";
 import React from "react";
-import Paragraph from "../typography/Paragraph";
+import Paragraph from "../../typography/Paragraph";
 import { StyledFormButton } from "../../../styles/buttons/StyledFormButton.styled";
 import styled from "styled-components";
 

@@ -1,7 +1,7 @@
 import { useWindowSize } from "../../hooks/useWindowSize";
 import { SCREEN } from "../../constants/misc";
-// import { NavHeaderMobile } from "./menuMobile/NavHeaderMobile";
-// import { NavHeaderTablet } from "./menuTablet/NavHeaderTablet";
+import { NavHeaderMobile } from "./menu/menuMobile/NavHeaderMobile";
+import { NavHeaderTablet } from "./menu/menuTablet/NavHeaderTablet";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Loader from "../common/loader/Loader";
@@ -31,7 +31,7 @@ export default function ({ children }) {
 
   return (
     <>
-      {/* {size.width <= SCREEN.tablet ? <NavHeaderMobile /> : <NavHeaderTablet />} */}
+      {size.width <= SCREEN.tablet ? <NavHeaderMobile /> : <NavHeaderTablet />}
       {loading ? <Loader /> : children}
     </>
   );
