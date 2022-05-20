@@ -3,7 +3,7 @@ import axios from "axios";
 import { ENQUIRES_URL } from "../../../constants/api";
 import { Accordion } from "react-bootstrap";
 import Loader from "../../common/loader/Loader";
-import Alertbox from "../../common/alert/AlertBox";
+import Alertbox from "../../common/alert/Alertbox";
 import { StyledAccordion } from "../../../styles/pages/admin/StyledAccordion.styled";
 import Icon, { icons } from "../../../constants/icons";
 import { RemoveWords } from "../../common/functions/RemoveWords";

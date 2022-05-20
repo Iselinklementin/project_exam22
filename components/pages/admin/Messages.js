@@ -1,5 +1,5 @@
 import axios from "axios";
-import Alertbox from "../../common/alert/AlertBox";
+import Alertbox from "../../common/alert/Alertbox";
 import Loader from "../../common/loader/Loader";
 import { CONTACT_URL } from "../../../constants/api";
 import React, { useEffect, useState } from "react";
