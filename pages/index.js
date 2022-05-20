@@ -13,23 +13,13 @@ const StyledComp = styled.div`
 export default function Home() {
   return (
     <div className={styles.container}>
-      {/* <Head>
-        <title>title</title>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,600;0,700;1,400&family=Roboto:wght@400;500;700&display=swap"
-          rel="stylesheet"
-        />
-      </Head> */}
-
       <PageHead
         title="Holidaze"
         content="Book hotels, apartments og Bed & breakfast in Bergen. We in Holidaze have the best places to stay, handpicked for you!"
         keywords="travel, europe, bergen, adventure, exotic, culture, explore"
       />
       <Layout>
+        <Button>Yaaaaz</Button>
         <StyledComp className={styles.main}>her kommer det ting</StyledComp>
       </Layout>
 
@@ -47,4 +37,17 @@ export default function Home() {
       </footer>
     </div>
   );
+}
+
+{
+  /* <Head>
+        <title>title</title>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,600;0,700;1,400&family=Roboto:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
+      </Head> */
 }
