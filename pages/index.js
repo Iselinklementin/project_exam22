@@ -12,7 +12,7 @@ const StyledComp = styled.div`
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <>
       <PageHead
         title="Holidaze"
         content="Book hotels, apartments og Bed & breakfast in Bergen. We in Holidaze have the best places to stay, handpicked for you!"
@@ -22,20 +22,7 @@ export default function Home() {
         <Button>Yaaaaz</Button>
         <StyledComp className={styles.main}>her kommer det ting</StyledComp>
       </Layout>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
-    </div>
+    </>
   );
 }
 
