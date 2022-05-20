@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { Button } from "react-bootstrap";
 import Layout from "../components/layout/Layout";
 import PageHead from "../components/layout/PageHead";
+import DatePicker from "react-datepicker";
 
 const StyledComp = styled.div`
   background-color: #5e5959;
@@ -20,7 +21,23 @@ export default function Home() {
       />
       <Layout>
         <Button>Yaaaaz</Button>
-        <StyledComp className={styles.main}>her kommer det ting</StyledComp>
+        <StyledComp>her kommer det ting</StyledComp>
+        <DatePicker
+          // selected={startDate}
+          // startDate={startDate}
+          // endDate={endDate}
+          // dateFormat="dd/MM/yyyy"
+          // selectsRange
+          // fixedHeight={true}
+          inline
+          // calendarClassName="egen-class-her"
+          // isClearable={true}
+          // onChange={(update) => {
+          //   setDateRange(update);
+          // }}
+          // minDate={new Date()}
+          // excludeDateIntervals={BOOKED}
+        />
       </Layout>
     </>
   );
