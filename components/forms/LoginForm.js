@@ -8,12 +8,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { LOGIN_URL } from "../../constants/api";
 import AuthContext from "../../context/AuthContext";
 import Alertbox from "../common/alert/AlertBox";
-import { schema } from "../../utils/schemaValidation/loginFormSchema";
-import { StyledFeedbackContainer, StyledForm, WrongInput } from "./Form.styles";
+import { schema } from "../../utils/loginFormSchema";
+import { StyledFeedbackContainer, StyledForm, WrongInput } from "./styles/StyledForm.styled";
 import Icon, { icons } from "../../constants/icons";
-import { StyledFormButton } from "../common/buttons/Button.styles";
-import { StyledFlexIconText } from "./styles/StyledFlexIconText.styles";
-import { StyledIconContainer } from "../layout/layout.styles";
+import { StyledFormButton } from "../../styles/buttons/StyledFormButton.styled";
+import { StyledFlexIconText } from "../../styles/containers/StyledFlexIconText.styled";
+import { StyledIconContainer } from "../layout/styles/layout.styled";
 
 function LoginForm() {
   const [submitting, setSumbitting] = useState(false);
