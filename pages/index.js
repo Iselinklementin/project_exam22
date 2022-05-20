@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { Button } from "react-bootstrap";
 import Layout from "../components/layout/Layout";
 import PageHead from "../components/layout/PageHead";
-import DatePicker from "react-datepicker";
-import { StyledCalendar } from "../styles/StyledCalendar.styled";
 
 const StyledComp = styled.div`
   background-color: #5e5959;
