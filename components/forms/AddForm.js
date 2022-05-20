@@ -11,7 +11,7 @@ import { Form, Row, Col } from "react-bootstrap";
 import Heading from "../../components/typography/Heading";
 import Icon, { icons } from "../../constants/icons";
 import { StyledFormButton } from "../../styles/buttons/StyledFormButton.styled";
-import { StyledImageContainer, UploadLabel } from "../../styles/pages/admin/Add/StyledImageContainer.styled";
+import { StyledImageContainer, UploadLabel } from "../../styles/pages/admin/StyledImageContainer";
 import styled from "styled-components";
 import { mediaQ } from "../../styles/global/ThemeConfig";
 import Alertbox, { AlertboxSuccess } from "../../components/common/alert/Alertbox";
