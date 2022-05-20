@@ -1,4 +1,4 @@
-import Alertbox from "../common/alert/AlertBox";
+import Alertbox from "../common/alert/Alertbox";
 import Icon, { icons } from "../../constants/icons";
 import { StyledFeedbackContainer } from "../forms/styles/StyledForm.styled";
 import styled from "styled-components";
