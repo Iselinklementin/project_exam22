@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="268.688" viewBox="0 0 28 268.688">
+  <g id="Group_284" data-name="Group 284" transform="translate(-82 -145)">
+    <text id="BERGEN_60.3913_N_5.3221_E" data-name="BERGEN 60.3913° N, 5.3221° E" transform="translate(88 376) rotate(-90)" fill="#a2a2a2" font-size="14" font-family="Roboto-Medium, Roboto" font-weight="500" letter-spacing="0.089em"><tspan x="0" y="13">BERGEN 60.3913° N, 5.3221° E</tspan></text>
+    <g id="icon_navigation_arrow_right_24px" data-name="icon/navigation/arrow_right_24px" transform="translate(82 402.688) rotate(-90)">
+      <rect id="Boundary" width="28" height="28" fill="none"/>
+      <path id="_Color" data-name=" ↳Color" d="M-5,0,.811,5.811-5,11.621Z" transform="translate(16.621 8.244)" fill="#a2a2a2"/>
+    </g>
+    <g id="icon_navigation_arrow_right_24px-2" data-name="icon/navigation/arrow_right_24px" transform="translate(82 413.688) rotate(-90)">
+      <rect id="Boundary-2" data-name="Boundary" width="28" height="28" fill="none"/>
+      <path id="_Color-2" data-name=" ↳Color" d="M-5,0,.811,5.811-5,11.621Z" transform="translate(16.621 8.244)" fill="#a2a2a2"/>
+    </g>
+  </g>
+</svg>
