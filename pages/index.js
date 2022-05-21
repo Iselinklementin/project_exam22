@@ -69,11 +69,11 @@ export default function Home({ stays }) {
           <StaysCard stays={featured} />
         </Container>
 
-        <Container style={{ maxWidth: "960px" }}>
+        {/* <Container style={{ maxWidth: "960px" }}>
           <Heading size="4" fontSize="18px" className="mt-5 mb-4">
             Some of our popular destinations
           </Heading>
-        </Container>
+        </Container> */}
       </Layout>
     </>
   );
