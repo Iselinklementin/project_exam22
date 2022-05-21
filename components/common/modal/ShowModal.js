@@ -27,7 +27,7 @@ const StyledCancel = styled(StyledFormButton)`
 
 export const ShowModal = ({ modalShow, heading, message, cancel, confirmed }) => {
   return (
-    <Modal show={modalShow} onHide={cancel}>
+    <Modal show={modalShow} onHide={cancel} centered aria-labelledby="contained-modal-title-vcenter">
       <Modal.Header closeButton>
         <Modal.Title>{heading}</Modal.Title>
       </Modal.Header>
