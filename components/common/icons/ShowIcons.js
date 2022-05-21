@@ -1,7 +1,7 @@
 import React from "react";
-import CapitalizeFirstLetter from "../../components/common/functions/CapitalizeFirstLetter";
+import CapitalizeFirstLetter from "../functions/CapitalizeFirstLetter";
 import { Col, Row } from "react-bootstrap";
-import Paragraph from "../../components/typography/Paragraph";
+import Paragraph from "../../typography/Paragraph";
 import FilterIcons from "./FilterIcons";
 
 // This stay includes

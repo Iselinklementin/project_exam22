@@ -1,4 +1,4 @@
-import Icon, { icons } from "../../constants/icons";
+import Icon, { icons } from "../../../constants/icons";
 
 // Filter icons, find spesific ones for detailpage etc.
 // using "stay include" as a boolean

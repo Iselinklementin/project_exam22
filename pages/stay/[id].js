@@ -2,13 +2,12 @@ import React from "react";
 import axios from "axios";
 import Carousels from "../../components/carousel/Carousel";
 import styled from "styled-components";
-import ShowIcons from "../../constants/icons";
+import ShowIcons from "../../components/common/icons/ShowIcons";
 import Layout from "../../components/layout/Layout";
 import Heading from "../../components/typography/Heading";
 import Paragraph from "../../components/typography/Paragraph";
 import { API_URL } from "../../constants/api";
 import { Container } from "react-bootstrap";
-
 import { StyledContainer } from "../../styles/containers/StyledContainer.styled";
 import { useWindowSize } from "../../hooks/useWindowSize";
 import { SCREEN } from "../../constants/misc";
