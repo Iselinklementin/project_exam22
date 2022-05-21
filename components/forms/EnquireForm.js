@@ -95,7 +95,6 @@ export default function EnquireForm({ title, room, type }) {
   let startDateFormatted = startDate ? startDate.toLocaleDateString("en-GB", CALENDAR_OPTIONS).replace(",", "") : "";
   let endDateFormatted = endDate ? endDate.toLocaleDateString("en-GB", CALENDAR_OPTIONS).replace(",", "") : "";
 
-  console.log(typeof startDateFormatted);
   const {
     register,
     handleSubmit,

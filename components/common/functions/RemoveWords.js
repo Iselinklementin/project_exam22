@@ -18,3 +18,9 @@ export function RemoveLastWord(word) {
   // return the new string
   return word.substring(0, lastIndexOfSpace);
 }
+// in this case: Time on Add-form
+export function RemoveFirstWord(word) {
+  const indexOfFirstSpace = word.indexOf(" ");
+  let newString = word.substring(indexOfFirstSpace + 1);
+  return newString;
+}

@@ -5,7 +5,7 @@ import useAxios from "../../hooks/useAxios";
 import { API_URL, MEDIA_URL } from "../../constants/api";
 import Image from "next/image";
 import { schema } from "../../utils/AddFormSchema";
-import { STAYS, REVIEW, ROOMS } from "../../constants/misc";
+import { STAYS, REVIEW, ROOMS, CALENDAR_OPTIONS, TIME_OPTIONS } from "../../constants/misc";
 import { StyledFeedbackContainer, StyledForm } from "./styles/StyledForm.styled";
 import { Form, Row, Col } from "react-bootstrap";
 import Heading from "../../components/typography/Heading";
@@ -23,6 +23,9 @@ import { ValidationError, ValidationErrorImages } from "./ValidationError";
 import Paragraph from "../../components/typography/Paragraph";
 import { StyledCheckbox } from "../../styles/forms/StyledCheckbox.styled";
 import Link from "next/link";
+import { StyledCalendar } from "../../styles/StyledCalendar.styled";
+import DatePicker from "react-datepicker";
+import { RemoveFirstWord } from "../common/functions/RemoveWords";
 
 const StyledFormWrap = styled.div`
   @media ${mediaQ.laptop} {
@@ -54,6 +57,9 @@ function AddForm() {
   const [roomType, setRoomType] = useState("");
   const [imageError, setImageError] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(false);
+  // time
+  const [checkinTime, setCheckinTime] = useState(new Date());
+  const [checkoutTime, setCheckoutTime] = useState(new Date());
   // set images
   const [img1, setImg1] = useState();
   const [img2, setImg2] = useState();
@@ -68,6 +74,15 @@ function AddForm() {
   const imgUpload4 = useRef(null);
 
   let http = useAxios();
+
+  let checkinTimeFormatted = checkinTime ? checkinTime.toLocaleDateString("en-GB", TIME_OPTIONS).replace(",", "") : "";
+  let checkoutTimeFormatted = checkoutTime
+    ? checkoutTime.toLocaleDateString("en-GB", TIME_OPTIONS).replace(",", "")
+    : "";
+
+  // legg dette const inn i data når timepicker er ferdig:
+  const stayCheckin = RemoveFirstWord(checkinTimeFormatted);
+  const stayCheckout = RemoveFirstWord(checkoutTimeFormatted);
 
   const {
     register,
@@ -191,20 +206,6 @@ function AddForm() {
       setSubmitting(false);
       setSubmitted(true);
     }
-
-    // await http
-    //   .post(API_URL, data)
-    //   .then((response) => {
-    //     console.log(response.data);
-    //     console.log(data);
-    //     // setLoading(false);
-    //   })
-    //   .catch((error) => {
-    //     setError(error.toString());
-    //   });
-
-    // setSubmitting(true);
-    // setSubmitted(true);
   }
 
   // if (error) {
@@ -490,8 +491,20 @@ function AddForm() {
                     <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="me-3" />
                   </StyledIconFormContainer>
 
+                  {/* legg inn og style timepicker */}
+
                   <Form.Group className="mt-3 me-5">
                     <Paragraph>Check-in after:</Paragraph>
+                    {/* <DatePicker
+                      selected={checkinTime}
+                      onChange={(date) => setCheckinTime(date)}
+                      showTimeSelect
+                      showTimeSelectOnly
+                      timeIntervals={15}
+                      timeCaption="Time"
+                      dateFormat="h:mm aa"
+                      {...register("check_in")}
+                    /> */}
                     <Form.Control label="check_in" type="text" placeholder="11:00" {...register("check_in")} />
                     {errors.check_in && <ValidationError errorName={errors.check_in.message} />}
                   </Form.Group>
@@ -503,6 +516,16 @@ function AddForm() {
 
                   <Form.Group className="mt-3 mt-md-4">
                     <Paragraph>Checkout:</Paragraph>
+                    {/* <DatePicker
+                      selected={checkoutTime}
+                      onChange={(date) => setCheckoutTime(date)}
+                      showTimeSelect
+                      showTimeSelectOnly
+                      timeIntervals={15}
+                      timeCaption="Time"
+                      dateFormat="h:mm aa"
+                      {...register("checkout")}
+                    /> */}
                     <Form.Control label="checkout" type="text" placeholder="11:00" {...register("checkout")} />
                     {errors.checkout && <ValidationError errorName={errors.checkout.message} />}
                   </Form.Group>

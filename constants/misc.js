@@ -54,6 +54,11 @@ export const CALENDAR_OPTIONS = {
   year: "numeric",
 };
 
+export const TIME_OPTIONS = {
+  hour: "2-digit",
+  minute: "2-digit",
+};
+
 export const BOOKED = [
   {
     start: new Date("06/24/2022"),
