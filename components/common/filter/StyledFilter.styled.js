@@ -9,6 +9,10 @@ export const StyledFilter = styled.div`
     background-color: ${(props) => props.theme.backgroundColour};
   }
 
+  button  {
+    color: ${(props) => props.theme.body};
+  }
+
   .filter-tablet {
     @media ${mediaQ.tablet} {
       border-left: solid thin grey;
