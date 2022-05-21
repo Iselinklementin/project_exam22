@@ -19,6 +19,8 @@ export const ValidationError = ({ errorName }) => {
   );
 };
 
+// skift navn, den brukes også på select
+
 export const ValidationErrorImages = ({ errorName, box_class }) => {
   return (
     <StyledFeedbackContainerImages>

@@ -23,7 +23,7 @@ import { StyledIconFormContainer } from "./styles/StyledIconFormContainer.styled
 import { StyledFlexIconText } from "../../styles/containers/StyledFlexIconText.styled";
 import Link from "next/link";
 import { StyledSelect } from "../../styles/forms/StyledSelect.styled";
-import { ValidationError } from "./ValidationError";
+import { ValidationError, ValidationErrorImages } from "./ValidationError";
 
 const StyledHeading = styled(Heading)`
   font-size: 20px;
@@ -49,6 +49,10 @@ const StyledDeleteDate = styled.div`
   display: flex;
   align-items: center;
   margin-top: 1.5rem;
+
+  button {
+    padding-left: 0;
+  }
 
   :hover {
     svg {
@@ -235,7 +239,7 @@ export default function EnquireForm({ title, room, type }) {
                       )}
                     />
                   </StyledFlexIconText>
-                  {errors.how_many && <ValidationError errorName={errors.how_many.message} />}
+                  {errors.how_many && <ValidationErrorImages box_class="mt-2" errorName={errors.how_many.message} />}
                 </Form.Group>
 
                 <Form.Group className="mt-3">
@@ -255,7 +259,11 @@ export default function EnquireForm({ title, room, type }) {
                   </div>
                   {errors.message && (
                     <StyledFeedbackContainer>
-                      <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
+                      <Icon
+                        icon={icons.map((icon) => icon.error)}
+                        color="#D11117"
+                        className="warning-icon text-area-icon-enquire"
+                      />
                       <Alertbox className="mt-2">{errors.message.message}</Alertbox>
                     </StyledFeedbackContainer>
                   )}
