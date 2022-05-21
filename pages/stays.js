@@ -1,9 +1,12 @@
 import React, { useState, createRef, useEffect } from "react";
-// import pageHeader from "components/layout/PageHeader";
+import Heading from "../components/typography/Heading";
 import Layout from "../components/layout/Layout";
+import PageHead from "../components/layout/PageHead";
+import axios from "axios";
 import Paragraph from "../components/typography/Paragraph";
 import Icon, { icons } from "../constants/icons";
-import { getStays } from "../constants/getStays";
+import { API_URL } from "../constants/api";
+// import { getStays } from "../constants/getStays";
 import StaysCard from "../components/common/cards/StaysCard";
 import {
   StayHeading,
@@ -17,11 +20,9 @@ import { useWindowSize } from "../hooks/useWindowSize";
 import { SCREEN } from "../constants/misc";
 import { Container } from "react-bootstrap";
 import { StyledContainer } from "../styles/containers/StyledContainer.styled";
-import Heading from "../components/typography/Heading";
 import { StyledLine } from "../styles/pages/stays/StyledLine.styled";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import PageHead from "../components/layout/PageHead";
 
 const StyledParagraph = styled(Paragraph)`
   font-size: 14px;
@@ -31,6 +32,8 @@ function stays({ stays }) {
   const [show, setShow] = useState(false);
   const [filterChips, setFilterChips] = useState([]);
   const [filtered, setFiltered] = useState([]);
+  const [emptyResult, setEmptyResult] = useState("");
+
   let filteredBtnOn = [];
   const size = useWindowSize();
   const router = useRouter();
@@ -84,6 +87,10 @@ function stays({ stays }) {
 
   const btnClick = (e) => {
     let btnName = e.name === "bed" ? "Bed & Breakfast" : e.name;
+    let keywords = [];
+    let ratings = [];
+    let stay = [];
+
     let activeFilter;
 
     if (e.tagName === "BUTTON") {
@@ -97,22 +104,21 @@ function stays({ stays }) {
       if (activeFilter) {
         // fjern denne fra filter
         let newChips = [...new Set(filterChips)];
-        let testThis = newChips;
+        let newFilter = newChips;
 
         newChips.map((name) => {
           if (btnName == name || e.checked) {
-            // DENNE ER RIKTIG
-            testThis = newChips.filter((name) => name !== btnName);
+            newFilter = newChips.filter((name) => name !== btnName);
             e.classList.remove("active-filter");
           }
         });
 
-        if (!testThis.length) {
+        if (!newFilter.length) {
           setFilterChips([]);
           return setFiltered([]);
         } else {
-          setFilterChips(() => [...testThis]);
-          filterItems(testThis);
+          setFilterChips(() => [...newFilter]);
+          filterItems(newFilter);
         }
       } else {
         filterChips.push(btnName);
@@ -123,7 +129,6 @@ function stays({ stays }) {
       function filterItems(array) {
         let newChips = [...new Set(array)];
 
-        // Funksjonen for å filtrere items
         newChips.map((chip) => {
           // finner riktig navn på include og returnerer den
           let checkName = Object.entries(item.acf.stay_includes).find((name) => (name[0] === chip ? name[1] : ""));
@@ -131,46 +136,159 @@ function stays({ stays }) {
           let checkRating = item.acf.stars[0] === chip;
 
           // hvis den er sann, dytt den inn i filtered
-          if (checkStay || checkName || checkRating) {
-            filteredBtnOn.push(item);
-            // denne skal finne duplikater og vise kun èn
-            const itemExists = filteredBtnOn.find((arr) => arr.id === item.id);
-            let newFilter = filteredBtnOn.sort();
+          // if (checkStay || checkName || checkRating) {
+          checkName ? keywords.push(item) : "";
+          checkStay ? stay.push(item) : "";
+          checkRating ? ratings.push(item) : "";
 
-            if (itemExists) {
-              newFilter = [...new Set(filteredBtnOn)];
-            }
-            return setFiltered(() => [...newFilter]);
-          }
+          // filteredBtnOn.push(item);
+          // // denne skal finne duplikater og vise kun èn
+          // const itemExists = filteredBtnOn.find((arr) => arr.id === item.id);
+          // let newFilter = filteredBtnOn.sort();
+
+          // if (itemExists) {
+          //   newFilter = [...new Set(filteredBtnOn)];
+          // }
+          // return setFiltered(() => [...newFilter]);
         });
       }
+
+      let keywordsLength = keywords.length;
+      let ratingsLength = ratings.length;
+      let stayLength = stay.length;
+
+      let newFilterItems = [];
+
+      if (stayLength) {
+        newFilterItems = stay;
+      } else if (ratingsLength) {
+        newFilterItems = ratings;
+      } else if (keywordsLength) {
+        newFilterItems = keywords;
+      }
+
+      if (keywordsLength && ratingsLength) {
+        keywords.filter((stays) => {
+          newFilterItems = ratings.find((item) => item.id !== stays.id);
+        });
+      }
+
+      if (keywordsLength && stayLength) {
+        stay.filter((stays) => {
+          newFilterItems = keywords.find((item) => item.id === stays.id);
+        });
+      }
+
+      if (stayLength && ratingsLength) {
+        stay.filter((stays) => {
+          newFilterItems = ratings.find((item) => item.id === stays.id);
+        });
+      }
+
+      if (keywordsLength && stayLength && ratingsLength) {
+        stay.filter((stays) => {
+          ratings.filter((rate) => {
+            newFilterItems = keywords.filter(
+              (item) => item.id === stays.id && item.id === rate.id && rate.id === stays.id
+            );
+          });
+        });
+      }
+      console.log("dette er newFilterItems");
+      console.log(newFilterItems);
+
+      // return setFiltered(() => [...newFilterItems]);
+
+      // return setFiltered(() => [...newFilterItems]);
+      // if (newFilterItems.length) {
+
+      // if (newFilterItems) {
+
+      // } else {
+      //   console.log("dette er newFilterItems:");
+      //   console.log(newFilterItems);
+      //   // return setFiltered(() => [...newFilterItems]);
+      // }
+
+      // }
+      // if (!newFilterItems.length) {
+      //   setEmptyResult("Sorry, no results found");
+      // }
+
+      // } else if (stayLength && ratingsLength) {
+      //   stay.map((stays) => {
+      //     newFilterItems = ratings.filter((item) => item.id === stays.id);
+      //     console.log(stays);
+      //   });
+
+      // } else if (stayLength && keywordsLength) {
+      //   stay.map((stays) => {
+      //     newFilterItems = keywords.filter((item) => item.id === stays.id);
+      //   });
+      // } else if (keywordsLength && stayLength && ratingsLength) {
+      //   stay.map((stays) => {
+      //     ratings.map((rate) => {
+      //       newFilterItems = keywords.filter((item) => item.id === stays.id && item.id === rate.id);
+      //     });
+      //   });
+
+      // console.log(newFilterItems);
+
+      // ratings skal vises
+      // stays skal vises hvis rating er ok
+      // keywords skal filtere bort de som ikke har keyword
     });
   };
 
   const CreateHtml = () => {
-    let length = filtered.length;
+    console.log("dette er filtered:");
+    console.log(filtered);
 
-    if (length) {
-      return (
-        <>
-          <StyledParagraph className="mb-4">Showing {length} stays in Bergen:</StyledParagraph>
-          <StaysCard stays={filtered} />
-        </>
-      );
+    if (filtered.length) {
+      return <StaysCard stays={filtered} />;
+    } else {
+      return <StaysCard stays={stays} />;
     }
-    return (
-      <>
-        <ShowStayType title="Hotels" array={hotels} />
-        <ShowStayType title="Apartment" array={apartment} />
-        <ShowStayType title="Bed & Breakfast" array={bedbreakfast} />
-      </>
-    );
+
+    // console.log(filtered);
+    // let length = filtered.length;
+    // console.log(emptyResult.length);
+    // return (
+    //   <>
+    //     {emptyResult.length ? (
+    //       <div>{emptyResult}</div>
+    //     ) : (
+    //       <>
+    //         <StyledParagraph className="mb-4">Showing {length} stays in Bergen:</StyledParagraph>
+    //         <StaysCard stays={filtered} />
+    //       </>
+    //     )}
+    //   </>
+    // );
+    // <>
+    // {
+    //       emptyResult.length ? (
+    //         <div>{emptyResult}</div>
+    //       ) : (
+    //         <>
+    //           <StyledParagraph className="mb-4">Showing {length} stays in Bergen:</StyledParagraph>
+    //           <StaysCard stays={filtered} />
+    //         </>
+    //       );
+    //     }
+    // </>
   };
+
+  // return (
+  //   <>
+
+  //   </>
+  // );
 
   return (
     <Layout>
       <PageHead
-        title="Holidaze"
+        title="Stays in Bergen"
         content="Book hotels, apartments og Bed & breakfast in Bergen. We in Holidaze have the best places to stay, handpicked for you!"
         keywords="travel, europe, bergen, adventure, exotic, culture, explore"
       />
@@ -187,21 +305,10 @@ function stays({ stays }) {
               <Icon icon={icons.map((icon) => icon.filter)} color="#FC5156" className="me-2" fontSize="24px" />
               <Paragraph>Filter search</Paragraph>
             </StyledFilterBtn>
-            {/* // fiks border eller noe så de ikke hopper rundt når de blir selected */}
             <StyledFilter>
               <div className={show ? "filter-container p-4" : "filter-container p-4 hidden"}>
                 <Rating click={(e) => btnClick(e)} />
                 <Chips clicked={(e) => btnClick(e)} ref={ref} />
-
-                {/* Her ligger det sikkert noe styling jeg kan ta bort: */}
-
-                {/* <div className="results-btn-container">
-                  <div
-                    className="clear"
-                  <div role="button" className="results">
-                    Show results - denne må kobles opp
-                  </div>
-                </div> */}
               </div>
             </StyledFilter>
           </Container>
@@ -233,6 +340,13 @@ function stays({ stays }) {
 export default stays;
 
 export async function getStaticProps() {
-  const stays = await getStays();
-  return { props: { stays } };
+  let stays = [];
+
+  try {
+    const response = await axios.get(API_URL + "?per_page=20");
+    stays = response.data;
+  } catch (error) {
+    console.log(error);
+  }
+  return { props: { stays: stays } };
 }

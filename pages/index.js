@@ -15,6 +15,8 @@ import Heading from "../components/typography/Heading";
 import Layout from "../components/layout/Layout";
 import StaysCard from "../components/common/cards/StaysCard";
 import { StyledContainer } from "../styles/containers/StyledContainer.styled";
+import axios from "axios";
+import { API_URL } from "../constants/api";
 
 export default function Home({ stays }) {
   let featured = stays.filter((stay) => stay.acf.featured === true);
@@ -23,7 +25,7 @@ export default function Home({ stays }) {
   return (
     <>
       <PageHead
-        title="Holidaze"
+        title="Welcome to Holidaze"
         content="Book hotels, apartments og Bed & breakfast in Bergen. We in Holidaze have the best places to stay, handpicked for you!"
         keywords="travel, europe, bergen, adventure, exotic, culture, explore"
       />
@@ -68,21 +70,27 @@ export default function Home({ stays }) {
           </Heading>
           <StaysCard stays={featured} />
         </Container>
-
-        {/* <Container style={{ maxWidth: "960px" }}>
-          <Heading size="4" fontSize="18px" className="mt-5 mb-4">
-            Some of our popular destinations
-          </Heading>
-        </Container> */}
       </Layout>
     </>
   );
 }
 
 export async function getStaticProps() {
-  const stays = await getStays();
-  return { props: { stays } };
+  let stays = [];
+
+  try {
+    const response = await axios.get(API_URL + "?per_page=20");
+    stays = response.data;
+  } catch (error) {
+    console.log(error);
+  }
+  return { props: { stays: stays } };
 }
+
+// export async function getStaticProps() {
+//   const stays = await getStays();
+//   return { props: { stays } };
+// }
 
 {
   /* <Head>

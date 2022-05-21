@@ -11,7 +11,7 @@ function login() {
   return (
     <>
       <PageHead
-        title="Holidaze"
+        title="Login to our site!"
         content="Book hotels, apartments og Bed & breakfast in Bergen. We in Holidaze have the best places to stay, handpicked for you!"
         keywords="travel, europe, bergen, adventure, exotic, culture, explore"
       />

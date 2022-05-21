@@ -9,7 +9,7 @@ import GlobalStyle from "../styles/global/GlobalStyle";
 import { AuthProvider } from "../context/AuthContext";
 
 const Wrapper = styled.div`
-  min-height: 71vh;
+  min-height: 50vh;
 `;
 
 function MyApp({ Component, pageProps }) {

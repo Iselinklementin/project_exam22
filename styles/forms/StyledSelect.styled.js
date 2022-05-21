@@ -14,7 +14,11 @@ export const StyledSelect = styled(Select)`
   }
 
   .react-select__placeholder {
-    height: 35px;
+    height: 30px;
+    font-family: ${(props) => props.theme.primaryFont};
+    color: ${(props) => props.theme.body};
+    opacity: 0.8;
+    font-size: 14px;
   }
 
   .react-select__input-container {

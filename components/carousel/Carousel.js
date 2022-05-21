@@ -68,6 +68,7 @@ export default function Carousels(props) {
               alt={alt}
               layout="fill"
               objectFit="cover"
+              loading="eager"
               objectPosition="bottom center"
             />
           </Carousel.Item>

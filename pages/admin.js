@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
-// import pageHeader from "components/layout/PageHeader";
 import Layout from "../components/layout/Layout";
 import Heading from "../components/typography/Heading";
 import Messages from "../components/pages/admin/Messages";
@@ -54,8 +53,8 @@ function admin() {
   return (
     <>
       <PageHead
-        title="Holidaze"
-        content="Book hotels, apartments og Bed & breakfast in Bergen. We in Holidaze have the best places to stay, handpicked for you!"
+        title="Admin site"
+        content="Messages, Enquire and Adding new stays."
         keywords="travel, europe, bergen, adventure, exotic, culture, explore"
       />
       <Layout>

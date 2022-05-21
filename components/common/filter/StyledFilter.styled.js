@@ -53,22 +53,8 @@ export const StyledFilter = styled.div`
     color: white;
   }
 
-  .results-btn-container {
-    display: flex;
-    margin-top: 2rem;
-    justify-content: space-between;
-    padding: 1rem;
-  }
-
-  .results,
-  .clear {
-    text-transform: uppercase;
-    padding: 10px;
-    font-size: 14px;
-  }
-
-  .results {
-    color: ${(props) => props.theme.primaryColour};
+  .active:before {
+    content: "× ";
   }
 `;
 

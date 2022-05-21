@@ -13,11 +13,10 @@ const StyledHeading = styled(Heading)`
 export const Chips = forwardRef((props, ref) => {
   const clickedButtonHandler = (e) => {
     e.currentTarget.classList.toggle("active");
-    // ✕
   };
 
   let stayIcons = "";
-
+  // ✕
   const ShowIcon = (btnName) => {
     icons.map((icon) => {
       let keys = Object.keys(icon);

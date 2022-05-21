@@ -16,7 +16,6 @@ import { Breadcrumbs } from "../../components/pages/detailpage/Breadcrumbs";
 import { Location } from "../../components/pages/detailpage/Location";
 import { ShowRoomOption } from "../../components/pages/detailpage/ShowRoomOption";
 import PageHead from "../../components/layout/PageHead";
-// import { SmallEnquireBtn } from "components/common/buttons/SmallEnquireBtn";
 
 const StyledNiceToKnow = styled.div`
   width: 720px;
@@ -45,12 +44,10 @@ export default function stay({ stay }) {
   //   })}
   // </div>
 
-  console.log(stay.acf);
-
   return (
     <>
       <PageHead
-        title="Holidaze"
+        title={stay.acf.title}
         content="Book hotels, apartments og Bed & breakfast in Bergen. We in Holidaze have the best places to stay, handpicked for you!"
         keywords="travel, europe, bergen, adventure, exotic, culture, explore"
       />
@@ -60,7 +57,6 @@ export default function stay({ stay }) {
             <Breadcrumbs title={stay.acf.title} />
             <div className="d-flex justify-content-between align-items-center mt-4">
               <Heading>{stay.acf.title}</Heading>
-              {/* her skal det egentlig være knapp, kan koble Enquirebtn til hotelOptions-function */}
             </div>
             <Paragraph>{stay.acf.room.stay_type}</Paragraph>
           </Container>
@@ -70,17 +66,13 @@ export default function stay({ stay }) {
           <StyledContainer>
             <Container className="mt-5">
               <Carousels stays={imageArray} />
-
               <div className="mt-4">
                 <ShowIcons stay={stay.acf.stay_includes} />
               </div>
-
               <Description className="mt-5" hSize="2" heading="Description" body={stay.acf.stay_description} />
             </Container>
-
             <Container>
               <Description className="mt-3" hSize="2" heading="Nice to know" body={stay.acf.nice_to_know_text} />
-
               <div className="d-flex">
                 <Location
                   className="ms-3"
@@ -88,12 +80,10 @@ export default function stay({ stay }) {
                   location={stay.acf.address.short_description}
                 />
               </div>
-
               <div className="mt-4">
                 <ShowIcons stay={stay.acf.nice_to_know} />
               </div>
             </Container>
-
             <Container>
               <hr className="my-5" />
               <Heading size="3">Room</Heading>
@@ -110,7 +100,6 @@ export default function stay({ stay }) {
           <StyledContainer>
             <div className="d-flex flex-row justify-content-between">
               <Carousels stays={imageArray} />
-
               <div className="ms-5">
                 <ShowIcons stay={stay.acf.stay_includes} />
                 <Description className="mt-5" hSize="2" heading="Description" body={stay.acf.stay_description} />
@@ -126,17 +115,17 @@ export default function stay({ stay }) {
             <div className="mt-5 d-flex justify-content-between align-items-center">
               <StyledNiceToKnow className="border-right">
                 <Description className="mt-3" hSize="2" heading="Nice to know" body={stay.acf.nice_to_know_text} />
-              </StyledNiceToKnow>
-              <StyledSplit></StyledSplit>
-              <div className="ms-5">
-                <ShowIcons stay={stay.acf.nice_to_know} />
-                <div className="d-flex mt-5">
+                <div className="d-flex mt-4">
                   <Location
                     className="ms-5"
                     address={stay.acf.address.full_address}
                     location={stay.acf.address.short_description}
                   />
                 </div>
+              </StyledNiceToKnow>
+              <StyledSplit></StyledSplit>
+              <div className="ms-5">
+                <ShowIcons stay={stay.acf.nice_to_know} />
               </div>
             </div>
           </StyledContainer>

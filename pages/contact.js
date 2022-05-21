@@ -12,9 +12,9 @@ function contact() {
   return (
     <>
       <PageHead
-        title="Holidaze"
-        content="Book hotels, apartments og Bed & breakfast in Bergen. We in Holidaze have the best places to stay, handpicked for you!"
-        keywords="travel, europe, bergen, adventure, exotic, culture, explore"
+        title="Contact us"
+        content="Book hotels, apartments og Bed & breakfast in Bergen. Contact us for more information!"
+        keywords="contact, travel, europe, bergen, adventure, exotic, culture, explore"
       />
       <Layout>
         {/* <pageHeader title="Contact us" /> */}

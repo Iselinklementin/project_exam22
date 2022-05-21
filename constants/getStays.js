@@ -12,9 +12,3 @@ export async function getStays() {
   }
   return holidaze;
 }
-
-//     if (response.status === 200) {
-//       stays = response.data;
-//     } else {
-//       console.log(error);
-//     }

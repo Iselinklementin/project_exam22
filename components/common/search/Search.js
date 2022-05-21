@@ -63,7 +63,17 @@ function Search() {
         <StyledIconWrap>
           <Form.Label>Find your favourite place to stay</Form.Label>
           <Icon icon={icons.map((icon) => icon.search)} fontSize="16px" className="search-icon" color="#FC5156" />
-          <div ref={showLoading} className="loader"></div>
+          <Spinner
+            ref={showLoading}
+            as="span"
+            animation="grow"
+            size="sm"
+            role="status"
+            aria-hidden="true"
+            className="loader"
+          />
+
+          {/* <div ref={showLoading} className="loader"></div> */}
         </StyledIconWrap>
 
         <Form.Control

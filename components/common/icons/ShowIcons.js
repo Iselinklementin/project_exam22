@@ -10,7 +10,7 @@ function ShowIcons(props) {
   let includes = Object.entries(props.stay);
 
   return (
-    <Row xs={2} className="g-1 gy-2 mt-2">
+    <Row xs={1} className="g-1 gy-2 mt-2">
       {includes.map((include) => {
         let thisIncludes = include[0].replace("_", " ");
         let date = [];
@@ -22,6 +22,7 @@ function ShowIcons(props) {
           let checkInOut = include[0].replace("_", " ");
           let checkin_out = checkInOut + " : " + include[1];
           date.push(CapitalizeFirstLetter(checkin_out));
+          console.log(date);
         }
 
         return include[1] ? (
