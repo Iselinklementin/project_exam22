@@ -6,7 +6,7 @@ import Stays from "../../../../assets/stays.svg";
 import Icon, { icons } from "../../../../constants/icons";
 import Link from "next/link";
 import { StyledIconContainer, StyledLogoutBtn } from "../../styles/layout.styled";
-import { showModal } from "../../../common/modal/ShowModal";
+import { ShowModal } from "../../../common/modal/ShowModal";
 
 export const AdminMenu = () => {
   const [auth, setAuth] = useContext(AuthContext);

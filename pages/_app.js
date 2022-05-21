@@ -6,6 +6,7 @@ import styled from "styled-components";
 import SSRProvider from "react-bootstrap/SSRProvider";
 import Footer from "../components/layout/footer/Footer";
 import GlobalStyle from "../styles/global/GlobalStyle";
+import { AuthProvider } from "../context/AuthContext";
 
 const Wrapper = styled.div`
   min-height: 71vh;
@@ -15,11 +16,13 @@ function MyApp({ Component, pageProps }) {
   return (
     <SSRProvider>
       <ThemeProvider theme={Theme}>
-        <GlobalStyle />
-        <Wrapper>
-          <Component {...pageProps} />
-        </Wrapper>
-        <Footer />
+        <AuthProvider>
+          <GlobalStyle />
+          <Wrapper>
+            <Component {...pageProps} />
+          </Wrapper>
+          <Footer />
+        </AuthProvider>
       </ThemeProvider>
     </SSRProvider>
   );
