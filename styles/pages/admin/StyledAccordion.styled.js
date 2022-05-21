@@ -30,6 +30,14 @@ export const StyledAccordion = styled.div`
     box-shadow: none;
   }
 
+  .accordion-button:not(.collapsed)::after {
+    background-image: none;
+  }
+
+  .accordion-button:not(.collapsed) {
+    box-shadow: none;
+  }
+
   .received-container {
     position: absolute;
     right: 10px;
