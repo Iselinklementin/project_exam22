@@ -90,7 +90,6 @@ function stays({ stays }) {
     let keywords = [];
     let ratings = [];
     let stay = [];
-
     let activeFilter;
 
     if (e.tagName === "BUTTON") {
@@ -128,6 +127,8 @@ function stays({ stays }) {
 
       function filterItems(array, btnName) {
         let newChips = [...new Set(array)];
+        // const newKeywords = ["swimming_pool", "kitchen", "free_parking", "breakfast", "pet_friendly", "wifi"];
+
         newChips.map((chip) => {
           // finner riktig navn på include og returnerer den
           let checkName = Object.entries(item.acf.stay_includes).find((name) => (name[0] === chip ? name[1] : ""));
@@ -151,51 +152,15 @@ function stays({ stays }) {
         }
 
         if (keywordsLength) {
-          let array = keywords;
-          let checkArray;
-          let checkID;
-          newFilterItems = keywords;
+          const itemExists = keywords.find((arr) => arr.id === item.id);
+          let newFilter = keywords.sort();
 
-          console.log(newChips);
-          keywords.filter((key) => {
-            let includes = Object.entries(key.acf.stay_includes);
-            if (includes.includes(newChips.filter((keyword) => keyword) && !includes[1])) {
-              array.push(key);
-            }
-            console.log("array");
-            console.log(array);
-            // if (newChips.filter((keyword) => keyword === includes[0] && includes[1] && )) {
-            //   console.log("match");
-            // }
-            // if (checkID) {
-            // let checkChips = newChips.filter((filteredChip) => {
-            //   if (
-            //     filteredChip === Object.entries(key.acf.stay_includes).filter((name) => name[0]) &&
-            //     Object.entries(key.acf.stay_includes).filter((name) => name[1])
-            //   ) {
-            //     console.log("This match");
-            //   }
-            // });
+          if (itemExists) {
+            newFilter = [...new Set(keywords)];
+          }
 
-            // checkArray = Object.entries(keywords.acf.stay_includes).find((name) => (name[0] === btnName ? name[1] : ""));
-
-            // }
-            // if (checkIncludes) {
-            //   array.push(key);
-            // }
-            // console.log(checkIncludes);
-            // if (findWithKeywords(key)) {
-            //   array.push(key);
-            //   checkID = true;
-            // } else {
-            //   checkID = false;
-            // }
-          });
-
-          // if (!checkID) {
-          //   array = [];
-          // }
-          // newFilterItems = array;
+          newFilterItems = newFilter;
+          // return setFiltered(() => [...newFilter]);
         }
 
         // OBS! keywords mot keywords funker ikke
