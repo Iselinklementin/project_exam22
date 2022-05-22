@@ -16,7 +16,10 @@ export const Chips = forwardRef((props, ref) => {
   };
 
   let stayIcons = "";
-  // ✕
+
+  /* Nå er ikke ikonene koblet opp, kan fjernes hvis jeg ikke fikser (med funksjonen) */
+  /* {ShowIcon(btnName)} */
+
   const ShowIcon = (btnName) => {
     icons.map((icon) => {
       let keys = Object.keys(icon);
@@ -35,27 +38,19 @@ export const Chips = forwardRef((props, ref) => {
     );
   };
 
-  const buttons = [
-    "swimming_pool",
-    "bed",
-    "hotel",
-    "kitchen",
-    "free_parking",
-    "breakfast",
-    "apartment",
-    "pet_friendly",
-    "wifi",
-  ];
+  const stays = ["bed", "apartment", "hotel"];
+  const keywords = ["swimming_pool", "kitchen", "free_parking", "breakfast", "pet_friendly", "wifi"];
 
   return (
     <>
       <StyledFilter className="mt-5 mt-md-0 ms-md-5">
         <div className="filter-tablet">
-          <div className="d-flex mb-3">
+          <div className="d-flex mt-2">
             <Icon icon={icons.map((icon) => icon.heart)} fontSize="15px" className="me-2" />
-            <StyledHeading size="3">Keywords</StyledHeading>
+            <StyledHeading size="3">Type of stay</StyledHeading>
           </div>
-          {buttons.map((btnName) => {
+
+          {stays.map((btnName) => {
             let removeLine = btnName.replace("_", " ");
             let newBtnName = CapitalizeFirstLetter(removeLine);
             return (
@@ -69,8 +64,28 @@ export const Chips = forwardRef((props, ref) => {
                 }}
                 className="me-2 mt-2"
               >
-                {/* Nå er ikke ikonene koblet opp, kan fjernes hvis jeg ikke fikser (med funksjonen) */}
-                {/* {ShowIcon(btnName)} */}
+                {newBtnName === "Bed" ? "Bed & Breakfast" : newBtnName}
+              </button>
+            );
+          })}
+          <div className="d-flex mt-4">
+            <Icon icon={icons.map((icon) => icon.heart)} fontSize="15px" className="me-2" />
+            <StyledHeading size="3">Keywords</StyledHeading>
+          </div>
+          {keywords.map((btnName) => {
+            let removeLine = btnName.replace("_", " ");
+            let newBtnName = CapitalizeFirstLetter(removeLine);
+            return (
+              <button
+                key={btnName}
+                name={btnName}
+                ref={ref}
+                onClick={(e) => {
+                  clickedButtonHandler(e, btnName);
+                  props.clicked(e.target);
+                }}
+                className="me-2 mt-2"
+              >
                 {newBtnName === "Bed" ? "Bed & Breakfast" : newBtnName}
               </button>
             );

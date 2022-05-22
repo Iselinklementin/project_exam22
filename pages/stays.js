@@ -6,7 +6,6 @@ import axios from "axios";
 import Paragraph from "../components/typography/Paragraph";
 import Icon, { icons } from "../constants/icons";
 import { API_URL } from "../constants/api";
-// import { getStays } from "../constants/getStays";
 import StaysCard from "../components/common/cards/StaysCard";
 import {
   StayHeading,
@@ -30,11 +29,10 @@ const StyledParagraph = styled(Paragraph)`
 
 function stays({ stays }) {
   const [show, setShow] = useState(false);
+  const [newfiltered, setNewFiltered] = useState(stays || []);
   const [filterChips, setFilterChips] = useState([]);
   const [filtered, setFiltered] = useState([]);
-  const [emptyResult, setEmptyResult] = useState("");
 
-  let filteredBtnOn = [];
   const size = useWindowSize();
   const router = useRouter();
   const query = router.query;
@@ -92,6 +90,8 @@ function stays({ stays }) {
     let stay = [];
     let activeFilter;
 
+    console.log(e.name);
+
     if (e.tagName === "BUTTON") {
       activeFilter = e.attributes[1].value.includes("active-filter");
     } else if (e.tagName === "INPUT") {
@@ -99,9 +99,7 @@ function stays({ stays }) {
     }
 
     stays.map((item) => {
-      // sjekk aktiv, fjern hvis aktiv
       if (activeFilter) {
-        // fjern denne fra filter
         let newChips = [...new Set(filterChips)];
         let newFilter = newChips;
 
@@ -127,10 +125,8 @@ function stays({ stays }) {
 
       function filterItems(array, btnName) {
         let newChips = [...new Set(array)];
-        // const newKeywords = ["swimming_pool", "kitchen", "free_parking", "breakfast", "pet_friendly", "wifi"];
 
         newChips.map((chip) => {
-          // finner riktig navn på include og returnerer den
           let checkName = Object.entries(item.acf.stay_includes).find((name) => (name[0] === chip ? name[1] : ""));
           let checkStay = item.acf.room.stay_type.toLowerCase() === chip.toLowerCase();
           let checkRating = item.acf.stars[0] === chip;
@@ -158,13 +154,8 @@ function stays({ stays }) {
           if (itemExists) {
             newFilter = [...new Set(keywords)];
           }
-
           newFilterItems = newFilter;
-          // return setFiltered(() => [...newFilter]);
         }
-
-        // OBS! keywords mot keywords funker ikke
-        // rating fungerer alltid på tilbakeknappen, men ikke keywords og stays
 
         // sjekker rating og type stay opp mot hverandre, og funker
         if (stayLength && ratingsLength) {
@@ -178,7 +169,6 @@ function stays({ stays }) {
                   array.push(stays);
                   checkID = true;
                 } else {
-                  // array = [];
                   checkID = false;
                 }
               }
@@ -191,12 +181,9 @@ function stays({ stays }) {
           newFilterItems = array;
         }
 
-        // sjekker keywords og type stay opp mot hverandre, og funker
-
         if (keywordsLength && stayLength) {
           let checkID;
           let array = [];
-
           stay.filter((stays) => {
             keywords.find((key) => {
               if (stays.id === key.id) {
@@ -215,7 +202,6 @@ function stays({ stays }) {
           newFilterItems = array;
         }
 
-        // sjekker keywords og rating opp mot hverandre, og funker
         if (keywordsLength && ratingsLength) {
           let checkID;
           let array = [];
@@ -242,12 +228,9 @@ function stays({ stays }) {
         if (keywordsLength && ratingsLength && stayLength) {
           let checkID;
           let array = [];
-
           ratings.filter((rate) => {
             stay.filter((stay) => {
               keywords.find((key) => {
-                // nå sjekker den bare key, burde sjekke btnName!
-
                 if (findWithKeywords(key)) {
                   if (key.id === rate.id && key.id === stay.id && stay.id === rate.id) {
                     array.push(key);
@@ -265,7 +248,6 @@ function stays({ stays }) {
           newFilterItems = array;
         }
 
-        // denne sjekker flere keywords mot stay og fungerer sånn passe, ikke hvis jeg fjerner tror jeg
         function findWithKeywords(key) {
           if (btnName) {
             let checkIncludes = Object.entries(key.acf.stay_includes).find((name) =>
@@ -282,8 +264,7 @@ function stays({ stays }) {
         }
 
         if (!newFilterItems.length) {
-          console.log("array is empty, start removing words");
-          return setFiltered([]);
+          setFiltered([]);
         } else {
           return setFiltered(newFilterItems);
         }
@@ -293,58 +274,17 @@ function stays({ stays }) {
 
   const CreateHtml = () => {
     if (filtered.length) {
-      return (
-        <Row xs={1} sm={2} lg={4} className="g-4">
-          <StaysCard stays={filtered} />
-        </Row>
-      );
+      return <StaysCard stays={filtered} />;
     } else {
       return (
         <>
-          <div>Empty result</div>
+          <ShowStayType title="Hotels" array={hotels} />
+          <ShowStayType title="Apartment" array={apartment} />
+          <ShowStayType title="Bed & Breakfast" array={bedbreakfast} />
         </>
       );
-      // return (
-      //   <Row xs={1} sm={2} lg={4} className="g-4">
-      //     <StaysCard stays={stays} />
-      //   </Row>
-      // );
     }
-
-    // console.log(filtered);
-    // let length = filtered.length;
-    // console.log(emptyResult.length);
-    // return (
-    //   <>
-    //     {emptyResult.length ? (
-    //       <div>{emptyResult}</div>
-    //     ) : (
-    //       <>
-    //         <StyledParagraph className="mb-4">Showing {length} stays in Bergen:</StyledParagraph>
-    //         <StaysCard stays={filtered} />
-    //       </>
-    //     )}
-    //   </>
-    // );
-    // <>
-    // {
-    //       emptyResult.length ? (
-    //         <div>{emptyResult}</div>
-    //       ) : (
-    //         <>
-    //           <StyledParagraph className="mb-4">Showing {length} stays in Bergen:</StyledParagraph>
-    //           <StaysCard stays={filtered} />
-    //         </>
-    //       );
-    //     }
-    // </>
   };
-
-  // return (
-  //   <>
-
-  //   </>
-  // );
 
   return (
     <Layout>

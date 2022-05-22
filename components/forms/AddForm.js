@@ -19,7 +19,7 @@ import Loader from "../../components/common/loader/Loader";
 import { StyledFlexIconText } from "../../styles/containers/StyledFlexIconText.styled";
 import { StyledIconFormContainer } from "./styles/StyledIconFormContainer.styled";
 import { StyledSelect } from "../../styles/forms/StyledSelect.styled";
-import { ValidationError, ValidationErrorImages } from "./ValidationError";
+import { ValidationError, ValidationErrorSelect } from "./ValidationError";
 import Paragraph from "../../components/typography/Paragraph";
 import { StyledCheckbox } from "../../styles/forms/StyledCheckbox.styled";
 import Link from "next/link";
@@ -543,7 +543,7 @@ function AddForm() {
             </div>
 
             <div className="position-relative">
-              {imageError ? <ValidationErrorImages errorName={imageError} /> : ""}
+              {imageError ? <ValidationErrorSelect errorName={imageError} /> : ""}
             </div>
           </div>
 
@@ -652,7 +652,7 @@ function AddForm() {
             </Col>
           </Row>
           <div className="position-relative mb-2 mt-4">
-            {imageError ? <ValidationErrorImages errorName={imageError} box_class="left" /> : ""}
+            {imageError ? <ValidationErrorSelect errorName={imageError} box_class="left" /> : ""}
           </div>
           <StyledFormButton
             className="mb-4 mt-5"

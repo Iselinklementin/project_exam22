@@ -10,9 +10,6 @@ import { RemoveWords } from "../../common/functions/RemoveWords";
 import Paragraph from "../../typography/Paragraph";
 import ReturnIcon from "../../common/icons/ReturnIcon";
 
-// Alt utenom fetch er likt som Messages.
-// Prøv å samle det og bare skift url og return
-
 export default function Enquires() {
   const [contact, setContact] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,7 +20,6 @@ export default function Enquires() {
       try {
         const response = await axios.get(ENQUIRES_URL);
         if (response.status === 200) {
-          // console.log(response.data);
           setContact(response.data);
         } else {
           setError(error);
@@ -39,7 +35,7 @@ export default function Enquires() {
   }, []);
 
   if (loading) {
-    return <Loader />;
+    return <Loader className="enquire_loader" />;
   }
 
   if (error) {

@@ -58,7 +58,6 @@ function admin() {
         keywords="travel, europe, bergen, adventure, exotic, culture, explore"
       />
       <Layout>
-        {/* <pageHeader title="Admin" /> */}
         <StyledContainer className="mt-5 py-4">
           <Container>
             <StyledTextContainer>

@@ -15,7 +15,7 @@ function StaysCard({ stays }) {
   console.log(stays);
 
   return (
-    <>
+    <Row xs={1} sm={2} lg={4} className="g-4">
       {stays.map((stay) => {
         let stars = JSON.stringify(stay.acf.stars);
         let numbersOfStars = parseInt(stars.charAt(2));
@@ -73,7 +73,7 @@ function StaysCard({ stays }) {
           </Col>
         );
       })}
-    </>
+    </Row>
   );
 }
 

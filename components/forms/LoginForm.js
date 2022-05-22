@@ -14,6 +14,7 @@ import Icon, { icons } from "../../constants/icons";
 import { StyledFormButton } from "../../styles/buttons/StyledFormButton.styled";
 import { StyledFlexIconText } from "../../styles/containers/StyledFlexIconText.styled";
 import { StyledIconContainer } from "../layout/styles/layout.styled";
+import { ValidationError } from "./ValidationError";
 
 function LoginForm() {
   const [submitting, setSumbitting] = useState(false);
@@ -37,7 +38,6 @@ function LoginForm() {
     try {
       const response = await axios.post(LOGIN_URL, data);
       setAuth(response.data);
-      // console.log(response.data);
       return router.push("/admin");
     } catch (error) {
       console.log("error", error);
@@ -63,12 +63,7 @@ function LoginForm() {
               autoComplete="new-password"
             />
           </StyledFlexIconText>
-          {errors.username && (
-            <StyledFeedbackContainer>
-              <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
-              <Alertbox className="mt-2">{errors.username.message}</Alertbox>
-            </StyledFeedbackContainer>
-          )}
+          {errors.username && <ValidationError errorName={errors.username.message} />}
         </Form.Group>
 
         <Form.Group className="mb-3 ">
@@ -85,12 +80,7 @@ function LoginForm() {
             />
           </StyledFlexIconText>
 
-          {errors.username && (
-            <StyledFeedbackContainer>
-              <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
-              <Alertbox className="mt-2">{errors.password.message}</Alertbox>
-            </StyledFeedbackContainer>
-          )}
+          {errors.password && <ValidationError errorName={errors.password.message} />}
         </Form.Group>
 
         {loginError && (

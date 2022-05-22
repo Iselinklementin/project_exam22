@@ -16,13 +16,18 @@ export const DropdownMenu = () => {
     auth ? setAuthorized(true) : false;
   }, []);
 
+  const handleMenuClick = (e) => {
+    setIsActive(!isActive);
+    document.body.classList.toggle("body_menu_open");
+  };
+
   return (
     <MenuContainer>
-      <button aria-label="navigation" className="p-0 menu-trigger" onClick={() => setIsActive(!isActive)}>
+      <button aria-label="navigation" className="p-0 menu-trigger" onClick={(e) => handleMenuClick(e)}>
         <Icon icon={icons.map((icon) => icon.burger)} fontSize="28px" color="#FC5156" />
       </button>
 
-      <div className={`menu ${isActive ? "active" : "inactive"}`}>
+      <div className={`menu ${isActive ? "active" : ""}`}>
         <div className={isActive ? "dropdown-menu-container show" : "dropdown-menu-container"}>
           {authorized ? <AdminMenu /> : <CustomerMenu />}
         </div>

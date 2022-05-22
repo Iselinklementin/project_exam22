@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import DatePicker from "react-datepicker";
-import Select from "react-select";
 import Alertbox, { AlertboxSuccess } from "../common/alert/Alertbox";
 import DateFunction from "../common/functions/DateFunction";
 import styled from "styled-components";
@@ -23,7 +22,7 @@ import { StyledIconFormContainer } from "./styles/StyledIconFormContainer.styled
 import { StyledFlexIconText } from "../../styles/containers/StyledFlexIconText.styled";
 import Link from "next/link";
 import { StyledSelect } from "../../styles/forms/StyledSelect.styled";
-import { ValidationError, ValidationErrorImages } from "./ValidationError";
+import { ValidationError, ValidationErrorSelect } from "./ValidationError";
 
 const StyledHeading = styled(Heading)`
   font-size: 20px;
@@ -71,11 +70,6 @@ const StyledEnquireButton = styled(StyledFormButton)`
     margin-left: 35px;
   }
 `;
-
-// PHONE - må sjekke for nummer
-// TEXTAREA - skift font inni
-// SELECT - gi advarsel
-// Gi tilbakemelding når sendt, fjern skjema
 
 export default function EnquireForm({ title, room, type }) {
   const [submitting, setSubmitting] = useState(false);
@@ -153,7 +147,6 @@ export default function EnquireForm({ title, room, type }) {
         </>
       ) : (
         <>
-          {/* {submitting} */}
           <StyledForm className="enquire-form" onSubmit={handleSubmit(onSubmit)} noValidate>
             <StyledFlexContainerLaptop className="mt-5">
               <StyledFormContainerLaptop>
@@ -169,7 +162,6 @@ export default function EnquireForm({ title, room, type }) {
                 />
                 <Form.Control type="hidden" placeholder="Room" value={room} className="mt-2" {...register("room")} />
 
-                {/* Name  */}
                 <Form.Group className="mt-3">
                   <StyledFlexIconText>
                     <StyledIconFormContainer>
@@ -185,7 +177,7 @@ export default function EnquireForm({ title, room, type }) {
                     </StyledFeedbackContainer>
                   )}
                 </Form.Group>
-                {/* Phone  */}
+
                 <Form.Group className="mt-3">
                   <StyledFlexIconText>
                     <StyledIconFormContainer>
@@ -193,14 +185,9 @@ export default function EnquireForm({ title, room, type }) {
                     </StyledIconFormContainer>
                     <Form.Control type="text" placeholder="Phone" className="mt-2" {...register("phone")} />
                   </StyledFlexIconText>
-                  {errors.phone && (
-                    <StyledFeedbackContainer>
-                      <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
-                      <Alertbox className="mt-2">{errors.phone.message}</Alertbox>
-                    </StyledFeedbackContainer>
-                  )}
+                  {errors.phone && <ValidationError errorName={errors.phone.message} />}
                 </Form.Group>
-                {/* Email  */}
+
                 <Form.Group className="mt-3">
                   <StyledFlexIconText>
                     <StyledIconFormContainer>
@@ -208,12 +195,7 @@ export default function EnquireForm({ title, room, type }) {
                     </StyledIconFormContainer>
                     <Form.Control type="email" placeholder="Email" className="mt-2" {...register("email")} />
                   </StyledFlexIconText>
-                  {errors.email && (
-                    <StyledFeedbackContainer>
-                      <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
-                      <Alertbox className="mt-2">{errors.email.message}</Alertbox>
-                    </StyledFeedbackContainer>
-                  )}
+                  {errors.email && <ValidationError errorName={errors.email.message} />}
                 </Form.Group>
 
                 <Form.Group className="mt-3">
@@ -238,7 +220,7 @@ export default function EnquireForm({ title, room, type }) {
                       )}
                     />
                   </StyledFlexIconText>
-                  {errors.how_many && <ValidationErrorImages box_class="mt-2" errorName={errors.how_many.message} />}
+                  {errors.how_many && <ValidationErrorSelect box_class="mt-2" errorName={errors.how_many.message} />}
                 </Form.Group>
 
                 <Form.Group className="mt-3">
@@ -256,22 +238,13 @@ export default function EnquireForm({ title, room, type }) {
                     />
                     <span className="counter">{count}/20</span>
                   </div>
-                  {errors.message && (
-                    <StyledFeedbackContainer>
-                      <Icon
-                        icon={icons.map((icon) => icon.error)}
-                        color="#D11117"
-                        className="warning-icon text-area-icon-enquire"
-                      />
-                      <Alertbox className="mt-2">{errors.message.message}</Alertbox>
-                    </StyledFeedbackContainer>
-                  )}
+                  {errors.message && <ValidationError errorName={errors.message.message} />}
                 </Form.Group>
               </StyledFormContainerLaptop>
               <div>
                 <StyledParagraphColoured className="mt-5">Date</StyledParagraphColoured>
                 <Heading size="2">{RemoveLastWord(today)}</Heading>
-                {/* Bør skifte class, rotet seg til når jeg gjorde det */}
+
                 <div>
                   <StyledCalendar className="mt-4">
                     <DatePicker
@@ -282,7 +255,7 @@ export default function EnquireForm({ title, room, type }) {
                       selectsRange
                       fixedHeight={true}
                       inline
-                      calendarClassName="egen-class-her"
+                      calendarClassName="calendar_enquire"
                       isClearable={true}
                       onChange={(update) => {
                         setDateRange(update);
@@ -336,9 +309,3 @@ export default function EnquireForm({ title, room, type }) {
     </>
   );
 }
-
-// {errors.to_date && (
-//   <StyledFeedbackContainer>
-//     <Alertbox className="mt-2">{errors.to_date.message}</Alertbox>
-//   </StyledFeedbackContainer>
-// )}

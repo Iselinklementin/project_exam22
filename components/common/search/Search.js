@@ -101,7 +101,7 @@ function Search() {
           <ListGroup>
             {suggestions &&
               suggestions.map((suggestion, i) => (
-                <Link href={`stay/${suggestion.id}`} key={suggestion.id}>
+                <Link href={`stays/${suggestion.id}`} key={suggestion.id}>
                   <a
                     onClick={() => {
                       onSuggestionHandler(suggestion.acf.title);

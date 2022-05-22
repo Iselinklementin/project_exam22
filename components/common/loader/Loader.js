@@ -15,14 +15,17 @@ const StyledLoaderContainer = styled(Container)`
     background-color: ${(props) => props.theme.primaryColour};
     animation: 1.4s linear infinite spinner-grow;
   }
+
+  .enquire_loader {
+    position: relative;
+    margin-top: 5rem;
+  }
 `;
 
-function Loader() {
+function Loader({ className }) {
   return (
     <StyledLoaderContainer>
-      <Spinner animation="grow" variant="dark" />
-      {/* <span className="visually-hidden">Loading...</span>
-      </Spinner> */}
+      <Spinner animation="grow" variant="dark" className={className} />
     </StyledLoaderContainer>
   );
 }

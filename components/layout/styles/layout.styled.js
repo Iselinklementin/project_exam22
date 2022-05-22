@@ -95,6 +95,7 @@ export const MenuContainer = styled.div`
     z-index: 2;
     padding-bottom: 1rem;
     padding-top: 1rem;
+    /* position: fixed; */
   }
 
   .menu-trigger {

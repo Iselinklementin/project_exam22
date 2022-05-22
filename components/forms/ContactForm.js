@@ -1,4 +1,4 @@
-import React, { createRef, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -7,7 +7,7 @@ import { CONTACT_URL, LIGHT_AUTH } from "../../constants/api";
 import { schema } from "../../utils/contactFormSchema";
 import { Form } from "react-bootstrap";
 import Alertbox, { AlertboxSuccess } from "../common/alert/Alertbox";
-import { StyledFeedbackContainer, StyledForm } from "./styles/StyledForm.styled";
+import { StyledForm } from "./styles/StyledForm.styled";
 import Icon, { icons } from "../../constants/icons";
 import { StyledFormButton } from "../../styles/buttons/StyledFormButton.styled";
 import { useWindowSize } from "../../hooks/useWindowSize";
@@ -17,6 +17,7 @@ import { StyledFlexIconText } from "../../styles/containers/StyledFlexIconText.s
 import Link from "next/link";
 import Heading from "../../components/typography/Heading";
 import styled from "styled-components";
+import { ValidationError } from "./ValidationError";
 
 const StyledHeading = styled(Heading)`
   font-size: 20px;
@@ -82,7 +83,6 @@ function ContactForm() {
           {serverError && <Alertbox>Something went wrong.</Alertbox>}
 
           <fieldset disabled={submitted}>
-            {/* Name  */}
             <Form.Group className="mt-3">
               <StyledFlexIconText>
                 <StyledIconFormContainer>
@@ -90,15 +90,9 @@ function ContactForm() {
                 </StyledIconFormContainer>
                 <Form.Control type="text" placeholder="Name" className="mt-2" {...register("name")} />
               </StyledFlexIconText>
-              {errors.name && (
-                <StyledFeedbackContainer>
-                  <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
-                  <Alertbox className="mt-2">{errors.name.message}</Alertbox>
-                </StyledFeedbackContainer>
-              )}
+              {errors.name && <ValidationError errorName={errors.name.message} />}
             </Form.Group>
 
-            {/* Email  */}
             <Form.Group className="mt-3">
               <StyledFlexIconText>
                 <StyledIconFormContainer>
@@ -106,12 +100,7 @@ function ContactForm() {
                 </StyledIconFormContainer>
                 <Form.Control type="email" placeholder="Email" className="mt-2" {...register("email")} />
               </StyledFlexIconText>
-              {errors.email && (
-                <StyledFeedbackContainer>
-                  <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
-                  <Alertbox className="mt-2">{errors.email.message}</Alertbox>
-                </StyledFeedbackContainer>
-              )}
+              {errors.email && <ValidationError errorName={errors.email.message} />}
             </Form.Group>
 
             <Form.Group className="mt-3">
@@ -121,12 +110,7 @@ function ContactForm() {
                 </StyledIconFormContainer>
                 <Form.Control type="text" placeholder="Subject" className="mt-2" {...register("subject")} />
               </StyledFlexIconText>
-              {errors.subject && (
-                <StyledFeedbackContainer>
-                  <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
-                  <Alertbox className="mt-2">{errors.subject.message}</Alertbox>
-                </StyledFeedbackContainer>
-              )}
+              {errors.subject && <ValidationError errorName={errors.subject.message} />}
             </Form.Group>
 
             <Form.Group className="mt-3">
@@ -144,17 +128,7 @@ function ContactForm() {
                 />
                 <span className="counter">{count}/20</span>
               </div>
-
-              {errors.message && (
-                <StyledFeedbackContainer>
-                  <Icon
-                    icon={icons.map((icon) => icon.error)}
-                    color="#D11117"
-                    className="warning-icon text-area-icon"
-                  />
-                  <Alertbox className="mt-2">{errors.message.message}</Alertbox>
-                </StyledFeedbackContainer>
-              )}
+              {errors.message && <ValidationError errorName={errors.message.message} />}
             </Form.Group>
 
             {size.width <= SCREEN.tablet ? (

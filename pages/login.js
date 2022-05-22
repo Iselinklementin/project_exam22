@@ -16,7 +16,6 @@ function login() {
         keywords="travel, europe, bergen, adventure, exotic, culture, explore"
       />
       <Layout>
-        {/* Head */}
         <StyledContainerSmall className="p-4">
           <Heading className="mt-5" size="1">
             Login

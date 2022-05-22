@@ -56,19 +56,9 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
-
-
-  .iconColourDark {
-    color: ${(props) => props.theme.body};
-  }
-
-  .iconColourLight {
-    color: ${(props) => props.theme.light};
-  }
-
-  .iconColourPrimary {
-    color: ${(props) => props.theme.primaryColour};
-  }
+.body_menu_open {
+  overflow: hidden;
+}
 
 `;
 

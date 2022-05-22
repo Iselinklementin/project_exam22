@@ -7,7 +7,7 @@ import { Container, Navbar } from "react-bootstrap";
 import { StyledCoordinatesContainer, StyledNav, StyledWideContainer } from "../../styles/layout.styled";
 import { DropdownMenuAdmin } from "./DropdownMenuAdmin";
 import Coordinates from "../../../../assets/coordinates.svg";
-import { StyledContactBtn } from "../../../../styles/buttons/StyledContactButton.styled";
+import { StyledStayBtn } from "../../../../styles/buttons/StyledStayBtn.styled";
 import { useRouter } from "next/router";
 
 export const NavHeaderTablet = () => {
@@ -35,11 +35,11 @@ export const NavHeaderTablet = () => {
         </Navbar.Brand>
 
         <StyledWideContainer>
-          <Link href="/stays">
-            <a className={router.pathname == "/stays" ? "me-4 nav-link-active" : "me-4"}>Stays</a>
+          <Link href="/stays" passHref>
+            <StyledStayBtn className="me-4">Stays</StyledStayBtn>
           </Link>
           <Link href="/contact" passHref>
-            <StyledContactBtn className="me-4">Contact</StyledContactBtn>
+            <a className={router.pathname == "/contact" ? "me-4 nav-link-active" : "me-4"}>Contact</a>
           </Link>
 
           {authorized ? (

@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { StyledBasicButton } from "../buttons/StyledBasicButton.styled";
+import { StyledBasicButton } from "./StyledBasicButton.styled";
 
-export const StyledContactBtn = styled(StyledBasicButton)`
+export const StyledStayBtn = styled(StyledBasicButton)`
   background: ${(props) => props.theme.secondaryColour};
   padding: 6px 10px;
   letter-spacing: 0.8px;

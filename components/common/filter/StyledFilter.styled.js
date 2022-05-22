@@ -17,6 +17,7 @@ export const StyledFilter = styled.div`
     @media ${mediaQ.tablet} {
       border-left: solid thin grey;
       padding-left: 3rem;
+      padding-right: 3rem;
     }
   }
 

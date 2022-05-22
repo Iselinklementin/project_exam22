@@ -7,7 +7,7 @@ export const StyledCloseBtn = styled.button`
 `;
 
 export const StyledCalendar = styled.div`
-  .egen-class-her {
+  .calendar_enquire {
     display: inline-block;
     margin-bottom: 1rem;
   }
@@ -48,7 +48,7 @@ export const StyledCalendar = styled.div`
   }
 
   .react-datepicker__month-container,
-  .egen-class-her {
+  .calendar_enquire {
     width: 100%;
 
     @media ${mediaQ.tablet} {
