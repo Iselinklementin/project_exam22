@@ -137,16 +137,6 @@ function stays({ stays }) {
           checkName ? keywords.push(item) : "";
           checkStay ? stay.push(item) : "";
           checkRating ? ratings.push(item) : "";
-
-          // filteredBtnOn.push(item);
-          // // denne skal finne duplikater og vise kun èn
-          // const itemExists = filteredBtnOn.find((arr) => arr.id === item.id);
-          // let newFilter = filteredBtnOn.sort();
-
-          // if (itemExists) {
-          //   newFilter = [...new Set(filteredBtnOn)];
-          // }
-          // return setFiltered(() => [...newFilter]);
         });
 
         let keywordsLength = keywords.length;
@@ -158,9 +148,58 @@ function stays({ stays }) {
           newFilterItems = stay;
         } else if (ratingsLength) {
           newFilterItems = ratings;
-        } else if (keywordsLength) {
-          newFilterItems = keywords;
         }
+
+        if (keywordsLength) {
+          let array = keywords;
+          let checkArray;
+          let checkID;
+          newFilterItems = keywords;
+
+          console.log(newChips);
+          keywords.filter((key) => {
+            let includes = Object.entries(key.acf.stay_includes);
+            if (includes.includes(newChips.filter((keyword) => keyword) && !includes[1])) {
+              array.push(key);
+            }
+            console.log("array");
+            console.log(array);
+            // if (newChips.filter((keyword) => keyword === includes[0] && includes[1] && )) {
+            //   console.log("match");
+            // }
+            // if (checkID) {
+            // let checkChips = newChips.filter((filteredChip) => {
+            //   if (
+            //     filteredChip === Object.entries(key.acf.stay_includes).filter((name) => name[0]) &&
+            //     Object.entries(key.acf.stay_includes).filter((name) => name[1])
+            //   ) {
+            //     console.log("This match");
+            //   }
+            // });
+
+            // checkArray = Object.entries(keywords.acf.stay_includes).find((name) => (name[0] === btnName ? name[1] : ""));
+
+            // }
+            // if (checkIncludes) {
+            //   array.push(key);
+            // }
+            // console.log(checkIncludes);
+            // if (findWithKeywords(key)) {
+            //   array.push(key);
+            //   checkID = true;
+            // } else {
+            //   checkID = false;
+            // }
+          });
+
+          // if (!checkID) {
+          //   array = [];
+          // }
+          // newFilterItems = array;
+        }
+
+        // OBS! keywords mot keywords funker ikke
+        // rating fungerer alltid på tilbakeknappen, men ikke keywords og stays
 
         // sjekker rating og type stay opp mot hverandre, og funker
         if (stayLength && ratingsLength) {
@@ -174,7 +213,7 @@ function stays({ stays }) {
                   array.push(stays);
                   checkID = true;
                 } else {
-                  newFilterItems = [];
+                  // array = [];
                   checkID = false;
                 }
               }
@@ -277,12 +316,6 @@ function stays({ stays }) {
           }
         }
 
-        // console.log("dette er newFilterItems");
-        // console.log(newFilterItems);
-        // return setFiltered(() => [...newFilterItems]);
-        // console.log("newFilterItems");
-        // console.log(newFilterItems);
-
         if (!newFilterItems.length) {
           console.log("array is empty, start removing words");
           return setFiltered([]);
@@ -294,9 +327,6 @@ function stays({ stays }) {
   };
 
   const CreateHtml = () => {
-    // console.log("dette er filtered:");
-    // console.log(filtered);
-
     if (filtered.length) {
       return (
         <Row xs={1} sm={2} lg={4} className="g-4">

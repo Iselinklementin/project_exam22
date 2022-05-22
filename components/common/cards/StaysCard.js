@@ -17,7 +17,61 @@ function StaysCard({ stays }) {
   return (
     <>
       {stays.map((stay) => {
-        return <Col>{stay.acf.title}</Col>;
+        let stars = JSON.stringify(stay.acf.stars);
+        let numbersOfStars = parseInt(stars.charAt(2));
+        let includes = Object.entries(stay.acf.stay_includes);
+        return (
+          <Col key={stay.id}>
+            <Link href={`stays/${stay.id}`}>
+              <StyledCard>
+                <Badge bg="light" text="dark" className="pe-3">
+                  <Icon icon={icons.map((icon) => icon.location)} color="#FC5156" className="me-1" />
+                  {stay.acf.address.short_description}
+                </Badge>
+                <Image
+                  variant="top"
+                  quality={60}
+                  src={stay.acf.image.image_1.url}
+                  alt={stay.acf.image.image_1.alt}
+                  objectFit="cover"
+                  width={300}
+                  height={400}
+                  className="card-img"
+                  // blurDataURL={Placeholder}
+                />
+
+                <Card.Body>
+                  <Card.Title>{stay.acf.title}</Card.Title>
+                  {stay.acf.room.stay_type}
+                  <div className="rating-container mb-2">
+                    {[...Array(numbersOfStars)].map((e, i) => (
+                      <Icon
+                        icon={icons.map((icon) => icon.star)}
+                        key={i}
+                        color="white"
+                        className="me-1"
+                        fontSize="10px"
+                      />
+                    ))}
+                  </div>
+                  <Card.Text>
+                    {/* Prices from: <span className="fw-bold">{stay.acf.price},-</span> */}
+                    {includes.map((include) => {
+                      let thisIncludes = include[0].replace("_", " ");
+                      return include[1] ? (
+                        <span className="me-2 keywords" key={thisIncludes}>
+                          {CapitalizeFirstLetter(thisIncludes)}
+                        </span>
+                      ) : (
+                        ""
+                      );
+                    })}
+                  </Card.Text>
+                </Card.Body>
+              </StyledCard>
+            </Link>
+          </Col>
+        );
       })}
     </>
   );
@@ -47,56 +101,7 @@ export default StaysCard;
 //       let includes = Object.entries(stay.acf.stay_includes);
 
 //       return (
-//         <Col key={stay.id}>
-//           <Link href={`stays/${stay.id}`}>
-//             <StyledCard>
-//               <Badge bg="light" text="dark" className="pe-3">
-//                 <Icon icon={icons.map((icon) => icon.location)} color="#FC5156" className="me-1" />
-//                 {stay.acf.address.short_description}
-//               </Badge>
-//               <Image
-//                 variant="top"
-//                 quality={60}
-//                 src={stay.acf.image.image_1.url}
-//                 alt={stay.acf.image.image_1.alt}
-//                 objectFit="cover"
-//                 width={300}
-//                 height={400}
-//                 className="card-img"
-//                 // blurDataURL={Placeholder}
-//               />
 
-//               <Card.Body>
-//                 <Card.Title>{stay.acf.title}</Card.Title>
-//                 {stay.acf.room.stay_type}
-//                 <div className="rating-container mb-2">
-//                   {[...Array(numbersOfStars)].map((e, i) => (
-//                     <Icon
-//                       icon={icons.map((icon) => icon.star)}
-//                       key={i}
-//                       color="white"
-//                       className="me-1"
-//                       fontSize="10px"
-//                     />
-//                   ))}
-//                 </div>
-//                 <Card.Text>
-//                   {/* Prices from: <span className="fw-bold">{stay.acf.price},-</span> */}
-//                   {includes.map((include) => {
-//                     let thisIncludes = include[0].replace("_", " ");
-//                     return include[1] ? (
-//                       <span className="me-2 keywords" key={thisIncludes}>
-//                         {CapitalizeFirstLetter(thisIncludes)}
-//                       </span>
-//                     ) : (
-//                       ""
-//                     );
-//                   })}
-//                 </Card.Text>
-//               </Card.Body>
-//             </StyledCard>
-//           </Link>
-//         </Col>
 //       );
 //     })}
 //     {/* </Row> */}
