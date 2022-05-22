@@ -18,7 +18,7 @@ import { Chips } from "../components/common/filter/Chips";
 import { Rating } from "../components/common/filter/Rating";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { SCREEN } from "../constants/misc";
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import { StyledContainer } from "../styles/containers/StyledContainer.styled";
 import { StyledLine } from "../styles/pages/stays/StyledLine.styled";
 import styled from "styled-components";
@@ -118,25 +118,22 @@ function stays({ stays }) {
           return setFiltered([]);
         } else {
           setFilterChips(() => [...newFilter]);
-          filterItems(newFilter);
+          filterItems(newFilter, btnName);
         }
       } else {
         filterChips.push(btnName);
         e.classList.add("active-filter");
-        filterItems(filterChips);
+        filterItems(filterChips, btnName);
       }
 
-      function filterItems(array) {
+      function filterItems(array, btnName) {
         let newChips = [...new Set(array)];
-
         newChips.map((chip) => {
           // finner riktig navn på include og returnerer den
           let checkName = Object.entries(item.acf.stay_includes).find((name) => (name[0] === chip ? name[1] : ""));
           let checkStay = item.acf.room.stay_type.toLowerCase() === chip.toLowerCase();
           let checkRating = item.acf.stars[0] === chip;
 
-          // hvis den er sann, dytt den inn i filtered
-          // if (checkStay || checkName || checkRating) {
           checkName ? keywords.push(item) : "";
           checkStay ? stay.push(item) : "";
           checkRating ? ratings.push(item) : "";
@@ -151,103 +148,172 @@ function stays({ stays }) {
           // }
           // return setFiltered(() => [...newFilter]);
         });
-      }
 
-      let keywordsLength = keywords.length;
-      let ratingsLength = ratings.length;
-      let stayLength = stay.length;
+        let keywordsLength = keywords.length;
+        let ratingsLength = ratings.length;
+        let stayLength = stay.length;
+        let newFilterItems = [];
 
-      let newFilterItems = [];
+        if (stayLength) {
+          newFilterItems = stay;
+        } else if (ratingsLength) {
+          newFilterItems = ratings;
+        } else if (keywordsLength) {
+          newFilterItems = keywords;
+        }
 
-      if (stayLength) {
-        newFilterItems = stay;
-      } else if (ratingsLength) {
-        newFilterItems = ratings;
-      } else if (keywordsLength) {
-        newFilterItems = keywords;
-      }
+        // sjekker rating og type stay opp mot hverandre, og funker
+        if (stayLength && ratingsLength) {
+          let checkID;
+          let array = [];
 
-      if (keywordsLength && ratingsLength) {
-        keywords.filter((stays) => {
-          newFilterItems = ratings.find((item) => item.id !== stays.id);
-        });
-      }
-
-      if (keywordsLength && stayLength) {
-        stay.filter((stays) => {
-          newFilterItems = keywords.find((item) => item.id === stays.id);
-        });
-      }
-
-      if (stayLength && ratingsLength) {
-        stay.filter((stays) => {
-          newFilterItems = ratings.find((item) => item.id === stays.id);
-        });
-      }
-
-      if (keywordsLength && stayLength && ratingsLength) {
-        stay.filter((stays) => {
-          ratings.filter((rate) => {
-            newFilterItems = keywords.filter(
-              (item) => item.id === stays.id && item.id === rate.id && rate.id === stays.id
-            );
+          stay.filter((stays) => {
+            ratings.find((rate) => {
+              if (rate.id === stays.id) {
+                if (findWithKeywords(stays)) {
+                  array.push(stays);
+                  checkID = true;
+                } else {
+                  newFilterItems = [];
+                  checkID = false;
+                }
+              }
+            });
           });
-        });
+
+          if (!checkID) {
+            array = [];
+          }
+          newFilterItems = array;
+        }
+
+        // sjekker keywords og type stay opp mot hverandre, og funker
+
+        if (keywordsLength && stayLength) {
+          let checkID;
+          let array = [];
+
+          stay.filter((stays) => {
+            keywords.find((key) => {
+              if (stays.id === key.id) {
+                if (findWithKeywords(key)) {
+                  array.push(key);
+                  checkID = true;
+                } else {
+                  checkID = false;
+                }
+              }
+            });
+          });
+          if (!checkID) {
+            array = [];
+          }
+          newFilterItems = array;
+        }
+
+        // sjekker keywords og rating opp mot hverandre, og funker
+        if (keywordsLength && ratingsLength) {
+          let checkID;
+          let array = [];
+
+          ratings.filter((rate) => {
+            keywords.find((key) => {
+              if (key.id === rate.id) {
+                if (findWithKeywords(key)) {
+                  array.push(key);
+                  checkID = true;
+                } else {
+                  checkID = false;
+                }
+              }
+            });
+          });
+
+          if (!checkID) {
+            array = [];
+          }
+          newFilterItems = array;
+        }
+
+        if (keywordsLength && ratingsLength && stayLength) {
+          let checkID;
+          let array = [];
+
+          ratings.filter((rate) => {
+            stay.filter((stay) => {
+              keywords.find((key) => {
+                // nå sjekker den bare key, burde sjekke btnName!
+
+                if (findWithKeywords(key)) {
+                  if (key.id === rate.id && key.id === stay.id && stay.id === rate.id) {
+                    array.push(key);
+                    checkID = true;
+                  } else {
+                    checkID = false;
+                  }
+                }
+              });
+            });
+          });
+          if (!checkID) {
+            array = [];
+          }
+          newFilterItems = array;
+        }
+
+        // denne sjekker flere keywords mot stay og fungerer sånn passe, ikke hvis jeg fjerner tror jeg
+        function findWithKeywords(key) {
+          if (btnName) {
+            let checkIncludes = Object.entries(key.acf.stay_includes).find((name) =>
+              name[0] === btnName ? name[1] : ""
+            );
+            let checkStays = key.acf.room.stay_type.toLowerCase() === btnName.toLowerCase();
+            let checkRatings = key.acf.stars[0] === btnName;
+            if (checkIncludes || checkStays || checkRatings) {
+              return true;
+            } else {
+              return false;
+            }
+          }
+        }
+
+        // console.log("dette er newFilterItems");
+        // console.log(newFilterItems);
+        // return setFiltered(() => [...newFilterItems]);
+        // console.log("newFilterItems");
+        // console.log(newFilterItems);
+
+        if (!newFilterItems.length) {
+          console.log("array is empty, start removing words");
+          return setFiltered([]);
+        } else {
+          return setFiltered(newFilterItems);
+        }
       }
-      console.log("dette er newFilterItems");
-      console.log(newFilterItems);
-
-      // return setFiltered(() => [...newFilterItems]);
-
-      // return setFiltered(() => [...newFilterItems]);
-      // if (newFilterItems.length) {
-
-      // if (newFilterItems) {
-
-      // } else {
-      //   console.log("dette er newFilterItems:");
-      //   console.log(newFilterItems);
-      //   // return setFiltered(() => [...newFilterItems]);
-      // }
-
-      // }
-      // if (!newFilterItems.length) {
-      //   setEmptyResult("Sorry, no results found");
-      // }
-
-      // } else if (stayLength && ratingsLength) {
-      //   stay.map((stays) => {
-      //     newFilterItems = ratings.filter((item) => item.id === stays.id);
-      //     console.log(stays);
-      //   });
-
-      // } else if (stayLength && keywordsLength) {
-      //   stay.map((stays) => {
-      //     newFilterItems = keywords.filter((item) => item.id === stays.id);
-      //   });
-      // } else if (keywordsLength && stayLength && ratingsLength) {
-      //   stay.map((stays) => {
-      //     ratings.map((rate) => {
-      //       newFilterItems = keywords.filter((item) => item.id === stays.id && item.id === rate.id);
-      //     });
-      //   });
-
-      // console.log(newFilterItems);
-
-      // ratings skal vises
-      // stays skal vises hvis rating er ok
-      // keywords skal filtere bort de som ikke har keyword
     });
   };
 
   const CreateHtml = () => {
-    console.log("dette er filtered:");
-    console.log(filtered);
+    // console.log("dette er filtered:");
+    // console.log(filtered);
 
     if (filtered.length) {
-      return <StaysCard stays={filtered} />;
+      return (
+        <Row xs={1} sm={2} lg={4} className="g-4">
+          <StaysCard stays={filtered} />
+        </Row>
+      );
     } else {
-      return <StaysCard stays={stays} />;
+      return (
+        <>
+          <div>Empty result</div>
+        </>
+      );
+      // return (
+      //   <Row xs={1} sm={2} lg={4} className="g-4">
+      //     <StaysCard stays={stays} />
+      //   </Row>
+      // );
     }
 
     // console.log(filtered);
