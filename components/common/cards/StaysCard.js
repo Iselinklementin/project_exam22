@@ -2,20 +2,14 @@ import { Card, Row, Col, Badge } from "react-bootstrap";
 import { StyledCard } from "./StyledCards.styled";
 import Icon, { icons } from "../../../constants/icons";
 import Image from "next/image";
-import Placeholder from "../../../assets/placeholder.jpg";
 import React from "react";
 import Link from "next/link";
 import CapitalizeFirstLetter from "../functions/CapitalizeFirstLetter";
+import { PLACEHOLDER_IMG } from "../../../constants/misc";
 
 function StaysCard({ stays }) {
-  console.log("stays.length");
-  console.log(stays.length);
-
-  console.log("stays");
-  console.log(stays);
-
   return (
-    <Row xs={1} sm={2} lg={4} className="g-4">
+    <Row xs={1} sm={2} lg={3} className="g-4">
       {stays.map((stay) => {
         let stars = JSON.stringify(stay.acf.stars);
         let numbersOfStars = parseInt(stars.charAt(2));
@@ -35,9 +29,10 @@ function StaysCard({ stays }) {
                   alt={stay.acf.image.image_1.alt}
                   objectFit="cover"
                   width={300}
-                  height={400}
+                  height={360}
                   className="card-img"
-                  // blurDataURL={Placeholder}
+                  blurDataURL={PLACEHOLDER_IMG}
+                  placeholder="blur"
                 />
 
                 <Card.Body>
@@ -55,7 +50,8 @@ function StaysCard({ stays }) {
                     ))}
                   </div>
                   <Card.Text>
-                    {/* Prices from: <span className="fw-bold">{stay.acf.price},-</span> */}
+                    Prices from: <span className="fw-bold">{stay.acf.price},-</span>
+                    <br />
                     {includes.map((include) => {
                       let thisIncludes = include[0].replace("_", " ");
                       return include[1] ? (

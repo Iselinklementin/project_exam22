@@ -2,7 +2,7 @@ import { Carousel } from "react-bootstrap";
 import { mediaQ } from "../../styles/global/ThemeConfig";
 import styled from "styled-components";
 import Image from "next/image";
-import Placeholder from "../../assets/placeholder.jpg";
+import { PLACEHOLDER_IMG } from "../../constants/misc";
 
 const StyledCarousel = styled(Carousel)`
   .carousel-item,
@@ -63,9 +63,10 @@ export default function Carousels(props) {
         return (
           <Carousel.Item key={url}>
             <Image
-              // blurDataURL={Placeholder}
+              blurDataURL={PLACEHOLDER_IMG}
               src={url}
               alt={alt}
+              placeholder="blur"
               layout="fill"
               objectFit="cover"
               loading="eager"

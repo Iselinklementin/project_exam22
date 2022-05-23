@@ -73,3 +73,6 @@ export const BOOKED = [
     end: new Date("07/22/2022"),
   },
 ];
+
+export const PLACEHOLDER_IMG =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0kAioBwACMQEZPkTEcgAAAABJRU5ErkJggg==";
