@@ -26,6 +26,7 @@ import Link from "next/link";
 import { StyledCalendar } from "../../styles/StyledCalendar.styled";
 import DatePicker from "react-datepicker";
 import { RemoveFirstWord } from "../common/functions/RemoveWords";
+import { StyledTimePicker } from "./styles/StyledTimePicker.styled";
 
 const StyledMutedText = styled(FormText)`
   margin-left: 45px;
@@ -96,6 +97,7 @@ function AddForm() {
     register,
     handleSubmit,
     control,
+    clearErrors,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -172,8 +174,8 @@ function AddForm() {
           short_description: data.short_description,
         },
         nice_to_know: {
-          check_in: data.check_in,
-          checkout: data.checkout,
+          check_in: stayCheckin,
+          checkout: stayCheckout,
           handicap_friendly: data.handicap_friendly,
           no_smoking: data.no_smoking,
         },
@@ -483,62 +485,71 @@ function AddForm() {
                 <Form.Check name="handicap_friendly" label="Handicap friendly" {...register("handicap_friendly")} />
               </StyledCheckbox>
 
-              <div className="d-flex align-items-center align-items-md-baseline flex-md-column mb-5 mt-4">
-                <div className="d-flex align-items-center">
-                  <StyledIconFormContainer className="mt-5 position-relative">
-                    <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="checkin-out-icon" />
-                  </StyledIconFormContainer>
+              <div className="d-flex align-items-center">
+                {/* legg inn og style timepicker */}
 
-                  {/* legg inn og style timepicker */}
-
-                  <Form.Group className="mt-3 me-5">
-                    <Paragraph>Check-in after:</Paragraph>
-                    {/* <DatePicker
-                      selected={checkinTime}
-                      onChange={(date) => setCheckinTime(date)}
-                      showTimeSelect
-                      showTimeSelectOnly
-                      timeIntervals={15}
-                      timeCaption="Time"
-                      dateFormat="h:mm aa"
+                <Form.Group className="mt-3 me-5">
+                  <Paragraph>Check-in after:</Paragraph>
+                  <StyledTimePicker>
+                    <DatePicker
                       {...register("check_in")}
-                    /> */}
-                    <Form.Control label="check_in" type="text" placeholder="11:00" {...register("check_in")} />
-                    {errors.check_in ? (
-                      <>{errors.check_in && <ValidationError errorName={errors.check_in.message} />}</>
-                    ) : (
-                      <StyledMutedTextCheckboxes className="text-muted">Time for checking in</StyledMutedTextCheckboxes>
-                    )}
-                  </Form.Group>
-                </div>
-                <div className="d-flex align-items-center">
-                  <StyledIconFormContainer className="mt-5 position-relative">
-                    <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="checkin-out-icon" />
-                  </StyledIconFormContainer>
-
-                  <Form.Group className="mt-3 mt-md-4">
-                    <Paragraph>Checkout:</Paragraph>
-                    {/* <DatePicker
-                      selected={checkoutTime}
-                      onChange={(date) => setCheckoutTime(date)}
+                      selected={checkinTime}
                       showTimeSelect
                       showTimeSelectOnly
+                      timeFormat="HH:mm"
                       timeIntervals={30}
                       timeCaption="Time"
-                      dateFormat="h:mm aa"
-                      {...register("checkout")}
-                    /> */}
-                    <Form.Control label="checkout" type="text" placeholder="11:00" {...register("checkout")} />
-                    {errors.checkout ? (
-                      <>{errors.checkout && <ValidationError errorName={errors.checkout.message} />}</>
-                    ) : (
-                      <StyledMutedTextCheckboxes className="text-muted">
-                        Time for checking out
-                      </StyledMutedTextCheckboxes>
-                    )}
-                  </Form.Group>
-                </div>
+                      dateFormat="HH:mm"
+                      classNamePrefix="react-time"
+                      onChange={(date) => {
+                        setCheckinTime(date);
+                        if (errors.check_in) {
+                          clearErrors("check_in");
+                        }
+                      }}
+                    />
+                  </StyledTimePicker>
+                  {/* <Form.Control label="check_in" type="text" placeholder="11:00" {...register("check_in")} /> */}
+                  {errors.check_in ? (
+                    <>{errors.check_in && <ValidationError errorName={errors.check_in.message} />}</>
+                  ) : (
+                    <StyledMutedTextCheckboxes className="text-muted">Time for checking in</StyledMutedTextCheckboxes>
+                  )}
+                </Form.Group>
               </div>
+              <div className="d-flex align-items-center">
+                <Form.Group className="mt-3 mt-md-4">
+                  <Paragraph>Checkout:</Paragraph>
+                  <StyledTimePicker>
+                    <DatePicker
+                      {...register("checkout")}
+                      showTimeSelect
+                      showTimeSelectOnly
+                      timeFormat="HH:mm"
+                      timeIntervals={30}
+                      timeCaption="Time"
+                      classNamePrefix="react-time"
+                      selected={checkoutTime}
+                      placeholderText="Select time"
+                      dateFormat="HH:mm"
+                      onChange={(date) => {
+                        setCheckoutTime(date);
+                        if (errors.checkout) {
+                          clearErrors("checkout");
+                        }
+                      }}
+                    />
+                  </StyledTimePicker>
+
+                  {/* <Form.Control label="checkout" type="text" placeholder="11:00" {...register("checkout")} /> */}
+                  {errors.checkout ? (
+                    <>{errors.checkout && <ValidationError errorName={errors.checkout.message} />}</>
+                  ) : (
+                    <StyledMutedTextCheckboxes className="text-muted">Time for checking out</StyledMutedTextCheckboxes>
+                  )}
+                </Form.Group>
+              </div>
+              {/* </div> */}
             </StyledFormWrap>
           </StyledFormWrapDesktop>
 

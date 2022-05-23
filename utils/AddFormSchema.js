@@ -22,7 +22,7 @@ export const schema = yup.object().shape({
   no_smoking: yup.boolean(),
   handicap_friendly: yup.boolean(),
   check_in: yup.string().required("Enter a check-in time"),
-  checkout: yup.string().required("Enter a checkout time"),
+  checkout: yup.string().nullable().required("Enter a checkout time"),
   room_info: yup
     .string()
     .ensure()
