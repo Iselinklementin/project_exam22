@@ -1,7 +1,5 @@
 import * as yup from "yup";
 
-// fjern room info og hotel rom hvis jeg ikke validerer
-
 export const schema = yup.object().shape({
   title: yup.string().required("Please enter the title"),
   description: yup
@@ -44,8 +42,42 @@ export const schema = yup.object().shape({
       is: "Hotel",
       then: yup.string().required("Please fill in room"),
     }),
-
-  // https://dev.to/gabrielterriaga/how-to-validate-two-fields-that-depend-on-each-other-with-yup-1ccg
+  image_one: yup
+    .mixed()
+    .test("required", "Please upload image", (value) => value.length > 0)
+    .test("fileSize", "The file size is too large", (value) => {
+      return value.length && value[0].size <= 5242880;
+    })
+    .test("fileType", "Unsupported File Format", (value) => {
+      return value.length && ["image/jpeg", "image/png", "image/jpg"].includes(value[0].type);
+    }),
+  image_two: yup
+    .mixed()
+    .test("required", "Please upload image", (value) => value.length > 0)
+    .test("fileSize", "The file size is too large", (value) => {
+      return value.length && value[0].size <= 5242880;
+    })
+    .test("fileType", "Unsupported File Format", (value) => {
+      return value.length && ["image/jpeg", "image/png", "image/jpg"].includes(value[0].type);
+    }),
+  image_three: yup
+    .mixed()
+    .test("required", "Please upload image", (value) => value.length > 0)
+    .test("fileSize", "The file size is too large", (value) => {
+      return value.length && value[0].size <= 5242880;
+    })
+    .test("fileType", "Unsupported File Format", (value) => {
+      return value.length && ["image/jpeg", "image/png", "image/jpg"].includes(value[0].type);
+    }),
+  image_four: yup
+    .mixed()
+    .test("required", "Please upload image", (value) => value.length > 0)
+    .test("fileSize", "The file size is too large", (value) => {
+      return value.length && value[0].size <= 5242880;
+    })
+    .test("fileType", "Unsupported File Format", (value) => {
+      return value.length && ["image/jpeg", "image/png", "image/jpg"].includes(value[0].type);
+    }),
 });
 
-// "Bed & Breakfast"
+// https://dev.to/gabrielterriaga/how-to-validate-two-fields-that-depend-on-each-other-with-yup-1ccg

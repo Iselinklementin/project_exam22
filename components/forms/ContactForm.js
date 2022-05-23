@@ -26,7 +26,7 @@ const StyledHeading = styled(Heading)`
 function ContactForm() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [serverError, setServerError] = useState(false);
+  const [error, setError] = useState(null);
   const [count, setCount] = useState(0);
   const size = useWindowSize();
 
@@ -57,18 +57,28 @@ function ContactForm() {
       await axios.post(CONTACT_URL, data, {
         auth: LIGHT_AUTH,
       });
+      setSubmitted(true);
     } catch (error) {
-      setServerError(error.toString());
+      setError(error.toString());
+      console.log(error);
     } finally {
       setSubmitting(false);
-      setSubmitted(true);
+      setTimeout(() => {
+        document.getElementById("contact_form").reset();
+      }, 2000);
     }
   }
 
   return (
     <>
-      {submitted ? (
-        <>
+      {error && (
+        <Alertbox className="mt-5" type="danger">
+          Sorry, something went wrong. Please try again later.
+        </Alertbox>
+      )}
+
+      <StyledForm id="contact_form" onSubmit={handleSubmit(onSubmit)} noValidate>
+        {submitted && (
           <AlertboxSuccess className="mt-4 p-5">
             <StyledHeading size="3">Success! </StyledHeading>
             Your message was sent!
@@ -77,85 +87,70 @@ function ContactForm() {
               <a>Home</a>
             </Link>
           </AlertboxSuccess>
-        </>
-      ) : (
-        <StyledForm onSubmit={handleSubmit(onSubmit)} noValidate>
-          {serverError && <Alertbox>Something went wrong.</Alertbox>}
+        )}
 
-          <fieldset disabled={submitted}>
-            <Form.Group className="mt-3">
-              <StyledFlexIconText>
-                <StyledIconFormContainer>
-                  <Icon icon={icons.map((icon) => icon.user)} className="me-4" />
-                </StyledIconFormContainer>
-                <Form.Control type="text" placeholder="Name" className="mt-2" {...register("name")} />
-              </StyledFlexIconText>
-              {errors.name && <ValidationError errorName={errors.name.message} />}
-            </Form.Group>
+        <fieldset disabled={submitted}>
+          <Form.Group className="mt-3">
+            <StyledFlexIconText>
+              <StyledIconFormContainer>
+                <Icon icon={icons.map((icon) => icon.user)} className="me-4" />
+              </StyledIconFormContainer>
+              <Form.Control type="text" placeholder="Name" className="mt-2" {...register("name")} />
+            </StyledFlexIconText>
+            {errors.name && <ValidationError errorName={errors.name.message} />}
+          </Form.Group>
 
-            <Form.Group className="mt-3">
-              <StyledFlexIconText>
-                <StyledIconFormContainer>
-                  <Icon icon={icons.map((icon) => icon.email)} fontSize="20px" className="me-4" />
-                </StyledIconFormContainer>
-                <Form.Control type="email" placeholder="Email" className="mt-2" {...register("email")} />
-              </StyledFlexIconText>
-              {errors.email && <ValidationError errorName={errors.email.message} />}
-            </Form.Group>
+          <Form.Group className="mt-3">
+            <StyledFlexIconText>
+              <StyledIconFormContainer>
+                <Icon icon={icons.map((icon) => icon.email)} fontSize="20px" className="me-4" />
+              </StyledIconFormContainer>
+              <Form.Control type="email" placeholder="Email" className="mt-2" {...register("email")} />
+            </StyledFlexIconText>
+            {errors.email && <ValidationError errorName={errors.email.message} />}
+          </Form.Group>
 
-            <Form.Group className="mt-3">
-              <StyledFlexIconText>
-                <StyledIconFormContainer>
-                  <Icon icon={icons.map((icon) => icon.text)} className="me-4" fontSize="20px" />
-                </StyledIconFormContainer>
-                <Form.Control type="text" placeholder="Subject" className="mt-2" {...register("subject")} />
-              </StyledFlexIconText>
-              {errors.subject && <ValidationError errorName={errors.subject.message} />}
-            </Form.Group>
+          <Form.Group className="mt-3">
+            <StyledFlexIconText>
+              <StyledIconFormContainer>
+                <Icon icon={icons.map((icon) => icon.text)} className="me-4" fontSize="20px" />
+              </StyledIconFormContainer>
+              <Form.Control type="text" placeholder="Subject" className="mt-2" {...register("subject")} />
+            </StyledFlexIconText>
+            {errors.subject && <ValidationError errorName={errors.subject.message} />}
+          </Form.Group>
 
-            <Form.Group className="mt-3">
-              <div className="text-area-container">
-                <StyledIconFormContainer>
-                  <Icon icon={icons.map((icon) => icon.chat)} fontSize="20px" className="me-4 mt-2" />
-                </StyledIconFormContainer>
-                <Form.Control
-                  as="textarea"
-                  rows={6}
-                  onKeyUp={(e) => setCount(e.target.value.length)}
-                  placeholder="Message"
-                  className="mt-2"
-                  {...register("message")}
-                />
-                <span className="counter">{count}/20</span>
-              </div>
-              {errors.message && <ValidationError errorName={errors.message.message} />}
-            </Form.Group>
+          <Form.Group className="mt-3">
+            <div className="text-area-container">
+              <StyledIconFormContainer>
+                <Icon icon={icons.map((icon) => icon.chat)} fontSize="20px" className="me-4 mt-2" />
+              </StyledIconFormContainer>
+              <Form.Control
+                as="textarea"
+                rows={6}
+                onKeyUp={(e) => setCount(e.target.value.length)}
+                placeholder="Message"
+                className="mt-2"
+                {...register("message")}
+              />
+              <span className="counter">{count}/20</span>
+            </div>
+            {errors.message && <ValidationError errorName={errors.message.message} />}
+          </Form.Group>
 
-            {size.width <= SCREEN.tablet ? (
-              <StyledFormButton className="mb-4 mt-5" type="submit">
-                {submitting ? "sending.." : "Send"}
-              </StyledFormButton>
-            ) : (
-              <StyledFormButton className="mb-4 mt-5 ms-5" type="submit">
-                {submitting ? "sending.." : "Send"}
-              </StyledFormButton>
-            )}
-            {submitted && (
-              <Alertbox type="success" className="mt-4 mb-4">
-                Your message was sent
-              </Alertbox>
-            )}
-          </fieldset>
-        </StyledForm>
-      )}
+          {size.width <= SCREEN.tablet ? (
+            <StyledFormButton className="mb-4 mt-5" type="submit">
+              {submitting ? "sending.." : "Send"}
+            </StyledFormButton>
+          ) : (
+            <StyledFormButton className="mb-4 mt-5 ms-5" type="submit">
+              {submitting ? "sending.." : "Send"}
+            </StyledFormButton>
+          )}
+        </fieldset>
+      </StyledForm>
     </>
   );
 }
 
 export default ContactForm;
-
-// {submitted && (
-//   <Alertbox type="success" className="mt-4 mb-4">
-//     Your message was sent
-//   </Alertbox>
-// )}

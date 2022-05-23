@@ -43,6 +43,11 @@ export const StyledForm = styled(Form)`
     border-color: ${(props) => props.theme.primaryColour};
   }
 
+  #close-btn:disabled {
+    background: transparent;
+    border-color: none;
+  }
+
   .form-control:disabled {
     background: ${(props) => props.theme.light};
   }
@@ -110,6 +115,10 @@ export const StyledForm = styled(Form)`
       opacity: 0.8;
     }
 
+    .form-control:disabled {
+      background: ${(props) => props.theme.light};
+    }
+
     .counter {
       position: absolute;
       right: 10px;
@@ -119,7 +128,8 @@ export const StyledForm = styled(Form)`
     }
   }
 
-  /* .text-area-container.warning-icon {
-    border: red solid thin;
-  } */
+  .checkin-out-icon {
+    position: absolute;
+    top: -28px;
+  }
 `;

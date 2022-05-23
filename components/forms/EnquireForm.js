@@ -21,7 +21,7 @@ import { StyledCloseBtn, StyledCalendar } from "../../styles/StyledCalendar.styl
 import { StyledIconFormContainer } from "./styles/StyledIconFormContainer.styled";
 import { StyledFlexIconText } from "../../styles/containers/StyledFlexIconText.styled";
 import Link from "next/link";
-import { StyledSelect } from "../../styles/forms/StyledSelect.styled";
+import { StyledSelect } from "../forms/styles/StyledSelect.styled";
 import { ValidationError, ValidationErrorSelect } from "./ValidationError";
 
 const StyledHeading = styled(Heading)`
@@ -74,7 +74,7 @@ const StyledEnquireButton = styled(StyledFormButton)`
 export default function EnquireForm({ title, room, type }) {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [serverError, setServerError] = useState(false);
+  const [error, setError] = useState(null);
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
   const [count, setCount] = useState(0);
@@ -96,10 +96,11 @@ export default function EnquireForm({ title, room, type }) {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
-    mode: "onBlur",
   });
 
   async function onSubmit(data) {
+    setSubmitting(true);
+
     data = {
       status: "publish",
       title: data.title,
@@ -122,190 +123,205 @@ export default function EnquireForm({ title, room, type }) {
       await axios.post(ENQUIRES_URL, data, {
         auth: LIGHT_AUTH,
       });
-      console.log(data);
-      setSubmitting(true);
+      setSubmitted(true);
     } catch (error) {
-      setServerError(error.toString());
+      setError(error.toString());
+      console.log(error);
     } finally {
       setSubmitting(false);
-      setSubmitted(true);
+
+      setTimeout(() => {
+        document.getElementById("enquire_form").reset();
+      }, 2000);
     }
   }
 
   return (
     <>
-      {submitted ? (
-        <>
-          <AlertboxSuccess className="mt-5 p-5">
-            <StyledHeading size="3">Success! </StyledHeading>
-            Your message was sent!
-            <span className="d-block mb-4">We will get in touch shortly.</span>
-            <Link href="/">
-              <a>Home</a>
-            </Link>
-          </AlertboxSuccess>
-        </>
-      ) : (
-        <>
-          <StyledForm className="enquire-form" onSubmit={handleSubmit(onSubmit)} noValidate>
-            <StyledFlexContainerLaptop className="mt-5">
-              <StyledFormContainerLaptop>
-                <StyledParagraphColoured>Information</StyledParagraphColoured>
-                <Heading size="2">Who is traveling?</Heading>
-                <Form.Control type="hidden" placeholder="Title" value={title} className="mt-2" {...register("title")} />
-                <Form.Control
-                  type="hidden"
-                  placeholder="Type"
-                  value={type}
-                  className="mt-2"
-                  {...register("stay_type")}
-                />
-                <Form.Control type="hidden" placeholder="Room" value={room} className="mt-2" {...register("room")} />
+      <StyledForm id="enquire_form" className="enquire-form" onSubmit={handleSubmit(onSubmit)} noValidate>
+        <fieldset disabled={error}>
+          {submitted && (
+            <AlertboxSuccess className="mt-5 mb-0">
+              <StyledHeading size="3">Success! </StyledHeading>
+              Your message was sent!
+              <span className="d-block mb-4">We will get in touch shortly.</span>
+              <Link href="/">
+                <a>Home</a>
+              </Link>
+            </AlertboxSuccess>
+          )}
+          {error && (
+            <Alertbox className="mt-3" type="danger">
+              Sorry, something went wrong. Please try again later.
+            </Alertbox>
+          )}
+          <StyledFlexContainerLaptop className="mt-3">
+            <StyledFormContainerLaptop>
+              <StyledParagraphColoured>Information</StyledParagraphColoured>
+              <Heading size="2">Who is traveling?</Heading>
+              <Form.Control type="hidden" placeholder="Title" value={title} className="mt-2" {...register("title")} />
+              <Form.Control type="hidden" placeholder="Type" value={type} className="mt-2" {...register("stay_type")} />
+              <Form.Control type="hidden" placeholder="Room" value={room} className="mt-2" {...register("room")} />
 
-                <Form.Group className="mt-3">
-                  <StyledFlexIconText>
-                    <StyledIconFormContainer>
-                      <Icon icon={icons.map((icon) => icon.user)} />
-                    </StyledIconFormContainer>
+              <Form.Group className="mt-3">
+                <StyledFlexIconText>
+                  <StyledIconFormContainer>
+                    <Icon icon={icons.map((icon) => icon.user)} />
+                  </StyledIconFormContainer>
+                  <Form.Control type="text" placeholder="Name" className="mt-2" {...register("name")} />
+                </StyledFlexIconText>
+                {errors.name && (
+                  <StyledFeedbackContainer>
+                    <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
+                    <Alertbox className="mt-2">{errors.name.message}</Alertbox>
+                  </StyledFeedbackContainer>
+                )}
+              </Form.Group>
 
-                    <Form.Control type="text" placeholder="Name" className="mt-2" {...register("name")} />
-                  </StyledFlexIconText>
-                  {errors.name && (
-                    <StyledFeedbackContainer>
-                      <Icon icon={icons.map((icon) => icon.error)} color="#D11117" className="warning-icon" />
-                      <Alertbox className="mt-2">{errors.name.message}</Alertbox>
-                    </StyledFeedbackContainer>
-                  )}
-                </Form.Group>
+              <Form.Group className="mt-3">
+                <StyledFlexIconText>
+                  <StyledIconFormContainer>
+                    <Icon icon={icons.map((icon) => icon.phone)} />
+                  </StyledIconFormContainer>
+                  <Form.Control type="text" placeholder="Phone" className="mt-2" {...register("phone")} />
+                </StyledFlexIconText>
+                {errors.phone && <ValidationError errorName={errors.phone.message} />}
+              </Form.Group>
 
-                <Form.Group className="mt-3">
-                  <StyledFlexIconText>
-                    <StyledIconFormContainer>
-                      <Icon icon={icons.map((icon) => icon.phone)} />
-                    </StyledIconFormContainer>
-                    <Form.Control type="text" placeholder="Phone" className="mt-2" {...register("phone")} />
-                  </StyledFlexIconText>
-                  {errors.phone && <ValidationError errorName={errors.phone.message} />}
-                </Form.Group>
+              <Form.Group className="mt-3">
+                <StyledFlexIconText>
+                  <StyledIconFormContainer>
+                    <Icon icon={icons.map((icon) => icon.email)} fontSize="20px" />
+                  </StyledIconFormContainer>
+                  <Form.Control type="email" placeholder="Email" className="mt-2" {...register("email")} />
+                </StyledFlexIconText>
+                {errors.email && <ValidationError errorName={errors.email.message} />}
+              </Form.Group>
 
-                <Form.Group className="mt-3">
-                  <StyledFlexIconText>
-                    <StyledIconFormContainer>
-                      <Icon icon={icons.map((icon) => icon.email)} fontSize="20px" />
-                    </StyledIconFormContainer>
-                    <Form.Control type="email" placeholder="Email" className="mt-2" {...register("email")} />
-                  </StyledFlexIconText>
-                  {errors.email && <ValidationError errorName={errors.email.message} />}
-                </Form.Group>
-
-                <Form.Group className="mt-3">
-                  <StyledFlexIconText>
-                    <StyledIconFormContainer>
-                      <Icon icon={icons.map((icon) => icon.userplus)} fontSize="20px" />
-                    </StyledIconFormContainer>
-                    <Controller
-                      name="how_many"
-                      control={control}
-                      render={({ field: { onChange } }) => (
-                        <StyledSelect
-                          className="select"
-                          classNamePrefix="react-select"
-                          placeholder="How many is traveling"
-                          options={SUBJECT}
-                          onChange={(e) => {
-                            setTravelers(e.value);
-                            onChange(e.value);
-                          }}
-                        />
-                      )}
-                    />
-                  </StyledFlexIconText>
-                  {errors.how_many && <ValidationErrorSelect box_class="mt-2" errorName={errors.how_many.message} />}
-                </Form.Group>
-
-                <Form.Group className="mt-3">
-                  <div className="text-area-container">
-                    <StyledIconFormContainer>
-                      <Icon icon={icons.map((icon) => icon.chat)} fontSize="20px" />
-                    </StyledIconFormContainer>
-                    <Form.Control
-                      as="textarea"
-                      rows={8}
-                      placeholder="Comments"
-                      onKeyUp={(e) => setCount(e.target.value.length)}
-                      className="mt-2"
-                      {...register("message")}
-                    />
-                    <span className="counter">{count}/20</span>
-                  </div>
-                  {errors.message && <ValidationError errorName={errors.message.message} />}
-                </Form.Group>
-              </StyledFormContainerLaptop>
-              <div>
-                <StyledParagraphColoured className="mt-5">Date</StyledParagraphColoured>
-                <Heading size="2">{RemoveLastWord(today)}</Heading>
-
-                <div>
-                  <StyledCalendar className="mt-4">
-                    <DatePicker
-                      selected={startDate}
-                      startDate={startDate}
-                      endDate={endDate}
-                      dateFormat="dd/MM/yyyy"
-                      selectsRange
-                      fixedHeight={true}
-                      inline
-                      calendarClassName="calendar_enquire"
-                      isClearable={true}
-                      onChange={(update) => {
-                        setDateRange(update);
-                      }}
-                      minDate={new Date()}
-                      excludeDateIntervals={BOOKED}
-                    />
-                  </StyledCalendar>
-
-                  <Form.Group className="d-flex mb-4 mt-md-1 align-items-center">
-                    <StyledIconFormContainer className="d-none">
-                      <Icon icon={icons.map((icon) => icon.calendar)} fontSize="20px" className="me-3" />
-                    </StyledIconFormContainer>
-                    <div>
-                      <Form.Label className="mb-2 d-md-none" style={{ fontSize: "14px" }}>
-                        From:
-                      </Form.Label>
-                      <Form.Control
-                        placeholder="From date"
-                        type="text"
-                        value={startDateFormatted}
-                        className="me-4"
-                        disabled
+              <Form.Group className="mt-3">
+                <StyledFlexIconText>
+                  <StyledIconFormContainer>
+                    <Icon icon={icons.map((icon) => icon.userplus)} fontSize="20px" />
+                  </StyledIconFormContainer>
+                  <Controller
+                    name="how_many"
+                    control={control}
+                    render={({ field: { onChange } }) => (
+                      <StyledSelect
+                        className="select"
+                        classNamePrefix="react-select"
+                        placeholder="How many is traveling"
+                        options={SUBJECT}
+                        onChange={(e) => {
+                          setTravelers(e.value);
+                          onChange(e.value);
+                        }}
                       />
-                    </div>
-                    <span className="mx-3">-</span>
-                    <div>
-                      <Form.Label className="mb-2 d-md-none" style={{ fontSize: "14px" }}>
-                        To:
-                      </Form.Label>
-                      <Form.Control placeholder="To date" type="text" value={endDateFormatted} disabled />
-                    </div>
-                  </Form.Group>
-                  <StyledDeleteDate onClick={clicked} style={{ fontSize: "14px" }}>
-                    <StyledCloseBtn type="button" aria-label="Close">
-                      <Icon icon={icons.map((icon) => icon.close)} fontSize="18px" />
-                    </StyledCloseBtn>
-                    <span className="">Delete date</span>
-                  </StyledDeleteDate>
-                </div>
-              </div>
-            </StyledFlexContainerLaptop>
+                    )}
+                  />
+                </StyledFlexIconText>
+                {errors.how_many && <ValidationErrorSelect box_class="mt-2" errorName={errors.how_many.message} />}
+              </Form.Group>
 
-            <StyledEnquireButton className="mt-5" type="submit">
-              <Icon icon={icons.map((icon) => icon.bag)} color="white" fontSize="16px" className="me-3" />
-              {submitting ? "sending enquire.." : "Enquire"}
-            </StyledEnquireButton>
-          </StyledForm>
-        </>
-      )}
+              <Form.Group className="mt-3">
+                <div className="text-area-container">
+                  <StyledIconFormContainer>
+                    <Icon icon={icons.map((icon) => icon.chat)} fontSize="20px" />
+                  </StyledIconFormContainer>
+                  <Form.Control
+                    as="textarea"
+                    rows={8}
+                    placeholder="Comments"
+                    onKeyUp={(e) => setCount(e.target.value.length)}
+                    className="mt-2"
+                    {...register("message")}
+                  />
+                  <span className="counter">{count}/20</span>
+                </div>
+                {errors.message && <ValidationError errorName={errors.message.message} />}
+              </Form.Group>
+            </StyledFormContainerLaptop>
+            <div>
+              <StyledParagraphColoured className="mt-5">Date</StyledParagraphColoured>
+              <Heading size="2">{RemoveLastWord(today)}</Heading>
+
+              <div>
+                <StyledCalendar className="mt-4">
+                  <DatePicker
+                    selected={startDate}
+                    startDate={startDate}
+                    endDate={endDate}
+                    dateFormat="dd/MM/yyyy"
+                    selectsRange
+                    fixedHeight={true}
+                    inline
+                    calendarClassName="calendar_enquire"
+                    isClearable={true}
+                    onChange={(update) => {
+                      setDateRange(update);
+                    }}
+                    minDate={new Date()}
+                    excludeDateIntervals={BOOKED}
+                  />
+                </StyledCalendar>
+
+                <Form.Group className="d-flex mb-4 mt-md-1 align-items-center">
+                  <StyledIconFormContainer className="d-none">
+                    <Icon icon={icons.map((icon) => icon.calendar)} fontSize="20px" className="me-3" />
+                  </StyledIconFormContainer>
+                  <div>
+                    <Form.Label className="mb-2 d-md-none" style={{ fontSize: "14px" }}>
+                      From:
+                    </Form.Label>
+                    <Form.Control
+                      placeholder="From date"
+                      type="text"
+                      value={startDateFormatted}
+                      className="me-4"
+                      disabled
+                    />
+                  </div>
+                  <span className="mx-3">-</span>
+                  <div>
+                    <Form.Label className="mb-2 d-md-none" style={{ fontSize: "14px" }}>
+                      To:
+                    </Form.Label>
+                    <Form.Control placeholder="To date" type="text" value={endDateFormatted} disabled />
+                  </div>
+                </Form.Group>
+                <StyledDeleteDate onClick={clicked} style={{ fontSize: "14px" }}>
+                  <StyledCloseBtn type="button" id="close-btn" aria-label="Close">
+                    <Icon icon={icons.map((icon) => icon.close)} fontSize="18px" />
+                  </StyledCloseBtn>
+                  <span className="">Delete date</span>
+                </StyledDeleteDate>
+              </div>
+            </div>
+          </StyledFlexContainerLaptop>
+
+          <StyledEnquireButton className="mt-5" type="submit">
+            <Icon icon={icons.map((icon) => icon.bag)} color="white" fontSize="16px" className="me-3" />
+            {submitting ? "sending enquire.." : "Enquire"}
+          </StyledEnquireButton>
+
+          {error && (
+            <Alertbox className="mt-3" type="danger">
+              Sorry, something went wrong. Please try again later.
+            </Alertbox>
+          )}
+
+          {submitted && (
+            <AlertboxSuccess className="mt-5">
+              <StyledHeading size="3">Success! </StyledHeading>
+              Your message was sent!
+              <span className="d-block mb-4">We will get in touch shortly.</span>
+              <Link href="/">
+                <a>Home</a>
+              </Link>
+            </AlertboxSuccess>
+          )}
+        </fieldset>
+      </StyledForm>
     </>
   );
 }

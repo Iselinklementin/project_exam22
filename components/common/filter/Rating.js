@@ -1,4 +1,4 @@
-import { StyledCheckbox } from "../../../styles/forms/StyledCheckbox.styled";
+import { StyledCheckbox } from "../../forms/styles/StyledCheckbox.styled";
 import Heading from "../../../components/typography/Heading";
 import Icon, { icons } from "../../../constants/icons";
 import { Form } from "react-bootstrap";

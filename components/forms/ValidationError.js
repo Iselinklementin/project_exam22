@@ -3,10 +3,20 @@ import Icon, { icons } from "../../constants/icons";
 import { StyledFeedbackContainer } from "../forms/styles/StyledForm.styled";
 import styled from "styled-components";
 
-const StyledFeedbackContainerImages = styled(StyledFeedbackContainer)`
+const StyledFeedbackContainerSelect = styled(StyledFeedbackContainer)`
   .left {
     margin-left: 0;
     padding: 0;
+  }
+`;
+
+const StyledFeedbackContainerImages = styled(StyledFeedbackContainer)`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  .photo-error {
+    padding-left: 1rem;
   }
 `;
 
@@ -21,8 +31,16 @@ export const ValidationError = ({ errorName }) => {
 
 export const ValidationErrorSelect = ({ errorName, box_class }) => {
   return (
-    <StyledFeedbackContainerImages>
+    <StyledFeedbackContainerSelect>
       <Alertbox className={box_class}>{errorName}</Alertbox>
+    </StyledFeedbackContainerSelect>
+  );
+};
+
+export const ValidationErrorImage = ({ errorName, box_class }) => {
+  return (
+    <StyledFeedbackContainerImages>
+      <Alertbox className="photo-error">{errorName}</Alertbox>
     </StyledFeedbackContainerImages>
   );
 };

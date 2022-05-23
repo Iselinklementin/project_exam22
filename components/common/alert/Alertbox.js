@@ -9,6 +9,7 @@ const StyledAlert = styled(Alert)`
   color: white;
   border: white;
   border-radius: 6px;
+  padding: 2rem;
 
   a {
     color: white;

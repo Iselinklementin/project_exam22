@@ -7,7 +7,7 @@ import Image from "next/image";
 import { schema } from "../../utils/AddFormSchema";
 import { STAYS, REVIEW, ROOMS, CALENDAR_OPTIONS, TIME_OPTIONS } from "../../constants/misc";
 import { StyledFeedbackContainer, StyledForm } from "./styles/StyledForm.styled";
-import { Form, Row, Col } from "react-bootstrap";
+import { Form, Row, Col, FormText } from "react-bootstrap";
 import Heading from "../../components/typography/Heading";
 import Icon, { icons } from "../../constants/icons";
 import { StyledFormButton } from "../../styles/buttons/StyledFormButton.styled";
@@ -18,14 +18,23 @@ import Alertbox, { AlertboxSuccess } from "../../components/common/alert/Alertbo
 import Loader from "../../components/common/loader/Loader";
 import { StyledFlexIconText } from "../../styles/containers/StyledFlexIconText.styled";
 import { StyledIconFormContainer } from "./styles/StyledIconFormContainer.styled";
-import { StyledSelect } from "../../styles/forms/StyledSelect.styled";
-import { ValidationError, ValidationErrorSelect } from "./ValidationError";
+import { StyledSelect } from "../forms/styles/StyledSelect.styled";
+import { ValidationError, ValidationErrorImage, ValidationErrorSelect } from "./ValidationError";
 import Paragraph from "../../components/typography/Paragraph";
-import { StyledCheckbox } from "../../styles/forms/StyledCheckbox.styled";
+import { StyledCheckbox } from "./styles/StyledCheckbox.styled";
 import Link from "next/link";
 import { StyledCalendar } from "../../styles/StyledCalendar.styled";
 import DatePicker from "react-datepicker";
 import { RemoveFirstWord } from "../common/functions/RemoveWords";
+
+const StyledMutedText = styled(FormText)`
+  margin-left: 45px;
+  line-height: 3;
+`;
+
+const StyledMutedTextCheckboxes = styled(FormText)`
+  line-height: 3;
+`;
 
 const StyledFormWrap = styled.div`
   @media ${mediaQ.laptop} {
@@ -48,7 +57,6 @@ const StyledHeading = styled(Heading)`
 function AddForm() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [count, setCount] = useState(0);
   const [counter, setCounter] = useState(0);
@@ -56,7 +64,7 @@ function AddForm() {
   const [review, setReview] = useState("");
   const [roomType, setRoomType] = useState("");
   const [imageError, setImageError] = useState("");
-  const [buttonDisabled, setButtonDisabled] = useState(false);
+
   // time
   const [checkinTime, setCheckinTime] = useState(new Date());
   const [checkoutTime, setCheckoutTime] = useState(new Date());
@@ -130,25 +138,25 @@ function AddForm() {
     // and store the ID so I can use it in the post
     // Wordpress doesnt allow multiple uploads at once
 
-    await http.post(MEDIA_URL, imageOne).then((response) => {
-      const thisID = response.data.id;
-      imgArray.image_1 = thisID;
-    });
+    // await http.post(MEDIA_URL, imageOne).then((response) => {
+    //   const thisID = response.data.id;
+    //   imgArray.image_1 = thisID;
+    // });
 
-    await http.post(MEDIA_URL, imageTwo).then((response) => {
-      const thisID = response.data.id;
-      imgArray.image_2 = thisID;
-    });
+    // await http.post(MEDIA_URL, imageTwo).then((response) => {
+    //   const thisID = response.data.id;
+    //   imgArray.image_2 = thisID;
+    // });
 
-    await http.post(MEDIA_URL, imageThree).then((response) => {
-      const thisID = response.data.id;
-      imgArray.image_3 = thisID;
-    });
+    // await http.post(MEDIA_URL, imageThree).then((response) => {
+    //   const thisID = response.data.id;
+    //   imgArray.image_3 = thisID;
+    // });
 
-    await http.post(MEDIA_URL, imageFour).then((response) => {
-      const thisID = response.data.id;
-      imgArray.image_4 = thisID;
-    });
+    // await http.post(MEDIA_URL, imageFour).then((response) => {
+    //   const thisID = response.data.id;
+    //   imgArray.image_4 = thisID;
+    // });
 
     data = {
       status: "publish",
@@ -193,44 +201,23 @@ function AddForm() {
       },
     };
 
-    // Ordne en success melding og error
-    console.log(data);
-
+    // API_URL,
     try {
-      await http.post(API_URL, data);
-      console.log(response.data);
+      await http.post(data);
+      setSubmitted(true);
       console.log(data);
     } catch (error) {
       setError(error.toString());
     } finally {
       setSubmitting(false);
-      setSubmitted(true);
+      setTimeout(() => {
+        document.getElementById("add_form").reset();
+      }, 2000);
     }
   }
 
-  // if (error) {
-  //   return (
-  //     <Alertbox className="mt-5" type="danger">
-  //       Sorry, something went wrong.
-  //     </Alertbox>
-  //   );
-  // }
-
-  // if (loading) {
-  //   return <Loader />;
-  // }
-
   const changeHandler = (value) => {
     setRoomType(value.label);
-  };
-
-  const handleSubmitButton = (e) => {
-    if (!img1 && !img2 && !img3 && !img4) {
-      setButtonDisabled(true);
-      setImageError("Please add 4 images");
-    } else {
-      setButtonDisabled(false);
-    }
   };
 
   // if its a hotel you are adding,
@@ -242,6 +229,7 @@ function AddForm() {
     if (type === "Hotel") {
       return (
         <Form.Group className="mt-3">
+          <StyledMutedText className="text-muted">Please select what kind of room they have</StyledMutedText>
           <StyledFlexIconText>
             <StyledIconFormContainer>
               <Icon icon={icons.map((icon) => icon.hotel)} fontSize="24px" className="me-4" />
@@ -276,6 +264,7 @@ function AddForm() {
       // if its NOT a hotel, display a text input for extra room description
       return (
         <Form.Group className="mt-3">
+          <StyledMutedText className="text-muted">Please describe room standards</StyledMutedText>
           <StyledFlexIconText>
             <StyledIconFormContainer>
               <Icon icon={icons.map((icon) => icon.apartment)} fontSize="24px" className="me-4" />
@@ -291,22 +280,26 @@ function AddForm() {
 
   return (
     <>
-      {submitted ? (
-        <>
-          <AlertboxSuccess className="mt-4 p-5">
-            <StyledHeading size="3">Success! </StyledHeading>
-            The stay was added.
-            <span className="d-block mb-4">It will be display on the Holidaze website in a moment.</span>
-            <Link href="/">
-              <a>Home</a>
-            </Link>
-          </AlertboxSuccess>
-        </>
-      ) : (
-        <StyledForm className="add-form mt-5" onSubmit={handleSubmit(onSubmit)}>
+      {submitted && (
+        <AlertboxSuccess className="mt-5 mb-0">
+          <StyledHeading size="3">Success! </StyledHeading>
+          The stay was added.
+          <span className="d-block mb-4">It will be display on the Holidaze website in a moment.</span>
+          <Link href="/">
+            <a>Home</a>
+          </Link>
+        </AlertboxSuccess>
+      )}
+
+      {error && (
+        <Alertbox className="mt-3" type="danger">
+          Sorry, something went wrong. Please try again later.
+        </Alertbox>
+      )}
+      <StyledForm id="add_form" className="add-form mt-5" onSubmit={handleSubmit(onSubmit)}>
+        <fieldset disabled={error}>
           <StyledFormWrapDesktop>
             <StyledFormWrap>
-              {/* Title */}
               <Form.Group className="mt-3">
                 <StyledFlexIconText>
                   <StyledIconFormContainer>
@@ -375,6 +368,7 @@ function AddForm() {
               </Form.Group>
 
               <Form.Group className="mt-3">
+                <StyledMutedText className="text-muted">Please write what district its in:</StyledMutedText>
                 <StyledFlexIconText>
                   <StyledIconFormContainer>
                     <Icon icon={icons.map((icon) => icon.location)} fontSize="24px" className="me-3" />
@@ -390,6 +384,7 @@ function AddForm() {
               </Form.Group>
 
               <Form.Group className="mt-3">
+                <StyledMutedText className="text-muted">Describe the hotel / apartment / B&B </StyledMutedText>
                 <div className="text-area-container">
                   <StyledIconFormContainer>
                     <Icon icon={icons.map((icon) => icon.text)} fontSize="22px" className="me-3" />
@@ -408,6 +403,7 @@ function AddForm() {
               </Form.Group>
 
               <Form.Group className="mt-5">
+                <StyledMutedText className="text-muted">Points of interest nearby, cleaning etc.</StyledMutedText>
                 <div className="text-area-container">
                   <StyledIconFormContainer>
                     <Icon icon={icons.map((icon) => icon.text)} fontSize="22px" className="me-3" />
@@ -464,8 +460,10 @@ function AddForm() {
                 <Icon icon={icons.map((icon) => icon.heart)} fontSize="18px" className="me-3" />
                 <Heading size="3">Keywords</Heading>
               </div>
+
               <StyledCheckbox>
                 <Form.Check name="featured" label="Featured" {...register("featured")} />
+                <StyledMutedTextCheckboxes className="text-muted">What´s included?</StyledMutedTextCheckboxes>
                 <Form.Check name="wifi" label="Wifi" {...register("wifi")} />
                 <Form.Check name="kitchen" label="Kitchen" {...register("kitchen")} />
                 <Form.Check name="free_parking" label="Free parking" {...register("free_parking")} />
@@ -487,8 +485,8 @@ function AddForm() {
 
               <div className="d-flex align-items-center align-items-md-baseline flex-md-column mb-5 mt-4">
                 <div className="d-flex align-items-center">
-                  <StyledIconFormContainer className="mt-5">
-                    <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="me-3" />
+                  <StyledIconFormContainer className="mt-5 position-relative">
+                    <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="checkin-out-icon" />
                   </StyledIconFormContainer>
 
                   {/* legg inn og style timepicker */}
@@ -506,12 +504,16 @@ function AddForm() {
                       {...register("check_in")}
                     /> */}
                     <Form.Control label="check_in" type="text" placeholder="11:00" {...register("check_in")} />
-                    {errors.check_in && <ValidationError errorName={errors.check_in.message} />}
+                    {errors.check_in ? (
+                      <>{errors.check_in && <ValidationError errorName={errors.check_in.message} />}</>
+                    ) : (
+                      <StyledMutedTextCheckboxes className="text-muted">Time for checking in</StyledMutedTextCheckboxes>
+                    )}
                   </Form.Group>
                 </div>
                 <div className="d-flex align-items-center">
-                  <StyledIconFormContainer className="mt-5">
-                    <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="me-3" />
+                  <StyledIconFormContainer className="mt-5 position-relative">
+                    <Icon icon={icons.map((icon) => icon.checkout)} fontSize="18px" className="checkin-out-icon" />
                   </StyledIconFormContainer>
 
                   <Form.Group className="mt-3 mt-md-4">
@@ -521,13 +523,19 @@ function AddForm() {
                       onChange={(date) => setCheckoutTime(date)}
                       showTimeSelect
                       showTimeSelectOnly
-                      timeIntervals={15}
+                      timeIntervals={30}
                       timeCaption="Time"
                       dateFormat="h:mm aa"
                       {...register("checkout")}
                     /> */}
                     <Form.Control label="checkout" type="text" placeholder="11:00" {...register("checkout")} />
-                    {errors.checkout && <ValidationError errorName={errors.checkout.message} />}
+                    {errors.checkout ? (
+                      <>{errors.checkout && <ValidationError errorName={errors.checkout.message} />}</>
+                    ) : (
+                      <StyledMutedTextCheckboxes className="text-muted">
+                        Time for checking out
+                      </StyledMutedTextCheckboxes>
+                    )}
                   </Form.Group>
                 </div>
               </div>
@@ -541,16 +549,12 @@ function AddForm() {
               <Icon icon={icons.map((icon) => icon.images)} fontSize="26px" className="me-3" />
               <Heading size="3">Images</Heading>
             </div>
-
-            <div className="position-relative">
-              {imageError ? <ValidationErrorSelect errorName={imageError} /> : ""}
-            </div>
           </div>
 
           {/* Images - first image */}
 
           <Row xs={1} sm={2} md={3} lg={4} className="g-4">
-            <Col>
+            <Col className="position-relative">
               <StyledImageContainer>
                 {img1 ? (
                   <Image src={img1} alt="image" layout="fill" objectFit="cover" />
@@ -568,16 +572,17 @@ function AddForm() {
                 type="file"
                 name="image_1"
                 ref={imgUpload1}
-                onChange={(e) => {
-                  setImg1(URL.createObjectURL(e.target.files[0]));
-                  setButtonDisabled(false);
-                }}
+                {...register("image_one")}
+                onChange={(e) => setImg1(URL.createObjectURL(e.target.files[0]))}
                 style={{ opacity: "0" }}
               />
+              {errors.image_one && (
+                <ValidationErrorImage errorName={errors.image_one.message} style={{ opacity: "1" }} />
+              )}
             </Col>
 
             {/* Images - second image */}
-            <Col>
+            <Col className="position-relative">
               <StyledImageContainer>
                 {img2 ? (
                   <Image src={img2} alt="image" layout="fill" objectFit="cover" />
@@ -593,16 +598,17 @@ function AddForm() {
                 type="file"
                 name="image_2"
                 ref={imgUpload2}
-                onChange={(e) => {
-                  setImg2(URL.createObjectURL(e.target.files[0]));
-                  setButtonDisabled(false);
-                }}
+                {...register("image_two")}
+                onChange={(e) => setImg2(URL.createObjectURL(e.target.files[0]))}
                 style={{ opacity: "0" }}
               />
+              {errors.image_two && (
+                <ValidationErrorImage errorName={errors.image_two.message} style={{ opacity: "1" }} />
+              )}
             </Col>
 
             {/* Images - third image */}
-            <Col>
+            <Col className="position-relative">
               <StyledImageContainer>
                 {img3 ? (
                   <Image src={img3} alt="image" layout="fill" objectFit="cover" />
@@ -618,16 +624,17 @@ function AddForm() {
                 type="file"
                 name="image_3"
                 ref={imgUpload3}
-                onChange={(e) => {
-                  setImg3(URL.createObjectURL(e.target.files[0]));
-                  setButtonDisabled(false);
-                }}
+                {...register("image_three")}
+                onChange={(e) => setImg3(URL.createObjectURL(e.target.files[0]))}
                 style={{ opacity: "0" }}
               />
+              {errors.image_three && (
+                <ValidationErrorImage errorName={errors.image_three.message} style={{ opacity: "1" }} />
+              )}
             </Col>
 
             {/* Images - fourth image */}
-            <Col>
+            <Col className="position-relative">
               <StyledImageContainer>
                 {img4 ? (
                   <Image src={img4} alt="image" layout="fill" objectFit="cover" />
@@ -643,28 +650,39 @@ function AddForm() {
                 type="file"
                 name="image_4"
                 ref={imgUpload4}
-                onChange={(e) => {
-                  setImg4(URL.createObjectURL(e.target.files[0]));
-                  setButtonDisabled(false);
-                }}
+                {...register("image_four")}
+                onChange={(e) => setImg4(URL.createObjectURL(e.target.files[0]))}
                 style={{ opacity: "0" }}
               />
+              {errors.image_four && (
+                <ValidationErrorImage errorName={errors.image_four.message} style={{ opacity: "1" }} />
+              )}
             </Col>
           </Row>
-          <div className="position-relative mb-2 mt-4">
-            {imageError ? <ValidationErrorSelect errorName={imageError} box_class="left" /> : ""}
-          </div>
-          <StyledFormButton
-            className="mb-4 mt-5"
-            type="submit"
-            onClick={(e) => handleSubmitButton(e)}
-            disabled={buttonDisabled}
-          >
+
+          <StyledFormButton className="mb-4 mt-5" type="submit">
             {submitting ? "Adding stay.." : "Add stay"}
             <Icon icon={icons.map((icon) => icon.plus)} color="white" fontSize="20px" className="ms-12" />
           </StyledFormButton>
-        </StyledForm>
-      )}
+
+          {error && (
+            <Alertbox className="mt-3" type="danger">
+              Sorry, something went wrong. Please try again later.
+            </Alertbox>
+          )}
+
+          {submitted && (
+            <AlertboxSuccess className="mt-5 mb-0">
+              <StyledHeading size="3">Success! </StyledHeading>
+              The stay was added.
+              <span className="d-block mb-4">It will be display on the Holidaze website in a moment.</span>
+              <Link href="/">
+                <a>Home</a>
+              </Link>
+            </AlertboxSuccess>
+          )}
+        </fieldset>
+      </StyledForm>
     </>
   );
 }

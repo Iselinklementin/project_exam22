@@ -12,6 +12,11 @@ export const StyledCalendar = styled.div`
     margin-bottom: 1rem;
   }
 
+  button:disabled {
+    background: transparent;
+    border-color: none;
+  }
+
   .react-datepicker__navigation {
     top: 30px;
   }
