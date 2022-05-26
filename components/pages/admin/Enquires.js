@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { ENQUIRES_URL } from "../../../constants/api";
-import { Accordion } from "react-bootstrap";
-import Loader from "../../common/loader/Loader";
-import Alertbox from "../../common/alert/Alertbox";
-import { StyledAccordion } from "../../../styles/pages/admin/StyledAccordion.styled";
-import Icon, { icons } from "../../../constants/icons";
-import { RemoveWords } from "../../common/functions/RemoveWords";
 import Paragraph from "../../typography/Paragraph";
 import ReturnIcon from "../../common/icons/ReturnIcon";
+import axios from "axios";
+import Loader from "../../common/loader/Loader";
+import Alertbox from "../../common/alert/Alertbox";
+import React, { useEffect, useState } from "react";
+import Icon, { icons } from "../../../constants/icons";
+import { ENQUIRES_URL } from "../../../constants/api";
+import { Accordion } from "react-bootstrap";
+import { StyledAccordion } from "../../../styles/pages/admin/StyledAccordion.styled";
+import { RemoveWords } from "../../common/functions/RemoveWords";
+import { useWindowSize } from "../../../hooks/useWindowSize";
+import { SCREEN } from "../../../constants/misc";
 
 export default function Enquires() {
   const [contact, setContact] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const size = useWindowSize();
 
   useEffect(() => {
     async function getEnquires() {
@@ -40,7 +44,7 @@ export default function Enquires() {
 
   if (error) {
     return (
-      <Alertbox className="mt-5" type="danger">
+      <Alertbox className="mt-2" type="danger">
         Sorry, something went wrong.
       </Alertbox>
     );
@@ -51,58 +55,73 @@ export default function Enquires() {
   return (
     <StyledAccordion>
       <Accordion defaultActiveKey="0" flush>
-        {contact.map((item) => {
+        {contact.map(item => {
+          const {
+            date_received,
+            stay_title,
+            name,
+            type_of_stay,
+            phone,
+            how_many,
+            room,
+            from_date,
+            to_date,
+            comments,
+            email,
+          } = item.acf;
+
           count++;
-          let received = item.acf.date_received;
 
           return (
-            <Accordion.Item eventKey={count}>
+            <Accordion.Item eventKey={count} key={item.id}>
               <Accordion.Header>
                 <div className="d-block">
                   <Paragraph className="acc-heading">
-                    <span>{item.acf.stay_title}</span>
+                    <span>{stay_title}</span>
                   </Paragraph>
-                  <Paragraph className="acc-heading">{item.acf.name}</Paragraph>
+                  <Paragraph className="acc-heading">{name}</Paragraph>
                 </div>
 
                 <div className="received-container">
-                  <p className="date">{RemoveWords(received)}</p>
-                  <Icon className="ms-3" icon={icons.map((icon) => icon.email)} />
+                  {size.width <= SCREEN.tablet ? (
+                    <Paragraph>{RemoveWords(date_received)}</Paragraph>
+                  ) : (
+                    <Paragraph>{date_received}</Paragraph>
+                  )}
+                  <Icon className="ms-3" icon={icons.map(icon => icon.email)} />
                 </div>
               </Accordion.Header>
 
               <Accordion.Body className="d-flex">
-                {ReturnIcon(item.acf.type_of_stay)}
-
+                {ReturnIcon(type_of_stay)}
                 <div className="text-container">
                   <Paragraph>
-                    <span>Stay:</span> {item.acf.stay_title}
+                    <span>Stay:</span> {stay_title}
                   </Paragraph>
                   <Paragraph>
-                    <span>Name:</span> {item.acf.name}
+                    <span>Name:</span> {name}
                   </Paragraph>
                   <Paragraph>
-                    <span>Phone:</span> {item.acf.phone}
+                    <span>Phone:</span> {phone}
                   </Paragraph>
                   <Paragraph>
-                    <span>Persons:</span> {item.acf.how_many}
+                    <span>Persons:</span> {how_many}
                   </Paragraph>
-
-                  {item.acf.room === "Choose room" || item.acf.room === "" ? (
+                  {room === "Choose room" || room === "" ? (
                     " "
                   ) : (
                     <Paragraph>
-                      <span>Room:</span> {item.acf.room}
+                      <span>Room:</span> {room}
                     </Paragraph>
                   )}
                   <Paragraph>
-                    <span>Date:</span> {item.acf.from_date} - {item.acf.to_date}
+                    <span>Date:</span> {from_date} - {to_date}
                   </Paragraph>
                   <Paragraph className="paragraph-margin">
-                    <span>Comments:</span> {item.acf.comments}
+                    <span>Comments:</span> {comments}
                   </Paragraph>
                   <Paragraph>
-                    <span>Email:</span> {item.acf.email}
+                    <span>Email:</span> {email}
                   </Paragraph>
                 </div>
               </Accordion.Body>

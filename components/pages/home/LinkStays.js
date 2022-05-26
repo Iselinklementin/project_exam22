@@ -1,9 +1,9 @@
-import { Container } from "react-bootstrap";
-import Icon, { icons } from "../../../constants/icons";
 import Heading from "../../../components/typography/Heading";
 import Paragraph from "../../../components/typography/Paragraph";
 import Link from "next/link";
 import styled from "styled-components";
+import Icon, { icons } from "../../../constants/icons";
+import { Container } from "react-bootstrap";
 import { mediaQ } from "../../../styles/global/ThemeConfig";
 import { useState } from "react";
 
@@ -12,9 +12,17 @@ export const StyledLinkStaysContainer = styled.div`
   max-width: 960px;
   margin: auto;
 
-  @media ${mediaQ.small_tablet} {
+  @media ${mediaQ.tablet} {
     display: flex;
     margin-top: 1.5rem;
+  }
+
+  .wrapper {
+    max-width: 95%;
+
+    @media ${mediaQ.tablet} {
+      max-width: initial;
+    }
   }
 
   .contain-text {
@@ -29,6 +37,9 @@ export const StyledLinkStaysContainer = styled.div`
       box-shadow: 0 3px 5px rgb(0 0 0 / 10%);
       border: ${(props) => props.theme.primaryColour} solid 1px;
     }
+    @media ${mediaQ.tablet} {
+      min-height: 160px;
+    }
   }
 
   .heading-container {
@@ -37,11 +48,20 @@ export const StyledLinkStaysContainer = styled.div`
 
     svg {
       margin-top: -0.5rem;
+      font-size: 18px;
+
+      @media ${mediaQ.tablet} {
+        font-size: 20px;
+      }
     }
   }
 
   h3 {
     font-size: 18px;
+
+    @media ${mediaQ.desktop_large} {
+      font-size: 20px;
+    }
   }
 
   a:hover {
@@ -52,10 +72,9 @@ export const StyledLinkStaysContainer = styled.div`
 export const LinkStays = () => {
   const [stayType, setStayType] = useState("");
 
-  // const size = useWindowSize();
   return (
     <StyledLinkStaysContainer>
-      <Container onMouseEnter={() => setStayType("Hotel")}>
+      <Container onMouseEnter={() => setStayType("Hotel")} className="wrapper">
         <Link href={{ pathname: `/stays`, query: { type: stayType } }}>
           <a>
             <div className="contain-text">
@@ -65,13 +84,13 @@ export const LinkStays = () => {
                   Hotels
                 </Heading>
               </div>
-              <Paragraph>We work hard to find the best local places.</Paragraph>
+              <Paragraph>Find a suitable, local hotel for one or more travelers.</Paragraph>
             </div>
           </a>
         </Link>
       </Container>
 
-      <Container onMouseEnter={() => setStayType("Apartment")}>
+      <Container onMouseEnter={() => setStayType("Apartment")} className="wrapper">
         <Link href={{ pathname: `/stays`, query: { type: stayType } }}>
           <a>
             <div className="contain-text">
@@ -81,13 +100,13 @@ export const LinkStays = () => {
                   Apartments
                 </Heading>
               </div>
-              <Paragraph>We work hard to find the best local places.</Paragraph>
+              <Paragraph>Rent an apartment and feel at home. Several places to show.</Paragraph>
             </div>
           </a>
         </Link>
       </Container>
 
-      <Container onMouseEnter={() => setStayType("Bedbreakfast")}>
+      <Container onMouseEnter={() => setStayType("Bedbreakfast")} className="wrapper">
         <Link href={{ pathname: `/stays`, query: { type: stayType } }}>
           <a>
             <div className="contain-text">
@@ -97,7 +116,7 @@ export const LinkStays = () => {
                   Bed & Breakfast
                 </Heading>
               </div>
-              <Paragraph>We work hard to find the best local places.</Paragraph>
+              <Paragraph>Find a place that offers overnight accommodation and breakfast.</Paragraph>
             </div>
           </a>
         </Link>

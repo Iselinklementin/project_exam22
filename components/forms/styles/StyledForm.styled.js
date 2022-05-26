@@ -1,5 +1,6 @@
 import { Alert, Form } from "react-bootstrap";
 import styled from "styled-components";
+import { mediaQ } from "../../../styles/global/ThemeConfig";
 // noe av denne koden er 2 ganger
 // også i searchfunksjonen
 
@@ -12,6 +13,10 @@ export const StyledFeedbackContainer = styled.div`
     padding: 0 0 0 2.9rem;
     border: none;
     font-size: 14px;
+
+    @media ${mediaQ.desktop_large} {
+      font-size: 16px;
+    }
   }
 
   .warning-icon {
@@ -79,10 +84,18 @@ export const StyledForm = styled(Form)`
     font-size: 14px;
     color: ${(props) => props.theme.body};
     opacity: 0.8;
+
+    @media ${mediaQ.desktop_large} {
+      font-size: 16px;
+    }
   }
 
   h3 {
     font-size: 16px;
+
+    @media ${mediaQ.desktop_large} {
+      font-size: 18px;
+    }
   }
 
   .select {
@@ -113,6 +126,10 @@ export const StyledForm = styled(Form)`
       font-size: 14px;
       color: ${(props) => props.theme.body};
       opacity: 0.8;
+
+      @media ${mediaQ.desktop_large} {
+        font-size: 16px;
+      }
     }
 
     .form-control:disabled {
@@ -125,6 +142,10 @@ export const StyledForm = styled(Form)`
       bottom: -30px;
       color: grey;
       font-size: 14px;
+
+      @media ${mediaQ.desktop_large} {
+        font-size: 16px;
+      }
     }
   }
 

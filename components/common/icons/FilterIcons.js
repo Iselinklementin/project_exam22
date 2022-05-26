@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Icon, { icons } from "../../../constants/icons";
 
 // Filter icons, find spesific ones for detailpage etc.
@@ -6,11 +7,22 @@ import Icon, { icons } from "../../../constants/icons";
 export default function FilterIcons({ includes, iconIncludes }) {
   let stayIcons = [];
 
-  icons.map((icon) => {
+  icons.map(icon => {
     let keys = Object.keys(icon);
     if (includes && keys.includes(iconIncludes)) {
       stayIcons.push(icon);
     }
   });
-  return <Icon icon={stayIcons.map((icon) => Object.entries(icon)[0][1])} className="me-2" fontSize="16px" />;
+  return (
+    <Icon
+      icon={stayIcons.map(icon => Object.entries(icon)[0][1])}
+      className="me-2"
+      fontSize="16px"
+    />
+  );
 }
+
+FilterIcons.propTypes = {
+  includes: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  iconIncludes: PropTypes.string.isRequired,
+};

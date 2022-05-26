@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Card } from "react-bootstrap";
+import { mediaQ } from "../../styles/global/ThemeConfig";
 
 export const StyledCard = styled(Card)`
   border: none;
@@ -17,6 +18,11 @@ export const StyledCard = styled(Card)`
   .card-title {
     font-family: ${(props) => props.theme.secondaryFont};
     font-weight: 600;
+
+    @media ${mediaQ.desktop_large} {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
   }
 
   .card-body {
@@ -31,6 +37,10 @@ export const StyledCard = styled(Card)`
     font-size: 14px;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
       box-shadow 0.15s ease-in-out;
+
+    @media ${mediaQ.desktop_large} {
+      font-size: 16px;
+    }
   }
 
   .card-img {

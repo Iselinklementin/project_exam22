@@ -15,7 +15,8 @@ export default function PageHead({ title = "", content, keywords }) {
   );
 }
 
-Head.propTypes = {
-  title: PropTypes.node,
-  content: PropTypes.string,
+PageHead.propTypes = {
+  title: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  keywords: PropTypes.string.isRequired,
 };

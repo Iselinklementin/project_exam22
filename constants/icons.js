@@ -1,4 +1,13 @@
+import PropTypes from "prop-types";
 import { FaUser, FaShoppingBag, FaUserPlus, FaLock, FaCoins, FaBed, FaHeart } from "react-icons/fa";
+import { IconContext } from "react-icons";
+import { GoSignOut } from "react-icons/go";
+import { HiPlusSm } from "react-icons/hi";
+import { ImSpoonKnife } from "react-icons/im";
+import { IoMdImages, IoLogoNoSmoking, IoIosMore, IoIosMenu, IoMdMore } from "react-icons/io";
+import { IoChatbubblesSharp, IoBedSharp, IoLocationSharp } from "react-icons/io5";
+import { RiHotelFill, RiImageFill, RiParkingBoxFill } from "react-icons/ri";
+import { GrWheelchair } from "react-icons/gr";
 import {
   MdEmail,
   MdShortText,
@@ -9,16 +18,8 @@ import {
   MdKitchen,
   MdWifi,
   MdTextFields,
-  MdLogout,
   MdOutlineClose,
 } from "react-icons/md";
-import { GoSignOut } from "react-icons/go";
-import { HiPlusSm } from "react-icons/hi";
-import { ImSpoonKnife } from "react-icons/im";
-import { IoMdImages, IoLogoNoSmoking, IoIosMore, IoIosMenu, IoMdMore } from "react-icons/io";
-import { IoChatbubblesSharp, IoBedSharp, IoLocationSharp, IoCloseCircle } from "react-icons/io5";
-import { RiHotelFill, RiImageFill, RiParkingBoxFill } from "react-icons/ri";
-import { GrWheelchair } from "react-icons/gr";
 import {
   BsFillTelephoneFill,
   BsStarFill,
@@ -30,8 +31,6 @@ import {
   BsJustifyLeft,
   BsTrash,
 } from "react-icons/bs";
-import PropTypes from "prop-types";
-import { IconContext } from "react-icons";
 
 export const icons = [
   {
@@ -165,23 +164,18 @@ export const icons = [
 const Icon = ({ icon, fontSize, color, className }) => {
   return (
     <>
-      <IconContext.Provider value={{ style: { fontSize, color }, className }}>{icon}</IconContext.Provider>
+      <IconContext.Provider value={{ style: { fontSize, color }, className }}>
+        {icon}
+      </IconContext.Provider>
     </>
   );
 };
 
 Icon.propTypes = {
-  icon: PropTypes.node.isRequired,
+  icon: PropTypes.array.isRequired,
   fontSize: PropTypes.string,
   color: PropTypes.string,
   className: PropTypes.string,
 };
 
-// Icon.defaultProps = {
-//   fontSize: "20px",
-//   // color: "#1E1B21",
-// };
-
 export default Icon;
-
-// <div style={{ paddingTop: "3px", display: "flex" }}>

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Stays from "../../../../assets/stays.svg";
-import Icon, { icons } from "../../../../constants/icons";
 import Link from "next/link";
+import Icon, { icons } from "../../../../constants/icons";
 import { StyledIconContainer } from "../../styles/layout.styled";
 import { useRouter } from "next/router";
 
@@ -15,8 +15,7 @@ export const CustomerMenu = () => {
             router.pathname == "/stays"
               ? "d-flex align-items-center my-2 nav-link-active-mobile"
               : "d-flex align-items-center my-2"
-          }
-        >
+          }>
           <StyledIconContainer>
             <Image src={Stays} alt="Icon, a house with a chimney" width="21.6" height="15" />
           </StyledIconContainer>
@@ -30,10 +29,9 @@ export const CustomerMenu = () => {
             router.pathname == "/contact"
               ? "d-flex align-items-center my-2 nav-link-active-mobile"
               : "d-flex align-items-center my-2"
-          }
-        >
+          }>
           <StyledIconContainer>
-            <Icon icon={icons.map((icon) => icon.email)} fontSize="17px" />
+            <Icon icon={icons.map(icon => icon.email)} fontSize="17px" />
           </StyledIconContainer>
           Contact us
         </a>
@@ -45,10 +43,9 @@ export const CustomerMenu = () => {
             router.pathname == "/login"
               ? "d-flex align-items-center my-2 nav-link-active-mobile"
               : "d-flex align-items-center my-2"
-          }
-        >
+          }>
           <StyledIconContainer>
-            <Icon icon={icons.map((icon) => icon.user)} fontSize="16px" className="userIcon" />
+            <Icon icon={icons.map(icon => icon.user)} fontSize="16px" className="userIcon" />
           </StyledIconContainer>
           Login
         </a>

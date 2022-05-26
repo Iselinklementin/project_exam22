@@ -41,6 +41,10 @@ export const SearchBox = styled.div`
     font-size: 14px;
     color: ${(props) => props.theme.body};
     opacity: 0.8;
+
+    @media ${mediaQ.desktop_large} {
+      font-size: 16px;
+    }
   }
 
   .search-icon {
@@ -99,6 +103,11 @@ export const StyledButtonContainer = styled.div`
     height: 40px;
     line-height: 2;
     width: 146px;
+
+    @media ${mediaQ.desktop_large} {
+      width: 160px;
+      line-height: 1.8;
+    }
 
     svg {
       margin-top: 5px;

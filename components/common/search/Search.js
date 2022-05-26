@@ -1,14 +1,13 @@
 import axios from "axios";
-import { API_URL } from "../../../constants/api";
-import Icon, { icons } from "../../../constants/icons";
 import Link from "next/link";
+import Icon, { icons } from "../../../constants/icons";
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Form, ListGroup, ListGroupItem, Spinner } from "react-bootstrap";
 import { StyledButtonContainer, StyledIconWrap, StyledWideContainer } from "./Search.styled";
 import { useWindowSize } from "../../../hooks/useWindowSize";
 import { SCREEN } from "../../../constants/misc";
+import { API_URL } from "../../../constants/api";
 import { StyledBasicButton } from "../../../styles/buttons/StyledBasicButton.styled";
-import Loader from "../loader/Loader";
 
 // https://www.youtube.com/watch?v=Q2aky3eeO40
 
@@ -29,20 +28,20 @@ function Search() {
 
   const size = useWindowSize();
 
-  const onSuggestionHandler = (value) => {
+  const onSuggestionHandler = value => {
     showLoading.current.classList.add("show");
     setValue(value);
     setSuggestions([]);
   };
 
-  const onChangeHandler = (value) => {
+  const onChangeHandler = value => {
     if (!value.length) {
       setNoResult("");
     }
 
     let matches = [];
     if (value.length > 0) {
-      matches = stays.filter((stay) => {
+      matches = stays.filter(stay => {
         const regex = new RegExp(`${value}`, "gi");
         setNoResult("");
         return stay.acf.title.match(regex);
@@ -62,7 +61,12 @@ function Search() {
       <Container className="pb-4 pt-3">
         <StyledIconWrap>
           <Form.Label>Find your favourite place to stay</Form.Label>
-          <Icon icon={icons.map((icon) => icon.search)} fontSize="16px" className="search-icon" color="#FC5156" />
+          <Icon
+            icon={icons.map(icon => icon.search)}
+            fontSize="16px"
+            className="search-icon"
+            color="#FC5156"
+          />
           <Spinner
             ref={showLoading}
             as="span"
@@ -72,15 +76,13 @@ function Search() {
             aria-hidden="true"
             className="loader"
           />
-
-          {/* <div ref={showLoading} className="loader"></div> */}
         </StyledIconWrap>
 
         <Form.Control
           type="text"
           placeholder="Search stays"
           aria-describedby="search"
-          onChange={(e) => {
+          onChange={e => {
             onChangeHandler(e.target.value);
           }}
           value={value}
@@ -106,8 +108,7 @@ function Search() {
                     onClick={() => {
                       onSuggestionHandler(suggestion.acf.title);
                       setValue("Loading page..");
-                    }}
-                  >
+                    }}>
                     <ListGroupItem key={i} action>
                       {suggestion.acf.title}
                     </ListGroupItem>
@@ -124,7 +125,12 @@ function Search() {
               <Link href="/stays">
                 <StyledBasicButton className="px-3 btn btn-primary" role="button">
                   Explore all
-                  <Icon icon={icons.map((icon) => icon.arrow)} color="white" fontSize="16px" className="ms-2" />
+                  <Icon
+                    icon={icons.map(icon => icon.arrow)}
+                    color="white"
+                    fontSize="16px"
+                    className="ms-2"
+                  />
                 </StyledBasicButton>
               </Link>
             </StyledButtonContainer>

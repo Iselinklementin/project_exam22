@@ -1,6 +1,6 @@
 import axios from "axios";
+import PropTypes from "prop-types";
 import EnquireForm from "../../components/forms/EnquireForm";
-// import pageHeader from "components/layout/PageHeader";
 import Layout from "../../components/layout/Layout";
 import Heading from "../../components/typography/Heading";
 import Paragraph from "../../components/typography/Paragraph";
@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { Container } from "react-bootstrap";
 import { StyledContainer } from "../../styles/containers/StyledContainer.styled";
 import PageHead from "../../components/layout/PageHead";
+import { Breadcrumbs } from "../../components/common/breadcrumbs/Breadcrumbs";
 
 export default function Enquire({ stay }) {
   const router = useRouter();
@@ -44,14 +45,13 @@ export default function Enquire({ stay }) {
         keywords="travel, europe, bergen, adventure, exotic, culture, explore"
       />
       <Layout>
-        {/* <pageHeader title="Enquire" /> */}
         <StyledContainer className="p-4 mt-5">
           <Container className="py-4">
-            {showRoom()}
-            <Heading className="mt-3" size="1">
+            <Breadcrumbs title="Enquire" link={`/stays/${stay.id}`} linkName={stay.acf.title} />
+            <Heading className="mt-5" size="1">
               Start planning your trip to {stay.acf.title}
             </Heading>
-
+            {showRoom()}
             <EnquireForm title={stay.acf.title} room={room} type={stay.acf.room.stay_type} />
           </Container>
         </StyledContainer>
@@ -64,7 +64,7 @@ export async function getStaticPaths() {
   try {
     const response = await axios.get(API_URL);
     const stay = response.data;
-    const paths = stay.map((item) => ({
+    const paths = stay.map(item => ({
       params: {
         id: JSON.stringify(item.id),
       },
@@ -83,7 +83,6 @@ export async function getStaticProps({ params }) {
   try {
     const response = await axios.get(url);
     stay = response.data;
-    console.log(stay);
   } catch (error) {
     console.log(error);
   } finally {
@@ -92,3 +91,7 @@ export async function getStaticProps({ params }) {
     };
   }
 }
+
+Enquire.propTypes = {
+  stay: PropTypes.object.isRequired,
+};

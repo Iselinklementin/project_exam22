@@ -9,6 +9,16 @@ export const StyledFilter = styled.div`
     background-color: ${(props) => props.theme.backgroundColour};
   }
 
+  h1 {
+    border: red solid thin;
+  }
+
+  #input-container {
+    #label-filter {
+      margin-left: 0;
+    }
+  }
+
   button  {
     color: ${(props) => props.theme.body};
   }
@@ -16,8 +26,7 @@ export const StyledFilter = styled.div`
   .filter-tablet {
     @media ${mediaQ.tablet} {
       border-left: solid thin grey;
-      padding-left: 3rem;
-      padding-right: 3rem;
+      padding-left: 2rem;
     }
   }
 
@@ -38,10 +47,6 @@ export const StyledFilter = styled.div`
     border: 1px solid grey;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
       box-shadow 0.15s ease-in-out;
-
-    @media ${mediaQ.tablet} {
-      /* margin: 20px 15px 10px 15px; */
-    }
   }
 
   .hidden {
@@ -67,12 +72,7 @@ export const StyledFilterBtn = styled.div`
     margin-top: -2px;
   }
 
-  // ordnet en egen fil til denne
-  // StyledLine
   .line {
-    border: ${(props) => props.theme.primaryColour} 1px solid;
-    width: 40px;
-    height: 1px;
     position: absolute;
     bottom: 0;
   }
@@ -80,11 +80,23 @@ export const StyledFilterBtn = styled.div`
 
 export const StyledFilterWrap = styled.div`
   display: flex;
+  align-items: baseline;
   margin-top: 3rem;
 
-  .rating-container {
-    width: 240px;
+  #input-container {
+    display: flex;
 
+    #label-filter {
+      display: flex;
+      align-items: baseline;
+    }
+
+    #label-filter:first-of-type {
+      margin-left: 0;
+    }
+  }
+
+  .rating-container {
     input {
       margin-right: 0.8rem;
     }
@@ -92,9 +104,15 @@ export const StyledFilterWrap = styled.div`
 `;
 
 export const StayHeading = styled(Heading)`
+  max-width: 400px;
+
   @media ${mediaQ.tablet} {
     max-width: 450px;
     font-size: 36px;
     margin-top: 4rem;
+
+    @media ${mediaQ.desktop_large} {
+      font-size: 40px;
+    }
   }
 `;

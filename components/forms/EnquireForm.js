@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import DatePicker from "react-datepicker";
-import Alertbox, { AlertboxSuccess } from "../common/alert/Alertbox";
+import Alertbox from "../common/alert/Alertbox";
+import AlertboxSuccess from "../common/alert/AlertboxSuccess";
 import DateFunction from "../common/functions/DateFunction";
 import styled from "styled-components";
 import Icon, { icons } from "../../constants/icons";
@@ -26,6 +27,10 @@ import { ValidationError, ValidationErrorSelect } from "./ValidationError";
 
 const StyledHeading = styled(Heading)`
   font-size: 20px;
+
+  @media ${mediaQ.desktop_large} {
+    font-size: 22px;
+  }
 `;
 
 const StyledFlexContainerLaptop = styled.div`
@@ -208,6 +213,7 @@ export default function EnquireForm({ title, room, type }) {
                     control={control}
                     render={({ field: { onChange } }) => (
                       <StyledSelect
+                        instanceId="select_one"
                         className="select"
                         classNamePrefix="react-select"
                         placeholder="How many is traveling"

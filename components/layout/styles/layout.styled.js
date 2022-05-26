@@ -50,7 +50,6 @@ export const MenuContainer = styled.div`
         padding-left: 24px;
         line-height: 1.2;
       }
-
       color: ${(props) => props.theme.body};
     }
   }
@@ -95,7 +94,6 @@ export const MenuContainer = styled.div`
     z-index: 2;
     padding-bottom: 1rem;
     padding-top: 1rem;
-    /* position: fixed; */
   }
 
   .menu-trigger {
@@ -116,10 +114,6 @@ export const StyledLogoutBtn = styled.div`
   display: flex;
   cursor: pointer;
   padding: 5px 0 0 0;
-
-  /* &:hover {
-    color: ${(props) => props.theme.primaryColour};
-  } */
 `;
 
 export const StyledIconContainer = styled.div`
@@ -146,6 +140,10 @@ export const StyledWideContainer = styled.div`
   font-size: 14px;
   display: flex;
   align-items: center;
+
+  @media ${mediaQ.desktop_large} {
+    font-size: 16px;
+  }
 
   button {
     background: transparent;

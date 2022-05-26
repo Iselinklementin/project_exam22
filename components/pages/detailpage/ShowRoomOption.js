@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Paragraph from "../../typography/Paragraph";
 import Link from "next/link";
 import styled from "styled-components";
@@ -6,14 +7,14 @@ import { HotelOptions } from "./HotelOptions";
 import { StyledMobileButton } from "../../../styles/buttons/StyledMobileButton.styled";
 
 const StyledRoomContainer = styled.div`
-  background: ${(props) => props.theme.light};
+  background: ${props => props.theme.light};
 `;
 
 export const ShowRoomOption = ({ stay_type, room_type, price, id, info }) => {
   let SELECT_OPTIONS = [];
 
   if (stay_type === "Hotel") {
-    room_type.map((room) => {
+    room_type.map(room => {
       let rooms = { value: room, label: room };
       SELECT_OPTIONS.push(rooms);
     });
@@ -35,11 +36,24 @@ export const ShowRoomOption = ({ stay_type, room_type, price, id, info }) => {
         </Paragraph>
         <Link href={{ pathname: `/enquire/${id}`, query: { room: stay_type } }} className="mt-4">
           <StyledMobileButton className="btn primary-btn mt-4" role="button">
-            <Icon icon={icons.map((icon) => icon.bag)} color="white" fontSize="16px" className="me-2" />
+            <Icon
+              icon={icons.map(icon => icon.bag)}
+              color="white"
+              fontSize="16px"
+              className="me-2"
+            />
             Enquire
           </StyledMobileButton>
         </Link>
       </>
     );
   }
+};
+
+ShowRoomOption.propTypes = {
+  price: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  stay_type: PropTypes.string.isRequired,
+  info: PropTypes.string.isRequired,
+  room_type: PropTypes.array.isRequired,
 };

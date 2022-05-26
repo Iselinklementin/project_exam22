@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Select from "react-select";
+import { mediaQ } from "../../../styles/global/ThemeConfig";
 
 export const StyledSelect = styled(Select)`
   width: 100%;
@@ -19,6 +20,10 @@ export const StyledSelect = styled(Select)`
     color: ${(props) => props.theme.body};
     opacity: 0.8;
     font-size: 14px;
+
+    @media ${mediaQ.desktop_large} {
+      font-size: 16px;
+    }
   }
 
   .react-select__input-container {

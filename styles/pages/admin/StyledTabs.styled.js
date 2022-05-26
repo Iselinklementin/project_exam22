@@ -11,14 +11,15 @@ export const StyledTabs = styled.div`
     text-transform: uppercase;
     font-size: 14px;
     padding: 8px 40px;
+
+    @media ${mediaQ.desktop_large} {
+      font-size: 16px;
+    }
   }
 
   .nav-link.active {
     background-color: #fc5156;
     color: white;
-    /* border-top: ${(props) => props.theme.body} solid 1px;
-    border-left: ${(props) => props.theme.body} solid 1px;
-    border-right: ${(props) => props.theme.body} solid 1px; */
   }
 
   .nav-tabs {
@@ -30,8 +31,6 @@ export const StyledTabs = styled.div`
     @media ${mediaQ.tablet} {
       justify-content: flex-start;
     }
-
-    /* border-bottom: ${(props) => props.theme.body} solid 1px; */
   }
 
   button::after {

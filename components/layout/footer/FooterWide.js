@@ -1,10 +1,9 @@
-import { Container } from "react-bootstrap";
 import Image from "next/image";
 import Link from "next/link";
 import Mountain from "../../../assets/mountain.svg";
-import Logo from "../../../assets/logo.svg";
 import styled from "styled-components";
 import Coordinates from "../../../assets/coordinates.svg";
+import { Container } from "react-bootstrap";
 
 const StyledFooterContainer = styled(Container)`
   position: relative;

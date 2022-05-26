@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Carousel } from "react-bootstrap";
 import { mediaQ } from "../../styles/global/ThemeConfig";
 import styled from "styled-components";
@@ -53,10 +54,10 @@ const StyledCarousel = styled(Carousel)`
 
 // Reusable Carousel-function
 
-export default function Carousels(props) {
+export default function Carousels({ stays }) {
   return (
     <StyledCarousel>
-      {props.stays.map((stay) => {
+      {stays.map(stay => {
         let url = stay[0];
         let alt = stay[1];
 
@@ -70,7 +71,7 @@ export default function Carousels(props) {
               layout="fill"
               objectFit="cover"
               loading="eager"
-              objectPosition="bottom center"
+              objectPosition="center"
             />
           </Carousel.Item>
         );
@@ -78,3 +79,7 @@ export default function Carousels(props) {
     </StyledCarousel>
   );
 }
+
+Carousels.propTypes = {
+  stays: PropTypes.array.isRequired,
+};

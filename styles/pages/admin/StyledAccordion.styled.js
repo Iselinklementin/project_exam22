@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { mediaQ } from "../../global/ThemeConfig";
 
 export const StyledAccordion = styled.div`
   span {
@@ -48,6 +49,10 @@ export const StyledAccordion = styled.div`
     p {
       line-height: 1.5;
       font-size: 14px;
+
+      @media ${mediaQ.desktop_large} {
+        font-size: 16px;
+      }
     }
   }
 

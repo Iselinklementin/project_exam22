@@ -1,10 +1,10 @@
 import AuthContext from "../../../../context/AuthContext";
-import { useContext, useState } from "react";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import Stays from "../../../../assets/stays.svg";
-import Icon, { icons } from "../../../../constants/icons";
 import Link from "next/link";
+import Icon, { icons } from "../../../../constants/icons";
+import { useContext, useState } from "react";
+import { useRouter } from "next/router";
 import { StyledIconContainer, StyledLogoutBtn } from "../../styles/layout.styled";
 import { ShowModal } from "../../../common/modal/ShowModal";
 
@@ -40,10 +40,9 @@ export const AdminMenu = () => {
             router.pathname == "/add"
               ? "d-flex align-items-center my-2 nav-link-active-mobile"
               : "d-flex align-items-center my-2"
-          }
-        >
+          }>
           <StyledIconContainer>
-            <Icon icon={icons.map((icon) => icon.plus)} fontSize="22px" />
+            <Icon icon={icons.map(icon => icon.plus)} fontSize="22px" />
           </StyledIconContainer>
           Add stay
         </a>
@@ -56,10 +55,9 @@ export const AdminMenu = () => {
             router.pathname == "/admin"
               ? "d-flex align-items-center my-2 nav-link-active-mobile"
               : "d-flex align-items-center my-2"
-          }
-        >
+          }>
           <StyledIconContainer>
-            <Icon icon={icons.map((icon) => icon.user)} fontSize="16px" className="userIcon" />
+            <Icon icon={icons.map(icon => icon.user)} fontSize="16px" className="userIcon" />
           </StyledIconContainer>
           Admin
         </a>
@@ -72,10 +70,9 @@ export const AdminMenu = () => {
             router.pathname == "/contact"
               ? "d-flex align-items-center my-2 nav-link-active-mobile"
               : "d-flex align-items-center my-2"
-          }
-        >
+          }>
           <StyledIconContainer>
-            <Icon icon={icons.map((icon) => icon.email)} fontSize="17px" />
+            <Icon icon={icons.map(icon => icon.email)} fontSize="17px" />
           </StyledIconContainer>
           Contact us
         </a>
@@ -84,7 +81,7 @@ export const AdminMenu = () => {
 
       <StyledLogoutBtn onClick={() => setModalShow(true)} className="logout-icon">
         <StyledIconContainer>
-          <Icon icon={icons.map((icon) => icon.logout)} />
+          <Icon icon={icons.map(icon => icon.logout)} />
         </StyledIconContainer>
         Log out
       </StyledLogoutBtn>

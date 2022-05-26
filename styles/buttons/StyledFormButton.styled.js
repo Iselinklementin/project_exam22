@@ -16,6 +16,10 @@ export const StyledFormButton = styled(Button)`
   align-items: center;
   justify-content: center;
 
+  @media ${mediaQ.desktop_large} {
+    font-size: 16px;
+  }
+
   &:hover,
   &:focus,
   &:active,

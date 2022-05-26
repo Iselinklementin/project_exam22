@@ -1,8 +1,7 @@
 import React from "react";
 import axios from "axios";
-import Carousels from "../../components/carousel/Carousel";
-import styled from "styled-components";
-import ShowIcons from "../../components/common/icons/ShowIcons";
+import PropTypes from "prop-types";
+import PageHead from "../../components/layout/PageHead";
 import Layout from "../../components/layout/Layout";
 import Heading from "../../components/typography/Heading";
 import Paragraph from "../../components/typography/Paragraph";
@@ -11,124 +10,75 @@ import { Container } from "react-bootstrap";
 import { StyledContainer } from "../../styles/containers/StyledContainer.styled";
 import { useWindowSize } from "../../hooks/useWindowSize";
 import { SCREEN } from "../../constants/misc";
-import { Description } from "../../components/pages/detailpage/Description";
-import { Breadcrumbs } from "../../components/pages/detailpage/Breadcrumbs";
-import { Location } from "../../components/pages/detailpage/Location";
-import { ShowRoomOption } from "../../components/pages/detailpage/ShowRoomOption";
-import PageHead from "../../components/layout/PageHead";
+import { Breadcrumbs } from "../../components/common/breadcrumbs/Breadcrumbs";
+import { DetailMobile } from "../../components/pages/detailpage/Mobile/DetailMobile";
+import { DetailLaptop } from "../../components/pages/detailpage/Laptop/DetailLaptop";
 
-const StyledNiceToKnow = styled.div`
-  width: 720px;
-  padding-right: 2rem;
-`;
-
-const StyledSplit = styled.div`
-  border-left: solid thin grey;
-  height: 105px;
-`;
-
-export default function stay({ stay }) {
+export default function Stay({ stay }) {
   const size = useWindowSize();
 
-  // gather image and alt text in an array (for carousel)
-  let image = Object.entries(stay.acf.image);
-  let imageUrl = image.map((img) => img[1].url);
-  let imageAlt = image.map((img) => img[1].alt);
-  let imageArray = imageUrl.map((url, i) => [url, imageAlt[i]]);
+  const {
+    title,
+    room,
+    price,
+    stay_includes,
+    stay_description,
+    nice_to_know_text,
+    nice_to_know,
+    image,
+    address,
+  } = stay.acf;
 
-  //   <div className="books">
-  //   <h2>Books</h2>
-  //   {books.map(function (book) {
-  //     const { id, title, published } = book;
-  //     return <BookItem key={id} id={id} title={title} published={published} />;
-  //   })}
-  // </div>
+  let id = stay.id;
+
+  // gather image and alt text in an array (for carousel)
+  let images = Object.entries(image);
+  let imageUrl = images.map(img => img[1].url);
+  let imageAlt = images.map(img => img[1].alt);
+  let imageArray = imageUrl.map((url, i) => [url, imageAlt[i]]);
 
   return (
     <>
       <PageHead
-        title={stay.acf.title}
+        title={title}
         content="Book hotels, apartments og Bed & breakfast in Bergen. We in Holidaze have the best places to stay, handpicked for you!"
         keywords="travel, europe, bergen, adventure, exotic, culture, explore"
       />
       <Layout>
         <StyledContainer className="mt-5 px-md-0">
           <Container>
-            <Breadcrumbs title={stay.acf.title} />
+            <Breadcrumbs title={title} linkName="Stays" link="/stays" />
             <div className="d-flex justify-content-between align-items-center mt-4">
-              <Heading>{stay.acf.title}</Heading>
+              <Heading>{title}</Heading>
             </div>
-            <Paragraph>{stay.acf.room.stay_type}</Paragraph>
+            <Paragraph>{room.stay_type}</Paragraph>
           </Container>
         </StyledContainer>
 
         {size.width <= SCREEN.laptop ? (
-          <StyledContainer>
-            <Container className="mt-5">
-              <Carousels stays={imageArray} />
-              <div className="mt-4">
-                <ShowIcons stay={stay.acf.stay_includes} />
-              </div>
-              <Description className="mt-5" hSize="2" heading="Description" body={stay.acf.stay_description} />
-            </Container>
-            <Container>
-              <Description className="mt-3" hSize="2" heading="Nice to know" body={stay.acf.nice_to_know_text} />
-              <div className="d-flex">
-                <Location
-                  className="ms-3"
-                  address={stay.acf.address.full_address}
-                  location={stay.acf.address.short_description}
-                />
-              </div>
-              <div className="mt-4">
-                <ShowIcons stay={stay.acf.nice_to_know} />
-              </div>
-            </Container>
-            <Container>
-              <hr className="my-5" />
-              <Heading size="3">Room</Heading>
-              <ShowRoomOption
-                stay_type={stay.acf.room.stay_type}
-                room_type={stay.acf.room.room_type}
-                price={stay.acf.price}
-                id={stay.id}
-                info={stay.acf.room.room_info}
-              />
-            </Container>
-          </StyledContainer>
+          <DetailMobile
+            price={price}
+            include={stay_includes}
+            description={stay_description}
+            nice_text={nice_to_know_text}
+            nice_icons={nice_to_know}
+            address={address}
+            images={imageArray}
+            room={room}
+            id={id}
+          />
         ) : (
-          <StyledContainer>
-            <div className="d-flex flex-row justify-content-between">
-              <Carousels stays={imageArray} />
-              <div className="ms-5">
-                <ShowIcons stay={stay.acf.stay_includes} />
-                <Description className="mt-5" hSize="2" heading="Description" body={stay.acf.stay_description} />
-                <ShowRoomOption
-                  stay_type={stay.acf.room.stay_type}
-                  room_type={stay.acf.room.room_type}
-                  price={stay.acf.price}
-                  id={stay.id}
-                  info={stay.acf.room.room_info}
-                />
-              </div>
-            </div>
-            <div className="mt-5 d-flex justify-content-between align-items-center">
-              <StyledNiceToKnow className="border-right">
-                <Description className="mt-3" hSize="2" heading="Nice to know" body={stay.acf.nice_to_know_text} />
-                <div className="d-flex mt-4">
-                  <Location
-                    className="ms-5"
-                    address={stay.acf.address.full_address}
-                    location={stay.acf.address.short_description}
-                  />
-                </div>
-              </StyledNiceToKnow>
-              <StyledSplit></StyledSplit>
-              <div className="ms-5">
-                <ShowIcons stay={stay.acf.nice_to_know} />
-              </div>
-            </div>
-          </StyledContainer>
+          <DetailLaptop
+            price={price}
+            include={stay_includes}
+            description={stay_description}
+            nice_text={nice_to_know_text}
+            nice_icons={nice_to_know}
+            address={address}
+            images={imageArray}
+            room={room}
+            id={id}
+          />
         )}
       </Layout>
     </>
@@ -139,7 +89,7 @@ export async function getStaticPaths() {
   try {
     const response = await axios.get(API_URL);
     const stay = response.data;
-    const paths = stay.map((item) => ({
+    const paths = stay.map(item => ({
       params: {
         id: JSON.stringify(item.id),
       },
@@ -150,8 +100,6 @@ export async function getStaticPaths() {
     console.log(error);
   }
 }
-
-// se om jeg kan gjøre id om til navn i stede
 
 export async function getStaticProps({ params }) {
   const url = `${API_URL}/${params.id}`;
@@ -168,3 +116,7 @@ export async function getStaticProps({ params }) {
     };
   }
 }
+
+Stay.propTypes = {
+  stay: PropTypes.object.isRequired,
+};

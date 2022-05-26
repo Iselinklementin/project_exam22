@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Paragraph from "../../typography/Paragraph";
 
 export const Location = ({ className, address, location }) => {
@@ -16,4 +17,8 @@ export const Location = ({ className, address, location }) => {
   );
 };
 
-// her må det være props
+Location.propTypes = {
+  className: PropTypes.string.isRequired,
+  address: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+};

@@ -1,19 +1,25 @@
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import Link from "next/link";
 import { Breadcrumb } from "react-bootstrap";
+import { mediaQ } from "../../../styles/global/ThemeConfig";
 
 const StyledBreadcrumb = styled(Breadcrumb)`
   li {
     font-size: 12px;
     text-transform: uppercase;
+
+    @media ${mediaQ.desktop_large} {
+      font-size: 14px;
+    }
   }
 `;
 
-export const Breadcrumbs = ({ title }) => {
+export const Breadcrumbs = ({ link, linkName, title }) => {
   return (
     <StyledBreadcrumb>
       <li className="breadcrumb-item">
-        <Link href="/stays">Stays</Link>
+        <Link href={link}>{linkName}</Link>
       </li>
       <li className="breadcrumb-item active" aria-current="page">
         {title}
@@ -22,4 +28,8 @@ export const Breadcrumbs = ({ title }) => {
   );
 };
 
-// her må det være props
+Breadcrumbs.propTypes = {
+  link: PropTypes.string.isRequired,
+  linkName: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+};

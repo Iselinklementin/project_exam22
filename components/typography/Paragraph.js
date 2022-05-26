@@ -6,7 +6,7 @@ const StyledParagraph = styled.p`
 `;
 
 export const StyledParagraphColoured = styled(StyledParagraph)`
-  color: ${(props) => props.theme.primaryColour};
+  color: ${props => props.theme.primaryColour};
 `;
 
 export default function Paragraph({ className, children }) {

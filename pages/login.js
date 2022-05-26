@@ -1,13 +1,22 @@
-import React, { useState } from "react";
 import Layout from "../components/layout/Layout";
-import { Container } from "react-bootstrap";
-// import pageHeader from "components/layout/PageHeader";
 import Heading from "../components/typography/Heading";
 import LoginForm from "../components/forms/LoginForm";
-import { StyledContainerSmall } from "../styles/containers/StyledContainerSmall";
 import PageHead from "../components/layout/PageHead";
+import AuthContext from "../context/AuthContext";
+import React, { useContext, useEffect } from "react";
+import { useRouter } from "next/router";
+import { StyledContainerSmall } from "../styles/containers/StyledContainerSmall";
 
-function login() {
+export default function Login() {
+  const [auth] = useContext(AuthContext);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (auth) {
+      router.push("/admin");
+    }
+  }, []);
+
   return (
     <>
       <PageHead
@@ -26,5 +35,3 @@ function login() {
     </>
   );
 }
-
-export default login;

@@ -1,8 +1,8 @@
-import { Container } from "react-bootstrap";
 import Image from "next/image";
 import Link from "next/link";
 import Mountain from "../../../assets/mountain.svg";
 import LogoIcon from "../../../assets/logo_element.svg";
+import { Container } from "react-bootstrap";
 
 export const FooterMobile = () => {
   return (

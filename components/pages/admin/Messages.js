@@ -1,18 +1,22 @@
 import axios from "axios";
 import Alertbox from "../../common/alert/Alertbox";
 import Loader from "../../common/loader/Loader";
-import { CONTACT_URL } from "../../../constants/api";
+import Paragraph from "../../typography/Paragraph";
+import Icon, { icons } from "../../../constants/icons";
 import React, { useEffect, useState } from "react";
 import { Accordion } from "react-bootstrap";
+import { CONTACT_URL } from "../../../constants/api";
 import { StyledAccordion } from "../../../styles/pages/admin/StyledAccordion.styled";
-import Icon, { icons } from "../../../constants/icons";
-import Paragraph from "../../typography/Paragraph";
 import { RemoveWords } from "../../common/functions/RemoveWords";
+import { useWindowSize } from "../../../hooks/useWindowSize";
+import { SCREEN } from "../../../constants/misc";
 
 export default function Messages() {
   const [contact, setContact] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const size = useWindowSize();
 
   useEffect(() => {
     async function getMessages() {
@@ -21,7 +25,7 @@ export default function Messages() {
         if (response.status === 200) {
           setContact(response.data);
         } else {
-          setError("This wasnt good");
+          setError(error.toString());
         }
       } catch (error) {
         console.log(error);
@@ -40,7 +44,7 @@ export default function Messages() {
   if (error) {
     return (
       <Alertbox className="mt-2" type="danger">
-        {error}
+        Sorry, something went wrong.
       </Alertbox>
     );
   }
@@ -50,39 +54,36 @@ export default function Messages() {
   return (
     <StyledAccordion>
       <Accordion defaultActiveKey="0" flush>
-        {contact.map((item) => {
+        {contact.map(item => {
           count++;
-          let received = item.acf.date;
+          const { name, title, email, message, date } = item.acf;
 
           return (
-            <Accordion.Item eventKey={count}>
+            <Accordion.Item eventKey={count} key={item.id}>
               <Accordion.Header>
                 <div className="d-block">
                   <Paragraph className="acc-heading">
-                    <span>{item.acf.name}</span>
+                    <span>{name}</span>
                   </Paragraph>
-                  <Paragraph className="acc-heading">{item.acf.title}</Paragraph>
+                  <Paragraph className="acc-heading">{title}</Paragraph>
                 </div>
-
                 <div className="received-container">
-                  <Paragraph>{RemoveWords(received)}</Paragraph>
-                  <Icon className="ms-3" icon={icons.map((icon) => icon.email)} />
+                  {size.width <= SCREEN.tablet ? (
+                    <Paragraph>{RemoveWords(date)}</Paragraph>
+                  ) : (
+                    <Paragraph>{date}</Paragraph>
+                  )}
+                  <Icon className="ms-3" icon={icons.map(icon => icon.email)} />
                 </div>
               </Accordion.Header>
-
               <Accordion.Body className="d-flex">
                 <div className="text-container">
                   <Paragraph>
-                    <span>Message:</span> {item.acf.message}
+                    <span>Message:</span> {message}
                   </Paragraph>
-                  {/* <Paragraph className="paragraph-margin"></Paragraph> */}
                   <Paragraph>
-                    <span>Email:</span> {item.acf.email}
+                    <span>Email:</span> {email}
                   </Paragraph>
-                  {/* <div className="d-flex align-items-center mt-4">
-                    <Icon icon={icons.map((icon) => icon.trash)} fontSize="18px" />
-                    <Paragraph>Delete message</Paragraph>
-                  </div> */}
                 </div>
               </Accordion.Body>
             </Accordion.Item>
@@ -92,10 +93,3 @@ export default function Messages() {
     </StyledAccordion>
   );
 }
-
-// export async function getStaticProps() {
-//   const messages = await getMessages();
-//   return { props: { messages } };
-// }
-
-//                 <Icon icon={icons.map((icon) => icon.chat)} className="me-3" fontSize="18px" />

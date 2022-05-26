@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-datepicker/dist/react-datepicker.css";
-import Theme from "../styles/global/ThemeConfig";
+import Theme, { mediaQ } from "../styles/global/ThemeConfig";
 import { ThemeProvider } from "styled-components";
 import styled from "styled-components";
 import SSRProvider from "react-bootstrap/SSRProvider";
@@ -10,6 +10,10 @@ import { AuthProvider } from "../context/AuthContext";
 
 const Wrapper = styled.div`
   min-height: 50vh;
+
+  @media ${mediaQ.desktop} {
+    min-height: 70vh;
+  }
 `;
 
 function MyApp({ Component, pageProps }) {

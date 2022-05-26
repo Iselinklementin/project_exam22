@@ -2,12 +2,12 @@ import * as yup from "yup";
 
 export const schema = yup.object().shape({
   title: yup.string().required("Please enter the title"),
-  description: yup
-    .string()
-    .required("Please enter your message")
-    .min(20, "Description must at be at least 20 characters"),
+  description: yup.string().required("Please enter your message").min(20, "Minimum 20 characters"),
   price: yup.number().typeError("Price must be a number").required("Please add a price"),
-  stay_type: yup.string().required("Select a stay type").oneOf(["Hotel", "Apartment", "Bed & Breakfast"]),
+  stay_type: yup
+    .string()
+    .required("Select a stay type")
+    .oneOf(["Hotel", "Apartment", "Bed & Breakfast"]),
   full_address: yup.string().required("Fill in address"),
   short_description: yup.string().required("Enter location"),
   nice_text: yup.string().required("Fill in a short description").min(20, "Minimum 20 characters"),
@@ -22,7 +22,7 @@ export const schema = yup.object().shape({
   no_smoking: yup.boolean(),
   handicap_friendly: yup.boolean(),
   check_in: yup.string().required("Enter a check-in time"),
-  checkout: yup.string().nullable().required("Enter a checkout time"),
+  checkout: yup.string().required("Enter a checkout time"),
   room_info: yup
     .string()
     .ensure()
@@ -44,40 +44,38 @@ export const schema = yup.object().shape({
     }),
   image_one: yup
     .mixed()
-    .test("required", "Please upload image", (value) => value.length > 0)
-    .test("fileSize", "The file size is too large", (value) => {
+    .test("required", "Please upload image", value => value.length > 0)
+    .test("fileSize", "The file size is too large", value => {
       return value.length && value[0].size <= 5242880;
     })
-    .test("fileType", "Unsupported File Format", (value) => {
+    .test("fileType", "Unsupported File Format", value => {
       return value.length && ["image/jpeg", "image/png", "image/jpg"].includes(value[0].type);
     }),
   image_two: yup
     .mixed()
-    .test("required", "Please upload image", (value) => value.length > 0)
-    .test("fileSize", "The file size is too large", (value) => {
+    .test("required", "Please upload image", value => value.length > 0)
+    .test("fileSize", "The file size is too large", value => {
       return value.length && value[0].size <= 5242880;
     })
-    .test("fileType", "Unsupported File Format", (value) => {
+    .test("fileType", "Unsupported File Format", value => {
       return value.length && ["image/jpeg", "image/png", "image/jpg"].includes(value[0].type);
     }),
   image_three: yup
     .mixed()
-    .test("required", "Please upload image", (value) => value.length > 0)
-    .test("fileSize", "The file size is too large", (value) => {
+    .test("required", "Please upload image", value => value.length > 0)
+    .test("fileSize", "The file size is too large", value => {
       return value.length && value[0].size <= 5242880;
     })
-    .test("fileType", "Unsupported File Format", (value) => {
+    .test("fileType", "Unsupported File Format", value => {
       return value.length && ["image/jpeg", "image/png", "image/jpg"].includes(value[0].type);
     }),
   image_four: yup
     .mixed()
-    .test("required", "Please upload image", (value) => value.length > 0)
-    .test("fileSize", "The file size is too large", (value) => {
+    .test("required", "Please upload image", value => value.length > 0)
+    .test("fileSize", "The file size is too large", value => {
       return value.length && value[0].size <= 5242880;
     })
-    .test("fileType", "Unsupported File Format", (value) => {
+    .test("fileType", "Unsupported File Format", value => {
       return value.length && ["image/jpeg", "image/png", "image/jpg"].includes(value[0].type);
     }),
 });
-
-// https://dev.to/gabrielterriaga/how-to-validate-two-fields-that-depend-on-each-other-with-yup-1ccg

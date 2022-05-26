@@ -1,5 +1,4 @@
 import { mediaQ } from "../global/ThemeConfig";
-import { Button } from "react-bootstrap";
 import styled from "styled-components";
 
 export const StyledBasicButton = styled.a`
@@ -10,6 +9,10 @@ export const StyledBasicButton = styled.a`
   display: inline-flex;
   color: white;
   border-radius: 6px;
+
+  @media ${mediaQ.desktop_large} {
+    font-size: 16px;
+  }
 
   &:hover,
   &:focus {
