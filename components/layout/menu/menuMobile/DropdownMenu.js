@@ -23,11 +23,8 @@ export const DropdownMenu = () => {
 
   return (
     <MenuContainer>
-      <button
-        aria-label="navigation"
-        className="p-0 menu-trigger"
-        onClick={() => handleMenuClick()}>
-        <Icon icon={icons.map(icon => icon.burger)} fontSize="28px" color="#FC5156" />
+      <button aria-label="navigation" className="p-0 menu-trigger" onClick={() => handleMenuClick()}>
+        <Icon icon={icons.map((icon) => icon.burger)} fontSize="28px" color="#FC5156" />
       </button>
 
       <div className={`menu ${isActive ? "active" : ""}`}>

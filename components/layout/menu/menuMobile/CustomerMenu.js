@@ -7,15 +7,22 @@ import { useRouter } from "next/router";
 
 export const CustomerMenu = () => {
   const router = useRouter();
+
+  const clickLink = () => {
+    document.body.classList.remove("body_menu_open");
+  };
+
   return (
     <>
       <Link href="/stays">
         <a
+          onClick={clickLink}
           className={
             router.pathname == "/stays"
               ? "d-flex align-items-center my-2 nav-link-active-mobile"
               : "d-flex align-items-center my-2"
-          }>
+          }
+        >
           <StyledIconContainer>
             <Image src={Stays} alt="Icon, a house with a chimney" width="21.6" height="15" />
           </StyledIconContainer>
@@ -25,13 +32,15 @@ export const CustomerMenu = () => {
       <hr />
       <Link href="/contact">
         <a
+          onClick={clickLink}
           className={
             router.pathname == "/contact"
               ? "d-flex align-items-center my-2 nav-link-active-mobile"
               : "d-flex align-items-center my-2"
-          }>
+          }
+        >
           <StyledIconContainer>
-            <Icon icon={icons.map(icon => icon.email)} fontSize="17px" />
+            <Icon icon={icons.map((icon) => icon.email)} fontSize="17px" />
           </StyledIconContainer>
           Contact us
         </a>
@@ -39,13 +48,15 @@ export const CustomerMenu = () => {
       <hr />
       <Link href="/login">
         <a
+          onClick={clickLink}
           className={
             router.pathname == "/login"
               ? "d-flex align-items-center my-2 nav-link-active-mobile"
               : "d-flex align-items-center my-2"
-          }>
+          }
+        >
           <StyledIconContainer>
-            <Icon icon={icons.map(icon => icon.user)} fontSize="16px" className="userIcon" />
+            <Icon icon={icons.map((icon) => icon.user)} fontSize="16px" className="userIcon" />
           </StyledIconContainer>
           Login
         </a>

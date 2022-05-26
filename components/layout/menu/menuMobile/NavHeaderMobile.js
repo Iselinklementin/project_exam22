@@ -7,20 +7,24 @@ import { DropdownMenu } from "./DropdownMenu";
 import { StyledNav } from "../../styles/layout.styled";
 
 export const NavHeaderMobile = () => {
+  const clickLink = () => {
+    document.body.classList.remove("body_menu_open");
+  };
+
   return (
     <StyledNav expand="lg">
       <Container className="mt-3 justify-space-between">
         <DropdownMenu />
         <Navbar.Brand className="logo">
           <Link href="/" passHref>
-            <a>
+            <a onClick={clickLink}>
               <Image src={LogoIcon} alt="Holidaze logo element" width="38.71" height="38.69" />
             </a>
           </Link>
         </Navbar.Brand>
 
         <Link href="/stays">
-          <a style={{ lineHeight: "0.9" }}>
+          <a onClick={clickLink} style={{ lineHeight: "0.9" }}>
             <Image src={Stays} alt="Icon, a house with a chimney" width="28.18" height="20" />
           </a>
         </Link>

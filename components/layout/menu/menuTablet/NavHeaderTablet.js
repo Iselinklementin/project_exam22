@@ -5,11 +5,7 @@ import Image from "next/image";
 import Coordinates from "../../../../assets/coordinates.svg";
 import { useContext, useEffect, useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
-import {
-  StyledCoordinatesContainer,
-  StyledNav,
-  StyledWideContainer,
-} from "../../styles/layout.styled";
+import { StyledCoordinatesContainer, StyledNav, StyledWideContainer } from "../../styles/layout.styled";
 import { DropdownMenuAdmin } from "./DropdownMenuAdmin";
 import { StyledStayBtn } from "../../../../styles/buttons/StyledStayBtn.styled";
 import { useRouter } from "next/router";
@@ -43,17 +39,13 @@ export const NavHeaderTablet = () => {
             <StyledStayBtn className="me-4">Stays</StyledStayBtn>
           </Link>
           <Link href="/contact" passHref>
-            <a className={router.pathname == "/contact" ? "me-4 nav-link-active" : "me-4"}>
-              Contact
-            </a>
+            <a className={router.pathname == "/contact" ? "me-4 nav-link-active" : "me-4"}>Contact</a>
           </Link>
 
           {authorized ? (
             <>
               <Link href="/admin">
-                <a className={router.pathname == "/admin" ? "me-4 nav-link-active" : "me-4"}>
-                  Admin
-                </a>
+                <a className={router.pathname == "/admin" ? "me-4 nav-link-active" : "me-4"}>Admin</a>
               </Link>
               <DropdownMenuAdmin />
             </>
