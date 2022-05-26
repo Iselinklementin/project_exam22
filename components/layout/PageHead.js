@@ -11,6 +11,7 @@ export default function PageHead({ title = "", content, keywords }) {
       <meta name="description" content={content} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="keywords" content={keywords} />
+      <meta name="theme-color" content="#FC5156" />
     </Head>
   );
 }

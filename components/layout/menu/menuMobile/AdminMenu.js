@@ -7,6 +7,7 @@ import { useContext, useState } from "react";
 import { useRouter } from "next/router";
 import { StyledIconContainer, StyledLogoutBtn } from "../../styles/layout.styled";
 import { ShowModal } from "../../../common/modal/ShowModal";
+import { clickLink } from "../function/clickLink";
 
 export const AdminMenu = () => {
   const [auth, setAuth] = useContext(AuthContext);
@@ -22,10 +23,6 @@ export const AdminMenu = () => {
   function hideModal() {
     setModalShow(false);
   }
-
-  const clickLink = () => {
-    document.body.classList.remove("body_menu_open");
-  };
 
   return (
     <>

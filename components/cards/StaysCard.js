@@ -13,7 +13,6 @@ function StaysCard({ stays }) {
       {stays.map((stay) => {
         let stars = JSON.stringify(stay.acf.stars);
         let numbersOfStars = parseInt(stars.charAt(2));
-        let includes = Object.entries(stay.acf.stay_includes);
         return (
           <Col key={stay.id}>
             <Link href={`stays/${stay.id}`}>
@@ -28,8 +27,8 @@ function StaysCard({ stays }) {
                   src={stay.acf.image.image_1.url}
                   alt={stay.acf.image.image_1.alt}
                   objectFit="cover"
-                  width={200}
-                  height={280}
+                  width="200"
+                  height="280"
                   className="card-img"
                   blurDataURL={PLACEHOLDER_IMG}
                   placeholder="blur"

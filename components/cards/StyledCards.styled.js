@@ -47,9 +47,6 @@ export const StyledCard = styled(Card)`
     border-radius: 8px 8px 0px 0px;
   }
 
-  .card-text {
-  }
-
   .badge {
     position: absolute;
     right: 15px;

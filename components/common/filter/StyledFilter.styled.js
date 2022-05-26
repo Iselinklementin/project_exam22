@@ -23,8 +23,8 @@ export const StyledFilter = styled.div`
     color: ${(props) => props.theme.body};
   }
 
-  .filter-tablet {
-    @media ${mediaQ.tablet} {
+  .filter-laptop {
+    @media ${mediaQ.laptop} {
       border-left: solid thin grey;
       padding-left: 2rem;
     }

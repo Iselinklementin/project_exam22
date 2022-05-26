@@ -5,12 +5,9 @@ import Image from "next/image";
 import { Container, Navbar } from "react-bootstrap";
 import { DropdownMenu } from "./DropdownMenu";
 import { StyledNav } from "../../styles/layout.styled";
+import { clickLink } from "../function/clickLink";
 
 export const NavHeaderMobile = () => {
-  const clickLink = () => {
-    document.body.classList.remove("body_menu_open");
-  };
-
   return (
     <StyledNav expand="lg">
       <Container className="mt-3 justify-space-between">

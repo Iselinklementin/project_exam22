@@ -10,6 +10,7 @@ import { StyledAccordion } from "../../../styles/pages/admin/StyledAccordion.sty
 import { RemoveWords } from "../../common/functions/RemoveWords";
 import { useWindowSize } from "../../../hooks/useWindowSize";
 import { SCREEN } from "../../../constants/misc";
+import { DeleteMessage } from "../../../components/buttons/delete/DeleteMessage";
 
 export default function Messages() {
   const [contact, setContact] = useState([]);
@@ -18,22 +19,23 @@ export default function Messages() {
 
   const size = useWindowSize();
 
-  useEffect(() => {
-    async function getMessages() {
-      try {
-        const response = await axios.get(CONTACT_URL);
-        if (response.status === 200) {
-          setContact(response.data);
-        } else {
-          setError(error.toString());
-        }
-      } catch (error) {
-        console.log(error);
-        setError(error.toString());
-      } finally {
-        setLoading(false);
+  const getMessages = async function () {
+    try {
+      const response = await axios.get(CONTACT_URL);
+      if (response.status === 200) {
+        setContact(response.data);
+      } else {
+        setError(error);
       }
+    } catch (error) {
+      console.log(error);
+      setError(error.toString());
+    } finally {
+      setLoading(false);
     }
+  };
+
+  useEffect(() => {
     getMessages();
   }, []);
 
@@ -51,12 +53,17 @@ export default function Messages() {
 
   let count = 0;
 
+  if (!contact.length) {
+    return <div className="mt-5 text-center">You have no messages in your inbox.</div>;
+  }
+
   return (
     <StyledAccordion>
       <Accordion defaultActiveKey="0" flush>
-        {contact.map(item => {
+        {contact.map((item) => {
           count++;
           const { name, title, email, message, date } = item.acf;
+          const id = item.id;
 
           return (
             <Accordion.Item eventKey={count} key={item.id}>
@@ -73,7 +80,7 @@ export default function Messages() {
                   ) : (
                     <Paragraph>{date}</Paragraph>
                   )}
-                  <Icon className="ms-3" icon={icons.map(icon => icon.email)} />
+                  <Icon className="ms-3" icon={icons.map((icon) => icon.email)} />
                 </div>
               </Accordion.Header>
               <Accordion.Body className="d-flex">
@@ -84,6 +91,7 @@ export default function Messages() {
                   <Paragraph>
                     <span>Email:</span> {email}
                   </Paragraph>
+                  <DeleteMessage id={id} messageUrl={CONTACT_URL} getMessages={getMessages} />
                 </div>
               </Accordion.Body>
             </Accordion.Item>

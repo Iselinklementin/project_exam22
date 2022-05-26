@@ -11,6 +11,7 @@ import { StyledAccordion } from "../../../styles/pages/admin/StyledAccordion.sty
 import { RemoveWords } from "../../common/functions/RemoveWords";
 import { useWindowSize } from "../../../hooks/useWindowSize";
 import { SCREEN } from "../../../constants/misc";
+import { DeleteMessage } from "../../../components/buttons/delete/DeleteMessage";
 
 export default function Enquires() {
   const [contact, setContact] = useState([]);
@@ -19,23 +20,24 @@ export default function Enquires() {
 
   const size = useWindowSize();
 
-  useEffect(() => {
-    async function getEnquires() {
-      try {
-        const response = await axios.get(ENQUIRES_URL);
-        if (response.status === 200) {
-          setContact(response.data);
-        } else {
-          setError(error);
-        }
-      } catch (error) {
-        console.log(error);
-        setError(error.toString());
-      } finally {
-        setLoading(false);
+  const getMessages = async function () {
+    try {
+      const response = await axios.get(ENQUIRES_URL);
+      if (response.status === 200) {
+        setContact(response.data);
+      } else {
+        setError(error);
       }
+    } catch (error) {
+      console.log(error);
+      setError(error.toString());
+    } finally {
+      setLoading(false);
     }
-    getEnquires();
+  };
+
+  useEffect(() => {
+    getMessages();
   }, []);
 
   if (loading) {
@@ -52,10 +54,14 @@ export default function Enquires() {
 
   let count = 0;
 
+  if (!contact.length) {
+    return <div className="mt-5 text-center">You have no enquiries in your inbox.</div>;
+  }
+
   return (
     <StyledAccordion>
       <Accordion defaultActiveKey="0" flush>
-        {contact.map(item => {
+        {contact.map((item) => {
           const {
             date_received,
             stay_title,
@@ -71,6 +77,7 @@ export default function Enquires() {
           } = item.acf;
 
           count++;
+          const id = item.id;
 
           return (
             <Accordion.Item eventKey={count} key={item.id}>
@@ -88,7 +95,7 @@ export default function Enquires() {
                   ) : (
                     <Paragraph>{date_received}</Paragraph>
                   )}
-                  <Icon className="ms-3" icon={icons.map(icon => icon.email)} />
+                  <Icon className="ms-3" icon={icons.map((icon) => icon.email)} />
                 </div>
               </Accordion.Header>
 
@@ -123,6 +130,7 @@ export default function Enquires() {
                   <Paragraph>
                     <span>Email:</span> {email}
                   </Paragraph>
+                  <DeleteMessage id={id} messageUrl={ENQUIRES_URL} getMessages={getMessages} />
                 </div>
               </Accordion.Body>
             </Accordion.Item>

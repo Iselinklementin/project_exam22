@@ -4,13 +4,10 @@ import Link from "next/link";
 import Icon, { icons } from "../../../../constants/icons";
 import { StyledIconContainer } from "../../styles/layout.styled";
 import { useRouter } from "next/router";
+import { clickLink } from "../function/clickLink";
 
 export const CustomerMenu = () => {
   const router = useRouter();
-
-  const clickLink = () => {
-    document.body.classList.remove("body_menu_open");
-  };
 
   return (
     <>

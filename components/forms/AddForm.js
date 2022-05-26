@@ -458,6 +458,7 @@ function AddForm() {
                 <Icon icon={icons.map((icon) => icon.heart)} fontSize="18px" className="me-3" />
                 <Heading size="2">Keywords</Heading>
               </div>
+
               <StyledCheckbox>
                 <Form.Check name="featured" label="Featured" {...register("featured")} aria-labelledBy="Featured" />
                 <StyledMutedTextCheckboxes className="text-muted">What´s included?</StyledMutedTextCheckboxes>
