@@ -7,7 +7,7 @@ export const AddEnquireBtn = () => {
   return (
     <Link href="/add" passHref>
       <StyledAddBtn className="btn btn-primary my-3">
-        <Image src={Add} width="34px" height="36px" />
+        <Image src={Add} alt="A button with a house" width="34px" height="36px" aria-label="Add enquiry" />
       </StyledAddBtn>
     </Link>
   );
