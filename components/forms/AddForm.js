@@ -276,7 +276,7 @@ function AddForm() {
     <>
       {submitted && (
         <AlertboxSuccess className="mt-5 mb-0">
-          <StyledHeading size="3">Success! </StyledHeading>
+          <StyledHeading size="2">Success! </StyledHeading>
           The stay was added.
           <span className="d-block mb-4">It will be display on the Holidaze website in a moment.</span>
           <Link href="/">
@@ -453,7 +453,7 @@ function AddForm() {
             <StyledFormWrap>
               <div className="d-flex">
                 <Icon icon={icons.map((icon) => icon.heart)} fontSize="18px" className="me-3" />
-                <Heading size="3">Keywords</Heading>
+                <Heading size="2">Keywords</Heading>
               </div>
 
               <StyledCheckbox>
@@ -470,7 +470,7 @@ function AddForm() {
 
               <div className="d-flex">
                 <Icon icon={icons.map((icon) => icon.heart)} fontSize="18px" className="me-3" />
-                <Heading size="3">Nice to know</Heading>
+                <Heading size="2">Nice to know</Heading>
               </div>
 
               <StyledCheckbox className="mb-5">
@@ -549,7 +549,7 @@ function AddForm() {
           <div className="d-flex justify-content-between mb-5">
             <div className="d-flex">
               <Icon icon={icons.map((icon) => icon.images)} fontSize="26px" className="me-3" />
-              <Heading size="3">Images</Heading>
+              <Heading size="2">Images</Heading>
             </div>
           </div>
 
@@ -682,7 +682,7 @@ function AddForm() {
 
           {submitted && (
             <AlertboxSuccess className="mt-5 mb-0">
-              <StyledHeading size="3">Success! </StyledHeading>
+              <StyledHeading size="2">Success! </StyledHeading>
               The stay was added.
               <span className="d-block mb-4">It will be display on the Holidaze website in a moment.</span>
               <Link href="/">
