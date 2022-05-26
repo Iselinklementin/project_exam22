@@ -16,7 +16,7 @@ export const HotelOptions = ({ options, id }) => {
 
   return (
     <div>
-      <Form.Label>{roomOption}</Form.Label>
+      <Paragraph>{roomOption}</Paragraph>
       <StyledSelect
         options={options}
         instanceId="select_one"
