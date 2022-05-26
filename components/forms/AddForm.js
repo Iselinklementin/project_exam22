@@ -233,6 +233,7 @@ function AddForm() {
               control={control}
               render={({ field: { onChange } }) => (
                 <StyledSelect
+                  aria-labelledBy="Room type"
                   name="room_type"
                   classNamePrefix="react-select"
                   className="select"
@@ -325,6 +326,7 @@ function AddForm() {
                     control={control}
                     render={({ field: { onChange } }) => (
                       <StyledSelect
+                        aria-labelledBy="Stay type"
                         className="select"
                         instanceId="select_two"
                         classNamePrefix="react-select"
@@ -427,6 +429,7 @@ function AddForm() {
                   control={control}
                   render={({ field: { onChange } }) => (
                     <StyledSelect
+                      aria-labelledBy="Review"
                       className="select"
                       classNamePrefix="react-select"
                       name="stars"
@@ -488,8 +491,18 @@ function AddForm() {
               </div>
 
               <StyledCheckbox className="mb-5">
-                <Form.Check name="no_smoking" label="No smoking" {...register("no_smoking")} />
-                <Form.Check name="handicap_friendly" label="Handicap friendly" {...register("handicap_friendly")} />
+                <Form.Check
+                  name="no_smoking"
+                  label="No smoking"
+                  {...register("no_smoking")}
+                  aria-labelledBy="No smoking"
+                />
+                <Form.Check
+                  name="handicap_friendly"
+                  label="Handicap friendly"
+                  {...register("handicap_friendly")}
+                  aria-labelledBy="Handicap friendly"
+                />
               </StyledCheckbox>
 
               <div className="d-flex align-items-center">
