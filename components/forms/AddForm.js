@@ -455,16 +455,30 @@ function AddForm() {
                 <Icon icon={icons.map((icon) => icon.heart)} fontSize="18px" className="me-3" />
                 <Heading size="2">Keywords</Heading>
               </div>
-
               <StyledCheckbox>
-                <Form.Check name="featured" label="Featured" {...register("featured")} />
+                <Form.Check name="featured" label="Featured" {...register("featured")} aria-labelledBy="Featured" />
                 <StyledMutedTextCheckboxes className="text-muted">What´s included?</StyledMutedTextCheckboxes>
-                <Form.Check name="wifi" label="Wifi" {...register("wifi")} />
-                <Form.Check name="kitchen" label="Kitchen" {...register("kitchen")} />
-                <Form.Check name="free_parking" label="Free parking" {...register("free_parking")} />
-                <Form.Check name="breakfast" label="Breakfast" {...register("breakfast")} />
-                <Form.Check name="swimming_pool" label="Swimming pool" {...register("swimming_pool")} />
-                <Form.Check name="pet_friendly" label="Pet friendly" {...register("pet_friendly")} />
+                <Form.Check name="wifi" label="Wifi" {...register("wifi")} aria-labelledBy="Wifi" />
+                <Form.Check name="kitchen" label="Kitchen" {...register("kitchen")} aria-labelledBy="Kitchen" />
+                <Form.Check
+                  name="free_parking"
+                  label="Free parking"
+                  {...register("free_parking")}
+                  aria-labelledBy="Free parking"
+                />
+                <Form.Check name="breakfast" label="Breakfast" {...register("breakfast")} aria-labelledBy="Breakfast" />
+                <Form.Check
+                  name="swimming_pool"
+                  label="Swimming pool"
+                  {...register("swimming_pool")}
+                  aria-labelledBy="Swimming pool"
+                />
+                <Form.Check
+                  name="pet_friendly"
+                  label="Pet friendly"
+                  {...register("pet_friendly")}
+                  aria-labelledBy="Pet friendly"
+                />
               </StyledCheckbox>
               <hr className="mb-5 mt-5" />
 
