@@ -28,8 +28,8 @@ function StaysCard({ stays }) {
                   src={stay.acf.image.image_1.url}
                   alt={stay.acf.image.image_1.alt}
                   objectFit="cover"
-                  width={300}
-                  height={360}
+                  width={200}
+                  height={280}
                   className="card-img"
                   blurDataURL={PLACEHOLDER_IMG}
                   placeholder="blur"
