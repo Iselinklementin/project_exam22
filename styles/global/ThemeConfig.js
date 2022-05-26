@@ -1,5 +1,6 @@
 const theme = {
-  primaryColour: "#FC5156",
+  // primaryColour: "#FC5156",
+  primaryColour: "#EA3D42",
   secondaryColour: "#301850",
   light: "#FAFAFA",
   body: "#1E1B21",
