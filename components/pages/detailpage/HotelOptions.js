@@ -5,7 +5,6 @@ import Icon, { icons } from "../../../constants/icons";
 import { StyledMobileButton } from "../../../styles/buttons/StyledMobileButton.styled";
 import { StyledSelect } from "../../forms/styles/StyledSelect.styled";
 import { useState } from "react";
-import { Form } from "react-bootstrap";
 
 export const HotelOptions = ({ options, id }) => {
   const [roomOption, setRoomOption] = useState("Choose room");
