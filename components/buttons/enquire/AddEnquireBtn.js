@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { StyledAddBtn } from "./StyledAddEnquiresBtn.styled";
-import Add from "../../assets/add_stay.svg";
+import Add from "../../../assets/add_stay.svg";
 
 export const AddEnquireBtn = () => {
   return (

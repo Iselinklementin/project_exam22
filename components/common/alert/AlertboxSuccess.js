@@ -4,9 +4,7 @@ import styled from "styled-components";
 import { mediaQ } from "../../../styles/global/ThemeConfig";
 
 const StyledAlert = styled(Alert)`
-  // skift ut success med denne:
-  background: #8bb263;
-  /* background: ${(props) => props.theme.success}; */
+  background: ${(props) => props.theme.success};
   color: white;
   border: white;
   border-radius: 6px;

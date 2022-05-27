@@ -40,9 +40,6 @@ const GlobalStyle = createGlobalStyle`
     font-size: 20px;
     line-height: 1.3;
 
-    @media ${mediaQ.tablet} {
-      font-size: 24px;
-  }
 
   @media ${mediaQ.desktop_large} {
       font-size: 26px;

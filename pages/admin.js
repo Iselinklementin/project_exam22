@@ -6,7 +6,7 @@ import Heading from "../components/typography/Heading";
 import Enquires from "../components/pages/admin/Enquires";
 import Paragraph from "../components/typography/Paragraph";
 import React, { useContext, useEffect, useState } from "react";
-import { AddEnquireBtn } from "../components/buttons/AddEnquireBtn";
+import { AddEnquireBtn } from "../components/buttons/enquire/AddEnquireBtn";
 import { mediaQ } from "../styles/global/ThemeConfig";
 import { StyledContainer } from "../styles/containers/StyledContainer.styled";
 import { Container } from "react-bootstrap";

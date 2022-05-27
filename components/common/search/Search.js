@@ -9,14 +9,12 @@ import { SCREEN } from "../../../constants/misc";
 import { API_URL } from "../../../constants/api";
 import { StyledBasicButton } from "../../../styles/buttons/StyledBasicButton.styled";
 
-// https://www.youtube.com/watch?v=Q2aky3eeO40
-
 function Search() {
   const [stays, setStays] = useState([]);
   const [value, setValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  const showLoading = useRef(null);
   const [noResult, setNoResult] = useState("");
+  const showLoading = useRef(null);
 
   useEffect(() => {
     const loadStays = async () => {
@@ -28,20 +26,21 @@ function Search() {
 
   const size = useWindowSize();
 
-  const onSuggestionHandler = value => {
+  const handleDropdown = (value) => {
     showLoading.current.classList.add("show");
     setValue(value);
     setSuggestions([]);
   };
 
-  const onChangeHandler = value => {
+  const onChangeHandler = (value) => {
     if (!value.length) {
       setNoResult("");
     }
 
     let matches = [];
+
     if (value.length > 0) {
-      matches = stays.filter(stay => {
+      matches = stays.filter((stay) => {
         const regex = new RegExp(`${value}`, "gi");
         setNoResult("");
         return stay.acf.title.match(regex);
@@ -51,7 +50,6 @@ function Search() {
     if (value.length && matches.length < 1) {
       setNoResult("Sorry, no results found..");
     }
-
     setSuggestions(matches);
     setValue(value);
   };
@@ -61,12 +59,7 @@ function Search() {
       <Container className="pb-4 pt-3">
         <StyledIconWrap>
           <Form.Label>Find your favourite place to stay</Form.Label>
-          <Icon
-            icon={icons.map(icon => icon.search)}
-            fontSize="16px"
-            className="search-icon"
-            color="#FC5156"
-          />
+          <Icon icon={icons.map((icon) => icon.search)} fontSize="16px" className="search-icon" color="#FC5156" />
           <Spinner
             ref={showLoading}
             as="span"
@@ -82,7 +75,7 @@ function Search() {
           type="text"
           placeholder="Search stays"
           aria-describedby="search"
-          onChange={e => {
+          onChange={(e) => {
             onChangeHandler(e.target.value);
           }}
           value={value}
@@ -106,9 +99,10 @@ function Search() {
                 <Link href={`stays/${suggestion.id}`} key={suggestion.id}>
                   <a
                     onClick={() => {
-                      onSuggestionHandler(suggestion.acf.title);
+                      handleDropdown(suggestion.acf.title);
                       setValue("Loading page..");
-                    }}>
+                    }}
+                  >
                     <ListGroupItem key={i} action>
                       {suggestion.acf.title}
                     </ListGroupItem>
@@ -125,12 +119,7 @@ function Search() {
               <Link href="/stays">
                 <StyledBasicButton className="px-3 btn btn-primary" role="button">
                   Explore all
-                  <Icon
-                    icon={icons.map(icon => icon.arrow)}
-                    color="white"
-                    fontSize="16px"
-                    className="ms-2"
-                  />
+                  <Icon icon={icons.map((icon) => icon.arrow)} color="white" fontSize="16px" className="ms-2" />
                 </StyledBasicButton>
               </Link>
             </StyledButtonContainer>

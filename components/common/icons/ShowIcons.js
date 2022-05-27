@@ -5,14 +5,14 @@ import { Col, Row } from "react-bootstrap";
 import Paragraph from "../../typography/Paragraph";
 import FilterIcons from "./FilterIcons";
 
-// This stay includes
+// returns icons to show on detailpage
 
 function ShowIcons({ stay }) {
   let includes = Object.entries(stay);
 
   return (
     <Row xs={1} className="g-1 gy-2 mt-2">
-      {includes.map(include => {
+      {includes.map((include) => {
         let thisIncludes = include[0].replace("_", " ");
         let date = [];
 
@@ -28,9 +28,7 @@ function ShowIcons({ stay }) {
         return include[1] ? (
           <Col className="d-flex align-items-center" key={include[0]}>
             <FilterIcons includes={include[1]} iconIncludes={include[0]} />
-            <Paragraph className="m-0">
-              {date.length ? date : CapitalizeFirstLetter(thisIncludes)}
-            </Paragraph>
+            <Paragraph className="m-0">{date.length ? date : CapitalizeFirstLetter(thisIncludes)}</Paragraph>
           </Col>
         ) : (
           ""

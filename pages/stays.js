@@ -70,7 +70,7 @@ export default function Stays({ stays }) {
 
   const btnClick = (e) => {
     let btnName = e.name === "bed" ? "Bed & Breakfast" : e.name;
-    let [ratings, stay, newFilterItems, testArray] = [[], [], [], []];
+    let [ratings, stay, newFilterItems, filterRateStay] = [[], [], [], []];
     let activeFilter;
 
     if (e.tagName === "BUTTON") {
@@ -120,19 +120,19 @@ export default function Stays({ stays }) {
           } else if (ratings.length) {
             newFilterItems = ratings;
           }
-
+          // if both arrays stores an item, filter and remove duplicates
           if (stay.length && ratings.length) {
             stay.filter((place) => {
               ratings.filter((rate) => {
                 if (rate.id === place.id) {
                   if (checkRating || checkStay) {
-                    testArray.push(rate);
+                    filterRateStay.push(rate);
                   }
-                } else if (!testArray.length) {
+                } else if (!filterRateStay.length) {
                   return setEmptyResult(true);
                 }
               });
-              newFilterItems = [...new Set(testArray)];
+              newFilterItems = [...new Set(filterRateStay)];
             });
           }
         });

@@ -7,6 +7,8 @@ import React from "react";
 import Link from "next/link";
 import { PLACEHOLDER_IMG } from "../../constants/misc";
 
+// Reusable Cards-function
+
 function StaysCard({ stays }) {
   return (
     <Row xs={1} sm={2} md={3} className="g-4">

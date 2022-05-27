@@ -11,9 +11,10 @@ import { SearchBox } from "../components/common/search/Search.styled";
 import { Container } from "react-bootstrap";
 import { API_URL } from "../constants/api";
 import { ExploreBergen } from "../components/pages/home/ExploreBergen";
+import { StyledContainer } from "../styles/containers/StyledContainer.styled";
 
 export default function Home({ stays }) {
-  let featured = stays.filter(stay => stay.acf.featured === true);
+  let featured = stays.filter((stay) => stay.acf.featured === true);
 
   return (
     <>
@@ -30,12 +31,12 @@ export default function Home({ stays }) {
         <ExploreBergen />
         <LinkStays />
 
-        <Container className="mt-5" style={{ maxWidth: "960px" }}>
-          <Heading size="4" fontSize="18px" className="mt-5 mb-4">
+        <StyledContainer className="mt-5">
+          <Heading size="4" fontSize="16px" className="mt-5 mb-4">
             Inspiration for your next trip
           </Heading>
           <StaysCard stays={featured} />
-        </Container>
+        </StyledContainer>
       </Layout>
     </>
   );

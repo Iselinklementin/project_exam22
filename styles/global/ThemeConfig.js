@@ -1,5 +1,4 @@
 const theme = {
-  // primaryColour: "#FC5156",
   primaryColour: "#EA3D42",
   secondaryColour: "#301850",
   light: "#FAFAFA",
@@ -7,7 +6,7 @@ const theme = {
   primaryFont: "Roboto",
   secondaryFont: "Raleway",
   backgroundColour: "white",
-  success: "#92B76B",
+  success: "#8bb263",
   error: "#D11117",
   status: "#A1D1ED",
   warning: "#EE9F35",

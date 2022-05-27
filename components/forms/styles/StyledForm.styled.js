@@ -1,8 +1,6 @@
 import { Alert, Form } from "react-bootstrap";
 import styled from "styled-components";
 import { mediaQ } from "../../../styles/global/ThemeConfig";
-// noe av denne koden er 2 ganger
-// også i searchfunksjonen
 
 export const StyledFeedbackContainer = styled.div`
   position: relative;

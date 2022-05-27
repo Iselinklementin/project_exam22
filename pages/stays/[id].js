@@ -23,6 +23,7 @@ export default function Stay({ stay }) {
   let id = stay.id;
 
   // gather image and alt text in an array (for carousel)
+
   let images = Object.entries(image);
   let imageUrl = images.map((img) => img[1].url);
   let imageAlt = images.map((img) => img[1].alt);

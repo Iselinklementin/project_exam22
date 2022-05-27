@@ -27,7 +27,14 @@ export const AdminMenu = () => {
   return (
     <>
       <Link href="/stays">
-        <a onClick={clickLink} className="d-flex align-items-center my-2">
+        <a
+          onClick={clickLink}
+          className={
+            router.pathname == "/stays"
+              ? "d-flex align-items-center my-2 nav-link-active-mobile"
+              : "d-flex align-items-center my-2"
+          }
+        >
           <StyledIconContainer>
             <Image src={Stays} alt="Icon, a house with a chimney" width="21.6" height="15" />
           </StyledIconContainer>

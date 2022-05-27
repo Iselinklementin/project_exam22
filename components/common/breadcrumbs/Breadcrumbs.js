@@ -15,6 +15,8 @@ const StyledBreadcrumb = styled(Breadcrumb)`
   }
 `;
 
+// Reusable Breadcrumbs
+
 export const Breadcrumbs = ({ link, linkName, title }) => {
   return (
     <StyledBreadcrumb>

@@ -37,7 +37,7 @@ export const ValidationErrorSelect = ({ errorName, box_class }) => {
   );
 };
 
-export const ValidationErrorImage = ({ errorName, box_class }) => {
+export const ValidationErrorImage = ({ errorName }) => {
   return (
     <StyledFeedbackContainerImages>
       <Alertbox className="photo-error">{errorName}</Alertbox>

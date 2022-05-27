@@ -27,7 +27,6 @@ export const ExploreContainer = styled.div`
   }
 
   h2 {
-    font-size: 20px;
     max-width: 220px;
     line-height: 1.4;
     margin-bottom: 2rem;

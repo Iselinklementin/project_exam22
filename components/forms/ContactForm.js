@@ -2,10 +2,10 @@ import Link from "next/link";
 import Heading from "../../components/typography/Heading";
 import styled from "styled-components";
 import axios from "axios";
+import DateFunction from "../../components/common/functions/DateFunction";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import DateFunction from "../../components/common/functions/DateFunction";
 import { CONTACT_URL, LIGHT_AUTH } from "../../constants/api";
 import { schema } from "../../utils/contactFormSchema";
 import { Form } from "react-bootstrap";
@@ -94,7 +94,7 @@ function ContactForm() {
           <Form.Group className="mt-3">
             <StyledFlexIconText>
               <StyledIconFormContainer>
-                <Icon icon={icons.map(icon => icon.user)} className="me-4" />
+                <Icon icon={icons.map((icon) => icon.user)} className="me-4" />
               </StyledIconFormContainer>
               <Form.Control type="text" placeholder="Name" className="mt-2" {...register("name")} />
             </StyledFlexIconText>
@@ -104,14 +104,9 @@ function ContactForm() {
           <Form.Group className="mt-3">
             <StyledFlexIconText>
               <StyledIconFormContainer>
-                <Icon icon={icons.map(icon => icon.email)} fontSize="20px" className="me-4" />
+                <Icon icon={icons.map((icon) => icon.email)} fontSize="20px" className="me-4" />
               </StyledIconFormContainer>
-              <Form.Control
-                type="email"
-                placeholder="Email"
-                className="mt-2"
-                {...register("email")}
-              />
+              <Form.Control type="email" placeholder="Email" className="mt-2" {...register("email")} />
             </StyledFlexIconText>
             {errors.email && <ValidationError errorName={errors.email.message} />}
           </Form.Group>
@@ -119,14 +114,9 @@ function ContactForm() {
           <Form.Group className="mt-3">
             <StyledFlexIconText>
               <StyledIconFormContainer>
-                <Icon icon={icons.map(icon => icon.text)} className="me-4" fontSize="20px" />
+                <Icon icon={icons.map((icon) => icon.text)} className="me-4" fontSize="20px" />
               </StyledIconFormContainer>
-              <Form.Control
-                type="text"
-                placeholder="Subject"
-                className="mt-2"
-                {...register("subject")}
-              />
+              <Form.Control type="text" placeholder="Subject" className="mt-2" {...register("subject")} />
             </StyledFlexIconText>
             {errors.subject && <ValidationError errorName={errors.subject.message} />}
           </Form.Group>
@@ -134,12 +124,12 @@ function ContactForm() {
           <Form.Group className="mt-3">
             <div className="text-area-container">
               <StyledIconFormContainer>
-                <Icon icon={icons.map(icon => icon.chat)} fontSize="20px" className="me-4 mt-2" />
+                <Icon icon={icons.map((icon) => icon.chat)} fontSize="20px" className="me-4 mt-2" />
               </StyledIconFormContainer>
               <Form.Control
                 as="textarea"
                 rows={6}
-                onKeyUp={e => setCount(e.target.value.length)}
+                onKeyUp={(e) => setCount(e.target.value.length)}
                 placeholder="Message"
                 className="mt-2"
                 {...register("message")}
