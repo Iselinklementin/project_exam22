@@ -10,7 +10,7 @@ export default function Contact() {
     <>
       <PageHead
         title="Contact us"
-        content="Book hotels, apartments og Bed & breakfast in Bergen. Contact us for more information!"
+        content="Contact us for more information about stays in Bergen."
         keywords="contact, travel, europe, bergen, adventure, exotic, culture, explore"
       />
       <Layout>

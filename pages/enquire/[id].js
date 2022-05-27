@@ -41,7 +41,7 @@ export default function Enquire({ stay }) {
     <>
       <PageHead
         title="Holidaze"
-        content="Book hotels, apartments og Bed & breakfast in Bergen. We in Holidaze have the best places to stay, handpicked for you!"
+        content="Send an enquire to hotels, apartments and Bed & breakfast in Bergen."
         keywords="travel, europe, bergen, adventure, exotic, culture, explore"
       />
       <Layout>
@@ -64,7 +64,7 @@ export async function getStaticPaths() {
   try {
     const response = await axios.get(API_URL);
     const stay = response.data;
-    const paths = stay.map(item => ({
+    const paths = stay.map((item) => ({
       params: {
         id: JSON.stringify(item.id),
       },

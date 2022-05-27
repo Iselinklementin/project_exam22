@@ -21,7 +21,7 @@ export default function Login() {
     <>
       <PageHead
         title="Login to our site!"
-        content="Book hotels, apartments og Bed & breakfast in Bergen. We in Holidaze have the best places to stay, handpicked for you!"
+        content="Sign in to our admin-section"
         keywords="travel, europe, bergen, adventure, exotic, culture, explore"
       />
       <Layout>

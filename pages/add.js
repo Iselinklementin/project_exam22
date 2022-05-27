@@ -22,7 +22,7 @@ export default function Add() {
     <>
       <PageHead
         title="Add new stay"
-        content="Book hotels, apartments og Bed & breakfast in Bergen. We in Holidaze have the best places to stay, handpicked for you!"
+        content="Add new places to stay in Bergen"
         keywords="travel, europe, bergen, adventure, exotic, culture, explore"
       />
       <Layout>

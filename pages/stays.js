@@ -172,7 +172,7 @@ export default function Stays({ stays }) {
     <Layout>
       <PageHead
         title="Stays in Bergen"
-        content="Book hotels, apartments og Bed & breakfast in Bergen. We in Holidaze have the best places to stay, handpicked for you!"
+        content="Look through all of our places to stay. Book hotels, apartments og Bed & breakfast in Bergen."
         keywords="travel, europe, bergen, adventure, exotic, culture, explore"
       />
       <StyledContainer className="py-4">

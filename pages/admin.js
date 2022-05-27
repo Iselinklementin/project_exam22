@@ -67,7 +67,7 @@ export default function Admin() {
     <>
       <PageHead
         title="Admin site"
-        content="Messages, Enquire and Adding new stays."
+        content="Read messages, enquires or add new stays."
         keywords="travel, europe, bergen, adventure, exotic, culture, explore"
       />
       <Layout>

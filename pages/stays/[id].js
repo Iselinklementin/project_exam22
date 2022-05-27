@@ -17,31 +17,22 @@ import { DetailLaptop } from "../../components/pages/detailpage/Laptop/DetailLap
 export default function Stay({ stay }) {
   const size = useWindowSize();
 
-  const {
-    title,
-    room,
-    price,
-    stay_includes,
-    stay_description,
-    nice_to_know_text,
-    nice_to_know,
-    image,
-    address,
-  } = stay.acf;
+  const { title, room, price, stay_includes, stay_description, nice_to_know_text, nice_to_know, image, address } =
+    stay.acf;
 
   let id = stay.id;
 
   // gather image and alt text in an array (for carousel)
   let images = Object.entries(image);
-  let imageUrl = images.map(img => img[1].url);
-  let imageAlt = images.map(img => img[1].alt);
+  let imageUrl = images.map((img) => img[1].url);
+  let imageAlt = images.map((img) => img[1].alt);
   let imageArray = imageUrl.map((url, i) => [url, imageAlt[i]]);
 
   return (
     <>
       <PageHead
         title={title}
-        content="Book hotels, apartments og Bed & breakfast in Bergen. We in Holidaze have the best places to stay, handpicked for you!"
+        content="Book hotels, apartments and Bed & breakfast in Bergen."
         keywords="travel, europe, bergen, adventure, exotic, culture, explore"
       />
       <Layout>
@@ -89,7 +80,7 @@ export async function getStaticPaths() {
   try {
     const response = await axios.get(API_URL);
     const stay = response.data;
-    const paths = stay.map(item => ({
+    const paths = stay.map((item) => ({
       params: {
         id: JSON.stringify(item.id),
       },
