@@ -1,6 +1,6 @@
 import { DATEOPTIONS } from "../../../constants/misc";
 
-// Function that shows the date the way i want to
+// Function that shows the date:
 // day, date, month, year, clock
 
 export default function DateFunction() {
