@@ -92,3 +92,15 @@ You will need to create an API to store the data for the establishments, enquiri
 ```bash
 This is not added on public repo
 ```
+---
+
+#### Contributing
+
+Make sure to open a pull request so code can be reviewed.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+### Contact
+
+[![Linkedin Badge](https://img.shields.io/badge/-IselinHaugen-white?style=for-the-badge&logo=Linkedin&logoColor=0077b5&link=https://www.linkedin.com/in/iselinhaugen)](https://www.linkedin.com/in/iselinhaugen)
+
+Or you can take a look at my 👩🏼‍💻 [portfolio](https://iselinklementin.netlify.app/).
