@@ -114,6 +114,8 @@ This is not added on public repo
 
 Make sure to open a pull request so code can be reviewed.
 
+---
+
 ### Contact
 
 [![Linkedin Badge](https://img.shields.io/badge/-IselinHaugen-white?style=for-the-badge&logo=Linkedin&logoColor=0077b5&link=https://www.linkedin.com/in/iselinhaugen)](https://www.linkedin.com/in/iselinhaugen)
