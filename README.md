@@ -10,13 +10,6 @@ npm install
 npm run dev
 ```
 
-## Login details
-
-```bash
-Username: Admin
-Password: Project_exam2
-```
-
 # Project Exam 2
 
 There are two options with this Project Exam.
@@ -122,3 +115,12 @@ End of week 7: Report with link to website or a Github link and feedback from co
 ### Resources
 
 Report template included in the repo.
+
+---
+
+#### Login details
+
+```bash
+Username: Admin
+Password: Project_exam2
+```
