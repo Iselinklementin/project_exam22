@@ -24,6 +24,7 @@ npm run dev
 - [react-select](https://react-select.com/home)
 - [axios](https://github.com/axios/axios)
 - [react-hook-form](https://react-hook-form.com/)
+- [react datepicker](https://reactdatepicker.com/)
 
 
 # Project Exam 2
