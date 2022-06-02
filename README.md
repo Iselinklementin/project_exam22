@@ -26,6 +26,7 @@ To run the app, run the following commands:
 npm run dev
 ```
 
+Make sure to open a pull request so code can be reviewed.
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Built With
@@ -108,12 +109,6 @@ You will need to create an API to store the data for the establishments, enquiri
 ```bash
 This is not added on public repo
 ```
----
-
-#### Contributing
-
-Make sure to open a pull request so code can be reviewed.
-
 ---
 
 ### Contact
