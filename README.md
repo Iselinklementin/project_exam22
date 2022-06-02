@@ -1,16 +1,32 @@
-This is my project exam 2, made with [Next.js](https://nextjs.org/).
-
 ![image](assets/exam.jpg)
 
 ## Getting Started
 
-First, install the development server:
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+### Installing
+
+1. Clone the repo:
 
 ```bash
+git clone git@github.com:Noroff-FEU-Assignments/js-frameworks-course-assignment-Iselinklementin
+```
+
+2. Install the dependencies:
+
+```
 npm install
-# then
+```
+
+### Running
+
+To run the app, run the following commands:
+
+```bash
 npm run dev
 ```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Built With
 
@@ -97,7 +113,6 @@ This is not added on public repo
 #### Contributing
 
 Make sure to open a pull request so code can be reviewed.
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ### Contact
 
