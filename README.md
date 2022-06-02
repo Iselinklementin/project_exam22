@@ -90,6 +90,5 @@ You will need to create an API to store the data for the establishments, enquiri
 #### Login details
 
 ```bash
-Username: Admin
-Password: Project_exam2
+This is not added on public repo because of security reasons
 ```
