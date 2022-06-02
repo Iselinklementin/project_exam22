@@ -1,5 +1,7 @@
 This is my project exam 2, made with [Next.js](https://nextjs.org/).
 
+![image](assets/exam.jpg)
+
 ## Getting Started
 
 First, install the development server:
