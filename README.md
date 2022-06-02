@@ -9,7 +9,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 1. Clone the repo:
 
 ```bash
-git clone git@github.com:Noroff-FEU-Assignments/js-frameworks-course-assignment-Iselinklementin
+git clone git@github.com:Iselinklementin/project_exam22
 ```
 
 2. Install the dependencies:
