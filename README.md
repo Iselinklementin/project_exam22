@@ -12,6 +12,19 @@ npm install
 npm run dev
 ```
 
+## Built With
+
+![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white) 
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
+
+- [yup](https://www.npmjs.com/package/yup)
+- [react-select](https://react-select.com/home)
+- [axios](https://github.com/axios/axios)
+- [react-hook-form](https://react-hook-form.com/)
+
+
 # Project Exam 2
 
 There are two options with this Project Exam.
