@@ -90,5 +90,5 @@ You will need to create an API to store the data for the establishments, enquiri
 #### Login details
 
 ```bash
-This is not added on public repo because of security reasons
+This is not added on public repo
 ```
