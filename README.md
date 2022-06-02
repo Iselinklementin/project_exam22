@@ -92,14 +92,6 @@ Week 7: Bug Fixing
 - Ask another student to look over your code and ask them if they can see how it might be better implemented. This is important to get an outside view on your code. Please attach this feedback to your report.
 - Add the login details for your admin side at the top of this README.md file so that it's easy for the marker to spot.
 
-### Submission
-
-End of week 7: Report with link to website or a Github link and feedback from code review, and all files in a compressed ZIP. Login details added to the README.md.
-
-### Resources
-
-Report template included in the repo.
-
 ---
 
 #### Login details
