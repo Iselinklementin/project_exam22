@@ -25,6 +25,7 @@ npm run dev
 - [axios](https://github.com/axios/axios)
 - [react-hook-form](https://react-hook-form.com/)
 - [react datepicker](https://reactdatepicker.com/)
+- [Wordpress rest API](https://developer.wordpress.org/rest-api/)
 
 
 # Project Exam 2
