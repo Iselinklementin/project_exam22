@@ -31,7 +31,7 @@ npm run dev
 Make sure to open a pull request so code can be reviewed.
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Tech used
+## Tech
 
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white) 
 ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
