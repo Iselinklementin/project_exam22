@@ -3,7 +3,7 @@
 ## Getting Started
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-Its a copy of my repo on my final exam on Noroff 2022.
+Its a copy of my repo on my final exam.
 
 ### Installing
 
